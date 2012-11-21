@@ -92,6 +92,11 @@ class Agence
      */
     private $traitements;
 
+    /**
+     * @ORM\OneToMany(targetEntity="XmlFeed", mappedBy="agence")
+     */
+    private $xml_feeds;
+
 
     
     /**
@@ -122,5 +127,10 @@ class Agence
     public function __isset($name)
     {
         return property_exists($this, $name);
+    }
+
+    public function __toString() 
+    {
+        return $this->nom;
     }
 }

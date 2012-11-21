@@ -36,6 +36,15 @@
           <argument>Viteloge</argument>
         </call>
       </service>
+      <service id="viteloge.admin.xml_feed" class="Viteloge\AdminBundle\Admin\XmlFeedAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Feeds XML"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\XmlFeed</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
     </services>
     
 </container>
