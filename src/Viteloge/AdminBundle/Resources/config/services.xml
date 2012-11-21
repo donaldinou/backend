@@ -17,4 +17,25 @@
         </service>
     </services>
     -->
+    <services>
+      <service id="viteloge.admin.agence" class="Viteloge\AdminBundle\Admin\AgenceAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Agences"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\Agence</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+      <service id="viteloge.admin.traitement" class="Viteloge\AdminBundle\Admin\TraitementAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Traitements"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\Traitement</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+    </services>
+    
 </container>
