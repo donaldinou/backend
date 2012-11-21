@@ -12,6 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Traitement
 {
+
+    public static $TypesTransaction = array( 'V' => 'Vente', 'L' => 'Location' );
+    public static $TypesUrl = array( 'F' => 'Fiche annonce', 'R' => 'Liste de résultats' );
+    public static $PublicationLimits = array( 0 => "Non", 1 => "Exclus de l'alerte mail", 2 => "Exclus de la redirection web" );
+
+    public static $ModulesResultat = array( 'IncResultatDefaut.pl', 'LAFORET/IncResultatLAFORET.pl', 'ORPI/IncResultatORPI.pl', 'IncResultatAnnonceInListe.pl' );
+    public static $ModulesFiche = array( 'IncAnnonceDefaut.pl', 'ORPI/IncAnnonceORPI.pl', 'REBOURS/IncAnnonceREBOURS.pl' );
+    
+    
     /**
      * @var integer $id
      *
@@ -21,6 +30,101 @@ class Traitement
      */
     private $id;
 
+
+    /**
+     * @ORM\Column(name="UrlTraitement",type="text")
+     */
+    private $UrlTraitement; 
+    /**
+     * @ORM\Column(name="UrlInitSession",type="text")
+     */
+    private $UrlInitSession; 
+    /**
+     * @ORM\Column(name="TypeUrlTraitement",type="string",length=1)
+     */
+    private $TypeUrlTraitement; 
+    /**
+     * @ORM\Column(name="StatutTraitement",type="smallint")
+     */
+    private $StatutTraitement; 
+    /**
+     * @ORM\Column(name="TimestampPause",type="datetime")
+     */
+    private $TimestampPause; 
+    /**
+     * @ORM\Column(name="NbPauseTraitement",type="smallint")
+     */
+    private $NbPauseTraitement; 
+    /**
+     * @ORM\Column(name="TypeTransactionTraitement",type="string",length=1)
+     */
+    private $TypeTransactionTraitement; 
+    /**
+     * @ORM\Column(name="TypeUrlSortieTraitement",type="string",length=1)
+     */
+    private $TypeUrlSortieTraitement; 
+    /**
+     * @ORM\Column(name="ModelUrlFicheTraitement",type="string",length=255)
+     */
+    private $ModelUrlFicheTraitement; 
+    /**
+     * @ORM\Column(name="ModelUrlResultatTraitement",type="string",length=255)
+     */
+    private $ModelUrlResultatTraitement; 
+    /**
+     * @ORM\Column(name="ModelUrlFicheFinal",type="string",length=255)
+     */
+    private $ModelUrlFicheFinal; 
+    /**
+     * @ORM\Column(name="ModelUrlPageSuivante",type="text")
+     */
+    private $ModelUrlPageSuivante; 
+    /**
+     * @ORM\Column(name="ModelUrlPhoto",type="string",length=255)
+     */
+    private $ModelUrlPhoto; 
+    /**
+     * @ORM\Column(name="DateTraitement",type="datetime")
+     */
+    private $DateTraitement; 
+    /**
+     * @ORM\Column(name="TimeStampTraitement",type="datetime")
+     */
+    private $TimeStampTraitement; 
+    /**
+     * @ORM\Column(name="ModuleFicheTraitement",type="string",length=255)
+     */
+    private $ModuleFicheTraitement; 
+    /**
+     * @ORM\Column(name="ModuleResultatTraitement",type="string",length=255)
+     */
+    private $ModuleResultatTraitement; 
+    /**
+     * @ORM\Column(name="FilenameNoPhoto",type="string",length=255)
+     */
+    private $FilenameNoPhoto; 
+    /**
+     * @ORM\Column(name="ExclusInPrix",type="string",length=20)
+     */
+    private $ExclusInPrix; 
+    /**
+     * @ORM\Column(name="NbAnnonces",type="integer")
+     */
+    private $NbAnnonces; 
+    /**
+     * @ORM\Column(name="NbErreurTraitement",type="string",length=255)
+     */
+    private $NbErreurTraitement; 
+    /**
+     * @ORM\Column(name="LimitPublication",type="smallint")
+     */
+    private $LimitPublication; 
+    /**
+     * @ORM\Column(name="Exclus",type="boolean")
+     */
+    private $Exclus; 
+
+    
     /**
      * @ORM\OneToOne(targetEntity="ExpressionReguliere",mappedBy="traitement")
      */
@@ -37,6 +141,14 @@ class Traitement
      */
     public function __get($property)
     {
+        if ( $property == 'StringTypeTransaction' ) {
+            if ( isset( $this->TypeTransactionTraitement ) && ! empty( $this->TypeTransactionTraitement ) ) {
+                return self::$TypesTransaction[ $this->TypeTransactionTraitement ];
+            }
+        }
+        if ( property_exists( $this->expression, $property ) ) {
+            return $this->expression->$property;
+        }
         return $this->$property;
     }
     /**
@@ -44,7 +156,10 @@ class Traitement
      */
     public function __isset($name)
     {
-        return property_exists($this, $name);
+        if ( $name == 'StringTypeTransaction' ) {
+            return property_exists( $this, 'TypeTransactionTraitement' ) && ! empty( $this->TypeTransactionTraitement );
+        }
+        return property_exists($this, $name) || property_exists( $this->expression, $name );
     }
     /**
      * Methode magique __set()
@@ -56,4 +171,14 @@ class Traitement
         }
         $this->$property = $value;
     }
+
+    public function __toString() 
+    {
+        return
+            "Traitement " . @self::$TypesTransaction[ $this->TypeTransactionTraitement ]
+            . " " . $this->agence->nom
+            ;
+    }
+    
+    
 }

@@ -34,13 +34,10 @@ class TestCommand extends ContainerAwareCommand
         if ( is_null( $t ) ) {
             $output->writeln( "Unable to find traitement" );
         } else {
-            $t->ExpLiensFiche = "test";
+/*            $t->ExpLiensFiche = "test";
             $em->persist( $t );
-            $em->flush();
-        }
-        
-        
+            $em->flush();*/
+            $output->writeln( $t->StringTypeTransaction );
+        }   
 	}
-	
-	
 }
