@@ -133,4 +133,13 @@ class Agence
     {
         return $this->nom;
     }
+
+    public function getCountTraitements()
+    {
+        return count( $this->traitements );
+    }
+    public function getActive() 
+    {
+        return ! $this->inactive;
+    }
 }

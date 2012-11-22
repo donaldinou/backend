@@ -32,6 +32,7 @@ class AgenceAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
+            ->add('ville')
         ;
     }
 
@@ -42,6 +43,8 @@ class AgenceAdmin extends Admin
             ->addIdentifier('cp')
             ->addIdentifier('ville')
             ->addIdentifier('departement')
+            ->addIdentifier('countTraitements')
+            ->add( 'active', 'boolean' )
         ;
     }
 

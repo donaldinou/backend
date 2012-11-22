@@ -111,3 +111,6 @@ sonata_doctrine_orm_admin:
                 decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
 
 
+sonata_admin:
+  title: "Admin Vitelogé"
+  title_logo: bundles/vitelogeadmin/images/house.png
