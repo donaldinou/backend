@@ -14,16 +14,16 @@ class AgenceAdmin extends Admin
     {
         $formMapper
             ->add('nom')
-            ->add('specif')
-            ->add('mail')
-            ->add('cp')
-            ->add('ville')
-            ->add('tel')
-            ->add('fax')
+            ->add('specif', null, array( 'required' => false ) )
+            ->add('mail', null, array( 'required' => false ))
+            ->add('cp', null, array( 'required' => false ))
+            ->add('ville', null, array( 'required' => false ))
+            ->add('tel', null, array( 'required' => false ))
+            ->add('fax', null, array( 'required' => false ))
             ->add('url')
-            ->add('civiliteContact')
-            ->add('nomContact')
-            ->add('departement')
+            ->add('civiliteContact', null, array( 'required' => false ))
+            ->add('nomContact', null, array( 'required' => false ))
+            ->add('departement', null, array( 'required' => false ))
             ->add('inactive', null, array('required' => false))
         ;
     }
@@ -53,6 +53,9 @@ class AgenceAdmin extends Admin
         $errorElement
             ->with('nom')
                 ->assertMaxLength(array('limit' => 255))
+            ->end()
+            ->with('mail')
+                ->assertEmail()
             ->end()
         ;
     }
