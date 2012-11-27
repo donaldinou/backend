@@ -19,7 +19,7 @@ class XmlFeedAdmin extends Admin
             ->add( 'ismap', null, array( 'required' => false ) )
             ->add( 'url' )
             ->add( 'module', 'choice', array( 'required' => false, 'choices' => XmlFeed::$Modules ) )
-            ->add( 'transaction' )
+            ->add( 'transaction', null, array( 'required' => false ) )
             ->add('inactif', null, array('required' => false))
         ;
     }
