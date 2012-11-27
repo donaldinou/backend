@@ -16,6 +16,7 @@ class TraitementAdmin extends Admin
     {
         $formMapper
             ->with( 'General' )
+              ->add( 'agence' )
               ->add( 'UrlTraitement' )
               ->add( 'UrlInitSession', null, array( 'required' => false ) )
               ->add( 'TypeUrlTraitement', 'choice', array( 'choices' => Traitement::$TypesUrl ) )
@@ -68,6 +69,9 @@ class TraitementAdmin extends Admin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper
+            ->add('agence.nom');
+        
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -83,4 +87,18 @@ class TraitementAdmin extends Admin
     public function validate(ErrorElement $errorElement, $object)
     {
     }
+
+    public function getTemplate( $name )
+    {
+        switch( $name )
+        {
+            case 'edit':
+                return 'VitelogeAdminBundle:Traitement:edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate( $name );
+        }
+        
+    }
+    
 }

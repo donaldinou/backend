@@ -20,7 +20,7 @@ class Traitement
     public static $ModulesResultat = array( 'IncResultatDefaut.pl', 'LAFORET/IncResultatLAFORET.pl', 'ORPI/IncResultatORPI.pl', 'IncResultatAnnonceInListe.pl' );
     public static $ModulesFiche = array( 'IncAnnonceDefaut.pl', 'ORPI/IncAnnonceORPI.pl', 'REBOURS/IncAnnonceREBOURS.pl' );
     
-    
+
     /**
      * @var integer $id
      *
@@ -30,6 +30,10 @@ class Traitement
      */
     private $id;
 
+    public function __construct()
+    {
+    }
+    
 
     /**
      * @ORM\Column(name="UrlTraitement",type="text")
@@ -38,7 +42,7 @@ class Traitement
     /**
      * @ORM\Column(name="UrlInitSession",type="text")
      */
-    private $UrlInitSession; 
+    private $UrlInitSession = ''; 
     /**
      * @ORM\Column(name="TypeUrlTraitement",type="string",length=1)
      */
@@ -46,7 +50,7 @@ class Traitement
     /**
      * @ORM\Column(name="StatutTraitement",type="smallint")
      */
-    private $StatutTraitement; 
+    private $StatutTraitement = 0; 
     /**
      * @ORM\Column(name="TimestampPause",type="datetime")
      */
@@ -54,7 +58,7 @@ class Traitement
     /**
      * @ORM\Column(name="NbPauseTraitement",type="smallint")
      */
-    private $NbPauseTraitement; 
+    private $NbPauseTraitement = 0; 
     /**
      * @ORM\Column(name="TypeTransactionTraitement",type="string",length=1)
      */
@@ -66,23 +70,23 @@ class Traitement
     /**
      * @ORM\Column(name="ModelUrlFicheTraitement",type="string",length=255)
      */
-    private $ModelUrlFicheTraitement; 
+    private $ModelUrlFicheTraitement = ''; 
     /**
      * @ORM\Column(name="ModelUrlResultatTraitement",type="string",length=255)
      */
-    private $ModelUrlResultatTraitement; 
+    private $ModelUrlResultatTraitement = ''; 
     /**
      * @ORM\Column(name="ModelUrlFicheFinal",type="string",length=255)
      */
-    private $ModelUrlFicheFinal; 
+    private $ModelUrlFicheFinal = ''; 
     /**
      * @ORM\Column(name="ModelUrlPageSuivante",type="text")
      */
-    private $ModelUrlPageSuivante; 
+    private $ModelUrlPageSuivante = ''; 
     /**
      * @ORM\Column(name="ModelUrlPhoto",type="string",length=255)
      */
-    private $ModelUrlPhoto; 
+    private $ModelUrlPhoto = ''; 
     /**
      * @ORM\Column(name="DateTraitement",type="datetime")
      */
@@ -94,39 +98,39 @@ class Traitement
     /**
      * @ORM\Column(name="ModuleFicheTraitement",type="string",length=255)
      */
-    private $ModuleFicheTraitement; 
+    private $ModuleFicheTraitement = ''; 
     /**
      * @ORM\Column(name="ModuleResultatTraitement",type="string",length=255)
      */
-    private $ModuleResultatTraitement; 
+    private $ModuleResultatTraitement = ''; 
     /**
      * @ORM\Column(name="FilenameNoPhoto",type="string",length=255)
      */
-    private $FilenameNoPhoto; 
+    private $FilenameNoPhoto = ''; 
     /**
      * @ORM\Column(name="ExclusInPrix",type="string",length=20)
      */
-    private $ExclusInPrix; 
+    private $ExclusInPrix = ''; 
     /**
      * @ORM\Column(name="NbAnnonces",type="integer")
      */
-    private $NbAnnonces; 
+    private $NbAnnonces = 0; 
     /**
      * @ORM\Column(name="NbErreurTraitement",type="string",length=255)
      */
-    private $NbErreurTraitement; 
+    private $NbErreurTraitement = 0; 
     /**
      * @ORM\Column(name="LimitPublication",type="smallint")
      */
-    private $LimitPublication; 
+    private $LimitPublication = 0; 
     /**
      * @ORM\Column(name="Exclus",type="boolean")
      */
-    private $Exclus; 
+    private $Exclus = FALSE; 
 
     
     /**
-     * @ORM\OneToOne(targetEntity="ExpressionReguliere",mappedBy="traitement")
+     * @ORM\OneToOne(targetEntity="ExpressionReguliere",mappedBy="traitement", cascade={"persist", "merge","remove"})
      */
     private $expression;
 
@@ -146,11 +150,17 @@ class Traitement
                 return self::$TypesTransaction[ $this->TypeTransactionTraitement ];
             }
         }
+        $this->createExpressionIfNecessary();
         if ( property_exists( $this->expression, $property ) ) {
             return $this->expression->$property;
         }
         return $this->$property;
     }
+
+    public static $STRING_NONNULLABLE_KEYS = array( 'UrlInitSession', 'ModelUrlFicheTraitement', 'ModelUrlResultatTraitement', 'ModelUrlFicheTraitement' );
+    public static $INT_NONNULLABLE_KEYS = array( );
+
+
     /**
      * Methode magique __isset()
      */
@@ -159,17 +169,27 @@ class Traitement
         if ( $name == 'StringTypeTransaction' ) {
             return property_exists( $this, 'TypeTransactionTraitement' ) && ! empty( $this->TypeTransactionTraitement );
         }
-        return property_exists($this, $name) || property_exists( $this->expression, $name );
+        return property_exists($this, $name) || ( !is_null( $this->expression ) && property_exists( $this->expression, $name ) );
     }
     /**
      * Methode magique __set()
      */
     public function __set($property, $value)
     {
-        if ( property_exists( $this->expression, $property ) ) {
-            $this->expression->$property = $value;
+        if ( ! property_exists( $this, $property ) ) {
+            $this->createExpressionIfNecessary();
+            if ( property_exists( $this->expression, $property ) ) {
+                $this->expression->$property = $value;
+            }
+        } else {
+/*            if ( is_null( $value ) && in_array( $property, self::$STRING_NONNULLABLE_KEYS ) ) {
+                $value = '';
+                }*/
+            if ( is_null( $value ) && ! is_null( $this->$property ) ) {
+                $value = '';
+            }
+            $this->$property = $value;
         }
-        $this->$property = $value;
     }
 
     public function __toString() 
@@ -180,5 +200,11 @@ class Traitement
             ;
     }
     
-    
+    private function createExpressionIfNecessary()
+    {
+        if ( ! isset( $this->expression ) ) {
+            $this->expression= new ExpressionReguliere();
+            $this->expression->traitement = $this;
+        }
+    }
 }

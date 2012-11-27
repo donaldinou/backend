@@ -13,88 +13,93 @@ use Doctrine\ORM\Mapping as ORM;
 class ExpressionReguliere
 {
     /**
+     * @ORM\Column(name="IdExpression", type="integer")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
      * @ORM\OneToOne(targetEntity="Traitement",inversedBy="expression")
-     * @ORM\JoinColumn(name="IdTraitement",referencedColumnName="IdTraitement")
+     * @ORM\JoinColumn(name="idTraitement",referencedColumnName="IdTraitement")
      */
     private $traitement;
     
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpLiensFiche;
+    private $ExpLiensFiche = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpAnnonceList;
+    private $ExpAnnonceList = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpNbPage;
+    private $ExpNbPage = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpPageSuivante;
+    private $ExpPageSuivante = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpUrlElements;
+    private $ExpUrlElements = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpTypeLogement;
+    private $ExpTypeLogement = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpNbChambre;
+    private $ExpNbChambre = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpUrlPhoto;
+    private $ExpUrlPhoto = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpNbBien;
+    private $ExpNbBien = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpSurface;
+    private $ExpSurface = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpPiece;
+    private $ExpPiece = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpPrix;
+    private $ExpPrix = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpVille;
+    private $ExpVille = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpArrondissement;
+    private $ExpArrondissement = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpCP;
+    private $ExpCP = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpDescription;
+    private $ExpDescription = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpAgence;
+    private $ExpAgence = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $ExpIgnoreAgence;
+    private $ExpIgnoreAgence = '';
     /**
      * @ORM\Column(type="string",length=255)
      */
-    private $SplitResultAnnonce;
+    private $SplitResultAnnonce = '';
     
     
 
@@ -117,6 +122,9 @@ class ExpressionReguliere
      */
     public function __set($property, $value)
     {
+        if ( is_null( $value ) && ! is_null( $this->$property ) ) {
+            $value = '';
+        }
         $this->$property = $value;
     }
 
