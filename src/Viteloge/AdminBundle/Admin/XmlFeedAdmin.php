@@ -27,14 +27,14 @@ class XmlFeedAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('url')
+            ->add( 'url' )
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-//            ->addIdentifier('agence.nom')
+            ->addIdentifier('nomAgence')
             ->addIdentifier('url')
         ;
     }

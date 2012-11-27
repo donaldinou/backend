@@ -89,4 +89,12 @@ class XmlFeed
     {
         return $this->url;
     }
+
+    public function getNomAgence()
+    {
+        if ( isset( $this->agence ) ) {
+            return $this->agence->nom;
+        }
+        return '';
+    }
 }
