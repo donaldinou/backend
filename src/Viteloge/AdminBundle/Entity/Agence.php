@@ -85,7 +85,11 @@ class Agence
      * @ORM\Column(name="inactive",type="boolean")
      */
     private $inactive;
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity="Privilege", mappedBy="agence")
+     */
+    private $privileges;
 
     /**
      * @ORM\OneToMany(targetEntity="Traitement", mappedBy="agence")

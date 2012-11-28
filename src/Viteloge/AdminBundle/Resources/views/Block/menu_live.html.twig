@@ -1,0 +1,22 @@
+{% extends 'SonataBlockBundle:Block:block_base.html.twig' %}
+
+{% block block %}
+<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
+  <thead>
+    <tr>
+      <th colspan="2">Contrôles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Traitements</td>
+      <td><a href="{{ path('viteloge_admin_traitement_exclus') }}">contrôles</a></td>
+    <tr>
+      <td>Agences</td>
+      <td><a href="{{ path('viteloge_admin_agence_index') }}">Stats</a></td>
+    </tr>
+  </tbody>
+</table>
+      
+</table>
+{% endblock %}

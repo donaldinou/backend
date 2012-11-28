@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+
     <!--
     <parameters>
         <parameter key="viteloge_admin.example.class">Viteloge\AdminBundle\Example</parameter>
@@ -18,8 +19,9 @@
     </services>
     -->
     <services>
+      <!-- pure admin stuff -->
       <service id="viteloge.admin.agence" class="Viteloge\AdminBundle\Admin\AgenceAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Agences"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Agences"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\Agence</argument>
         <argument>SonataAdminBundle:CRUD</argument>
@@ -28,7 +30,7 @@
         </call>
       </service>
       <service id="viteloge.admin.traitement" class="Viteloge\AdminBundle\Admin\TraitementAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Traitements"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Traitements"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\Traitement</argument>
         <argument>SonataAdminBundle:CRUD</argument>
@@ -37,13 +39,28 @@
         </call>
       </service>
       <service id="viteloge.admin.xml_feed" class="Viteloge\AdminBundle\Admin\XmlFeedAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Viteloge" label="Feeds XML"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Feeds XML"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\XmlFeed</argument>
         <argument>SonataAdminBundle:CRUD</argument>
         <call method="setTranslationDomain">
           <argument>Viteloge</argument>
         </call>
+      </service>
+      <service id="viteloge.admin.privilege" class="Viteloge\AdminBundle\Admin\PrivilegeAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Privilèges"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\Privilege</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+      <!-- dashboard -->
+      <service id="viteloge.admin.service.menu_live" class="Viteloge\AdminBundle\Service\MenuBlockService">
+        <tag name="sonata.block" />
+        <argument>viteloge.admin.service.menu_live</argument>
+        <argument type="service" id="templating" />
       </service>
     </services>
     

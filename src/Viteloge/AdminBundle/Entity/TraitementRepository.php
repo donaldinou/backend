@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class TraitementRepository extends EntityRepository
 {
+    public function getExclus()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select( 'traitement' )
+            ->from( 'Viteloge\AdminBundle\Entity\Traitement', 'traitement' )
+            ->leftJoin( 'traitement.agence', 'agence' )
+            ->leftJoin( 'traitement.expression', 'expression' )
+            ->where( 'traitement.Exclus = 1' );
+        return $qb->getQuery()->getResult();
+    }
 }

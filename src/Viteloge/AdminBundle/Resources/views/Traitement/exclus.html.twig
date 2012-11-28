@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+{% block sonata_admin_content %}
+<table>
+  <thead></thead>
+  <tbody>
+    {% for traitement in traitements %}
+      <tr>
+        <td>{{ traitement.agence.nom }}</td>
+        <td>{{ traitement.TypeTransactionTraitement }}</td>
+        {% if traitement.blacklists|length > 0 %}
+        <td>hasblacklist</td>
+        {% else %}
+        <td></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

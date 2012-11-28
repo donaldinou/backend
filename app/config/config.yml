@@ -69,6 +69,7 @@ sonata_block:
         sonata.block.service.text:
         sonata.block.service.action:
         sonata.block.service.rss:
+        viteloge.admin.service.menu_live:
 
 
 sonata_doctrine_orm_admin:
@@ -114,3 +115,7 @@ sonata_doctrine_orm_admin:
 sonata_admin:
   title: "Admin Vitelogé"
   title_logo: bundles/vitelogeadmin/images/house.png
+  dashboard:
+    blocks: 
+      - { position: left, type: sonata.admin.block.admin_list }
+      - { position: right, type: viteloge.admin.service.menu_live }

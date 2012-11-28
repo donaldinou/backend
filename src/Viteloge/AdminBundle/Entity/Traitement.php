@@ -139,6 +139,11 @@ class Traitement
      * @ORM\JoinColumn(name="IdAgence", referencedColumnName="idAgence")
      */
     private $agence;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Blacklist",mappedBy="traitement")
+     */
+    private $blacklists;
     
     /**
      * Methode magique __get()
