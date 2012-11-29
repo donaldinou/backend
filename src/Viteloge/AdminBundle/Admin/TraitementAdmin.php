@@ -17,7 +17,8 @@ class TraitementAdmin extends Admin
         $formMapper
             ->with( 'General' )
               ->add( 'agence' )
-              ->add( 'UrlTraitement' )
+              ->add( 'BaseUrlTraitement', 'text' )
+              ->add( 'ParametresPost', 'text', array('required' =>false ) )
               ->add( 'UrlInitSession', null, array( 'required' => false ) )
               ->add( 'TypeUrlTraitement', 'choice', array( 'choices' => Traitement::$TypesUrl ) )
               ->add( 'TypeTransactionTraitement', 'choice', array( 'choices' => Traitement::$TypesTransaction ) )

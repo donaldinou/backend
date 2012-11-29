@@ -24,7 +24,7 @@ class Agence
     /**
      * @ORM\Column(name="specifAgence",type="string",length=255)
      */
-    private $specif;
+    private $specif = '';
     /**
      * @ORM\Column(name="nomAgence",type="string",length=255)
      */
@@ -32,47 +32,47 @@ class Agence
     /**
      * @ORM\Column(name="mailAgence",type="string",length=255)
      */
-    private $mail;
+    private $mail = '';
     /**
      * @ORM\Column(name="adresseAgence",type="string",length=255)
      */
-    private $adresse;
+    private $adresse = '';
     /**
      * @ORM\Column(name="cpAgence",type="string",length=5)
      */
-    private $cp;
+    private $cp = '';
     /**
      * @ORM\Column(name="villeAgence",type="string",length=50)
      */
-    private $ville;
+    private $ville = '';
     /**
      * @ORM\Column(name="telAgence",type="string",length=15)
      */
-    private $tel;
+    private $tel = '';
     /**
      * @ORM\Column(name="faxAgence",type="string",length=15)
      */
-    private $fax;
+    private $fax = '';
     /**
      * @ORM\Column(name="urlAgence",type="string",length=255)
      */
-    private $url;
+    private $url = '';
     /**
      * @ORM\Column(name="civiliteContactAgence",type="string",length=20)
      */
-    private $civiliteContact;
+    private $civiliteContact = '';
     /**
      * @ORM\Column(name="nomContactAgence",type="string",length=100)
      */
-    private $nomContact;
+    private $nomContact = '';
     /**
      * @ORM\Column(name="dptAgence",type="string",length=255)
      */
-    private $departement;
+    private $departement = '';
     /**
      * @ORM\Column(name="nbAnnonceAgence",type="integer")
      */
-    private $nbAnnonce;
+    private $nbAnnonce = '';
     /**
      * @ORM\Column(name="dateCreation",type="date")
      */
@@ -126,6 +126,9 @@ class Agence
      */
     public function __set($property, $value)
     {
+        if ( is_null( $value ) && ! is_null( $this->$property ) ) {
+            $value = '';
+        }
         $this->$property = $value;
     }
     public function __isset($name)

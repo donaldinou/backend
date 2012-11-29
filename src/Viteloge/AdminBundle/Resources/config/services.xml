@@ -62,6 +62,12 @@
         <argument>viteloge.admin.service.menu_live</argument>
         <argument type="service" id="templating" />
       </service>
+
+      <!-- events -->
+      <service id="viteloge.admin.db_listener" class="Viteloge\AdminBundle\EventListener\DefaultSetter">
+        <tag name="doctrine.event_listener" event="prePersist" />
+      </service>
+
     </services>
     
 </container>

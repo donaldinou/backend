@@ -35,6 +35,7 @@ class TraitementController extends Controller
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
         $traitement = $repo->find( $id );
         $source = '';
+        $results = null;
 
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
@@ -45,9 +46,8 @@ class TraitementController extends Controller
 
             $results = $tester->run( $type, $source );
         }
-        
-        
-        return array( 'traitement' => $traitement, 'source' => $source );
+
+        return array( 'traitement' => $traitement, 'source' => $source, 'results' => $results );
     }
     
 }

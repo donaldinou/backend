@@ -187,9 +187,6 @@ class Traitement
                 $this->expression->$property = $value;
             }
         } else {
-/*            if ( is_null( $value ) && in_array( $property, self::$STRING_NONNULLABLE_KEYS ) ) {
-                $value = '';
-                }*/
             if ( is_null( $value ) && ! is_null( $this->$property ) ) {
                 $value = '';
             }
@@ -217,4 +214,45 @@ class Traitement
     {
         return $this->id;
     }
+
+    public function getBaseUrlTraitement()
+    {
+        $url = explode( "#", $this->UrlTraitement );
+        return $url[0];
+    }
+    public function getParametresPost()
+    {
+        $url = explode( "#", $this->UrlTraitement );
+        if ( count( $url ) > 1 ) {
+            return $url[1];
+        }
+        return '';
+    }
+
+    private function overwriteUrlTraitement( $values )
+    {
+        $url = explode( "#", $this->UrlTraitement );
+        $original_values = array(
+            'base' => count( $url ) > 0 ? $url[0] : '',
+            'post' => count( $url ) > 1 ? $url[1] : '',
+        );
+        $new_values = array_merge( $original_values, $values );
+        
+        if ( empty( $new_values['post'] ) ) {
+            $this->UrlTraitement = $new_values['base'];
+        } else {
+            $this->UrlTraitement = $new_values['base'] . '#' . $new_values['post'];
+        }
+    }
+    
+    
+    public function setBaseUrlTraitement( $value ) 
+    {
+        $this->overwriteUrlTraitement( array( 'base' => $value ) );
+    }
+    public function setParametresPost( $value ) 
+    {
+        $this->overwriteUrlTraitement( array( 'post' => $value ) );
+    }
+    
 }
