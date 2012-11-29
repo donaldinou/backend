@@ -15,10 +15,13 @@ class PrivilegeAdmin extends Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $year = date('Y');
+        $year_choices = range( $year, $year + 3 );
+        
         $formMapper
             ->add( 'agence' )
-            ->add( 'dateDebut' )
-            ->add( 'dateFin' )
+            ->add( 'dateDebut', null, array( 'years' => $year_choices ) )
+            ->add( 'dateFin', null, array( 'years' => $year_choices ) )
             ->add( 'typeTransaction', 'choice', array( 'expanded' => true, 'choices' => Privilege::$TYPES_TRANSACTION ) )
             ->add( 'minPrix' )
             ->add( 'maxPrix' )
@@ -38,7 +41,7 @@ class PrivilegeAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier( 'agence.nom')
+            ->addIdentifier( 'nomAgence')
             ->add( 'offre', 'string' )
             ->add( "Nombre d'annonces", 'string' )
             ->addIdentifier( 'dateDebut' )

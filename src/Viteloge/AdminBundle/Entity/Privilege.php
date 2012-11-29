@@ -100,4 +100,14 @@ class Privilege
         return $this->$property;
     }
 
+    public function getNomAgence()
+    {
+        if ( isset( $this->agence ) ) {
+            return $this->agence->nom;
+        } else {
+            return '';
+        }
+    }
+    
+
 }
