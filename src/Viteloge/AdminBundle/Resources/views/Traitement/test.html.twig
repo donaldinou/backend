@@ -1,0 +1,30 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block title %}
+  Test d'expression pour {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction }}
+{% endblock %}
+
+{% block sonata_admin_content %}
+<div class="sonata-bc">
+  <form method="POST" class="form-horizontal">
+    <div class="control-group">
+      <label for="TypeSource" class="control-label">Source: </label>
+      <div class="controls">
+        <select name="TypeSource">
+          <option value="F">Fiche Annonce</option>
+          <option value="R">Liste de résultats</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="source" class="control-label">Entrer le code source de la page:</label>
+      <div class="controls">
+        <textarea name="source" style="width: 400px; height: 200px;">{{ source }}</textarea>
+      </div>
+    </div>
+    <div class="well form-actions">
+      <input type="submit" value="Tester" name="btn_test" class="btn btn-primary">
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -212,4 +212,9 @@ class Traitement
             $this->expression->traitement = $this;
         }
     }
+
+    public function getIdTraitement()
+    {
+        return $this->id;
+    }
 }
