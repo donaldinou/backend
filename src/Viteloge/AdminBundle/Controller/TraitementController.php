@@ -35,19 +35,26 @@ class TraitementController extends Controller
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
         $traitement = $repo->find( $id );
         $source = '';
-        $results = null;
+        $variables = array( 'traitement' => $traitement );
 
         $request = $this->get('request');
-        if ($request->getMethod() == 'POST') {
+        if ( $source = $request->get('source') ) {
             $tester = new TestTraitementService( $traitement );
 
             $type = $request->get('TypeSource');
-            $source = $request->get('source');
+            $variables['type'] = $type;
+            
+            $variables['source'] = $source;
 
-            $results = $tester->run( $type, $source );
+            $variables['results'] = $tester->run( $type, $source );
         }
 
-        return array( 'traitement' => $traitement, 'source' => $source, 'results' => $results );
+        if ( ! array_key_exists( 'type', $variables ) ) {
+            $variables['type'] = $traitement->TypeUrlTraitement;
+        }
+        
+
+        return $variables;
     }
     
 }

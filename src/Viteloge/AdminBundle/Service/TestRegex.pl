@@ -23,8 +23,14 @@ my $data = JSON->new->decode( $json_data );
 my $results = {};
 
 foreach my $expression_name ( keys %{$data} ) {
-    my $expr = $data->{$expression_name};
-	my($result) = $source =~ /$expr/sig;
+    my $expr = $data->{$expression_name}{'expr'};
+    my $result;
+    if ( $data->{$expression_name}{'array'}) {
+        my @RESULT = $source =~ /$expr/sig;
+        $result = \@RESULT;
+    } else {
+        ($result) = $source =~ /$expr/sig;
+    }
     $results->{$expression_name} = $result;
 }
 

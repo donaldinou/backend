@@ -2,13 +2,29 @@
   <h2>Liste des URL Traitement utilisée</h2>
   <ul class="links">
   {% for url in results.urls %}
-    <li><a href="{{ url }}">{{ url }}</a></li>
+    <li><a href="?TypeSource={{ type }}&source={{ url|url_encode }}">test</a> <a href="{{ url }}">{{ url }}</a></li>
   {% endfor %}
   </ul>
   <h2>Expressions</h2>
   <ul class="expressions">
     {% for expression_name, result in results.expressions %}
-    <li><i>{{ expression_name }}</i>: {{ result }}
+    <li><i>{{ expression_name }}</i>:
+      {% if result.array %}
+      {{ result.value|length }} résultats
+      {% elseif result.url is defined %}
+      <a href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a href="{{ result.value }}">{{ result.value }}</a>
+      {% else %}
+      {{ result.value }}
+      {% endif %}
+      </li>
     {% endfor %}
   </ul>
+  {% if results.liens_fiches is defined %}
+    <h2>Modèle fiche</h2>
+    <ol>
+    {% for lien_fiche in results.liens_fiches %}
+      <li><a href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
+    {% endfor %}
+    </ol>
+  {% endif %}
 </div>

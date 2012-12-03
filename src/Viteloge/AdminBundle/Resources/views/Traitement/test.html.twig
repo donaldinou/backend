@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
-{% if results is defined %}
+{% if results is defined and not results is null %}
   {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results } %}
 {% endif %}
 <div class="sonata-bc">
@@ -14,19 +14,20 @@
       <label for="TypeSource" class="control-label">Source: </label>
       <div class="controls">
         <select name="TypeSource">
-          <option value="F">Fiche Annonce</option>
-          <option value="R">Liste de résultats</option>
+          <option value="F" {% if type == 'F' %}selected{% endif %}>Fiche Annonce</option>
+          <option value="R" {% if type == 'R' %}selected{% endif %}>Liste de résultats</option>
         </select>
       </div>
     </div>
     <div class="control-group">
       <label for="source" class="control-label">Entrer le code source de la page:</label>
       <div class="controls">
-        <textarea name="source" style="width: 400px; height: 200px;">{{ source }}</textarea>
+        <textarea name="source" style="width: 400px; height: 200px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
       </div>
     </div>
     <div class="well form-actions">
       <input type="submit" value="Tester" name="btn_test" class="btn btn-primary">
+      <a href="{{ path('admin_viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn">Éditer</a>
     </div>
   </form>
 </div>
