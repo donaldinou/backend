@@ -64,4 +64,18 @@ class AgenceAdmin extends Admin
             ->end()
         ;
     }
+
+    public function getTemplate( $name )
+    {
+        switch ( $name ) 
+        {
+            case 'edit':
+                return 'VitelogeAdminBundle:Agence:edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate( $name );
+        }
+        
+    }
+    
 }

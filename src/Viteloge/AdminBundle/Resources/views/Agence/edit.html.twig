@@ -1,0 +1,34 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block sonata_pre_fieldsets %}
+<div class="viteloge agence traitements">
+{% if object.traitements|length > 0 %}
+<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
+  <thead>
+    <tr>
+      <th>Transaction</th>
+      <th>URL</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for traitement in object.traitements %}
+  {% if traitement.UrlTraitement|length > 50 %}
+    {% set tr_url = traitement.UrlTraitement|slice(0,50) ~ '...' %}
+  {% else %}
+    {% set tr_url = traitement.UrlTraitement %}
+  {% endif %}
+    <tr>
+      <td>{{ traitement.StringTypeTransaction }}</td>
+      <td>{{ tr_url }}</td>
+      <td>
+        <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}" class="btn">Tester</a>
+        <a href="{{  path('admin_viteloge_admin_traitement_edit', { id: admin.id(traitement) } ) }}" class="btn">Éditer</a>
+      </td>
+
+    </tr>
+{% endfor %}
+  </tbody>
+</table>     
+{% endif %}
+</div>
+{% endblock %}
