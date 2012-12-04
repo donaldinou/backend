@@ -1,0 +1,24 @@
+
+.results {
+    .expressions {
+        .expression {
+            font-family: "Courier new", Courier, fixed;
+            font-size: 10px;
+            font-weight: bold;
+            color: #000;
+        }
+        .empty {
+            font-style: italic;
+            color: #c00;
+        }
+    }
+    a.test {
+        width: 0;
+        padding-left: 13px;
+        overflow: hidden;
+        height: 13px;
+        margin: 0 3px;
+        display: inline-block;
+        background: url("../images/loupe.gif") no-repeat;
+    }
+}

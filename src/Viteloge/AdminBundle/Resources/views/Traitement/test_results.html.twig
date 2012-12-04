@@ -1,20 +1,44 @@
+{% block stylesheets %}
+<!-- jQuery code -->
+<link rel="stylesheet" href="{{ asset('bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="all" />
+
+<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all"  />
+<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" media="all" />
+
+<!-- base application asset -->
+<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
+
+
+{% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+{% endstylesheets %}
+{% endblock %}
+
 <div class="results">
   <h2>Liste des URL Traitement utilisée</h2>
   <ul class="links">
   {% for url in results.urls %}
-    <li><a href="?TypeSource={{ type }}&source={{ url|url_encode }}">test</a> <a href="{{ url }}">{{ url }}</a></li>
+    <li><a class="test" href="?TypeSource={{ type }}&source={{ url|url_encode }}">test</a> <a href="{{ url }}">{{ url }}</a></li>
   {% endfor %}
   </ul>
   <h2>Expressions</h2>
   <ul class="expressions">
     {% for expression_name, result in results.expressions %}
-    <li><i>{{ expression_name }}</i>:
-      {% if result.array %}
+    <li><i>{{ expression_name }} </i>{% if result.expr is defined %} (<span class="expression">{{ result.expr }}</span>){% endif %} :
+      {% if result.empty is defined %}
+      <span class="empty">not completed</span>
+      {% elseif result.array %}
       {{ result.value|length }} résultats
       {% elseif result.url is defined %}
-      <a href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a href="{{ result.value }}">{{ result.value }}</a>
+      <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a href="{{ result.value }}">{{ result.value }}</a>     
       {% else %}
       {{ result.value }}
+        {% if result.photo is defined %}
+          <br />
+          <img src="{{ result.photo }}" width="320">
+        {% endif %}
+
       {% endif %}
       </li>
     {% endfor %}
@@ -23,7 +47,7 @@
     <h2>Modèle fiche</h2>
     <ol>
     {% for lien_fiche in results.liens_fiches %}
-      <li><a href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
+      <li><a class="test" href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
     {% endfor %}
     </ol>
   {% endif %}

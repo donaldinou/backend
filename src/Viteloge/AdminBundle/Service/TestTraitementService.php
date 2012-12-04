@@ -25,18 +25,22 @@ class TestTraitementService
         {
             case 'R':
                 $expressions = array( 'ExpNbBien', 'ExpNbPage', 'ExpPageSuivante' );
-                $expressions_urls = array( 'ExpPageSuivante' );
                 $expressions_array = array( 'ExpLiensFiche' );
+                // just to let us handle them later
+                $expressions_urls = array( 'ExpPageSuivante' );
                 break;
             case 'F':
-                $expressions = array();
+                $expressions = array( 'ExpUrlElements', 'ExpTypeLogement', 'ExpNbChambre', 'ExpSurface', 'ExpUrlPhoto', 'ExpPiece', 'ExpPrix', 'ExpVille', 'ExpArrondissement', 'ExpCp', 'ExpDescription', 'ExpAgence' );
                 $expressions_array = array();
                 $expressions_urls = array();
                 break;
         }
         $expression_bag = array();
+        $expressions_empty = array();
         foreach ( $expressions as $expression ) {
-            if ( ! empty( $this->traitement->$expression ) ) {
+            if ( empty( $this->traitement->$expression ) ) {
+                $expressions_empty[$expression] = array( 'empty' => true );
+            } else {
                 $expression_bag[$expression] = array( "expr" => $this->traitement->$expression, "array" => false );
             }
         }
@@ -47,22 +51,34 @@ class TestTraitementService
         }
         if ( ! empty( $expression_bag ) ) {
             $results['expressions'] = $this->callPerlTester( $source, $expression_bag, $expressions_array );
-        }
-
-        if ( array_key_exists( 'ExpLiensFiche', $results['expressions'] )
-             && count( $results['expressions']['ExpLiensFiche']['value'] ) > 0 ) {
-
-            foreach ( $results['expressions']['ExpLiensFiche']['value'] as $lien ) {
-                $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $lien ), $base_url );
-            }
-        }
-        foreach ( $expressions_urls as $expression ) {
-            if ( ! empty( $results['expressions'][$expression]['value'] ) ) {
-                $results['expressions'][$expression]['url'] = true;
-                $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $base_url );
-            }
-        }
         
+
+            if ( array_key_exists( 'ExpLiensFiche', $results['expressions'] )
+                 && count( $results['expressions']['ExpLiensFiche']['value'] ) > 0 ) {
+                
+                foreach ( $results['expressions']['ExpLiensFiche']['value'] as $lien ) {
+                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $lien ), $base_url );
+                }
+            }
+            if ( array_key_exists( 'ExpUrlPhoto', $results['expressions'] ) && ! empty( $results['expressions']['ExpUrlPhoto']['value'] ) ) {
+                $results['expressions']['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $results['expressions']['ExpUrlPhoto']['value'] ), $base_url );                
+            }
+            
+            foreach ( $expressions_urls as $expression ) {
+                if ( ! empty( $results['expressions'][$expression]['value'] ) ) {
+                    $results['expressions'][$expression]['url'] = true;
+                    $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $base_url );
+                }
+            }
+        } else {
+            $results['expressions'] = array();
+        }
+        $results['expressions'] = array_merge( $results['expressions'], $expressions_empty );
+        foreach ( $results['expressions'] as $name => $result ) {
+            if ( array_key_exists( $name, $expression_bag ) ) {
+                $results['expressions'][$name]['expr'] = $expression_bag[$name]['expr'];
+            }
+        }
         
 
         return $results;
@@ -85,6 +101,7 @@ class TestTraitementService
         $process = proc_open( $cmd, array(
                                   0 => array( "pipe", "r" ),
                                   1 => array( "pipe", "w" ) ), $pipes );
+        $results = array();
         if (is_resource($process)) {
             
             $config = json_encode( $expression_bag );
@@ -94,16 +111,14 @@ class TestTraitementService
             $regex_result = stream_get_contents( $pipes[1] );
             $decoded_result = json_decode( $regex_result, true );
             
-            $results = array();
             foreach ( $decoded_result as $id => $output ) {
                 $results[$id] = array( 'value' => $output, 'array' => in_array( $id, $expressions_array ) );
             }
             fclose( $pipes[1] );
             proc_close( $process );
-
-            return $results;
         }
-        return array();
+        unlink( $tmp_file );
+        return $results;
     }
     
 
@@ -239,6 +254,7 @@ class TestTraitementService
         $ch = curl_init( $url );
         curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
         $data = curl_exec( $ch );
         $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
         if ( $return_code != 200 ) {

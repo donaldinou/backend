@@ -9,7 +9,7 @@
   {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results } %}
 {% endif %}
 <div class="sonata-bc">
-  <form method="POST" class="form-horizontal">
+  <form method="POST" class="form-horizontal" action="{{ path( 'viteloge_admin_traitement_test', { id:traitement.idTraitement} ) }}">
     <div class="control-group">
       <label for="TypeSource" class="control-label">Source: </label>
       <div class="controls">
@@ -22,7 +22,7 @@
     <div class="control-group">
       <label for="source" class="control-label">Entrer le code source de la page:</label>
       <div class="controls">
-        <textarea name="source" style="width: 400px; height: 200px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
+        <textarea name="source" style="width: 600px; height: 300px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
       </div>
     </div>
     <div class="well form-actions">
