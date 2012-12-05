@@ -52,7 +52,7 @@ class TraitementController extends Controller
         if ( ! array_key_exists( 'type', $variables ) ) {
             $variables['type'] = $traitement->TypeUrlTraitement;
         }
-        
+        $variables['admin_pool'] = $this->container->get('sonata.admin.pool');
 
         return $variables;
     }
