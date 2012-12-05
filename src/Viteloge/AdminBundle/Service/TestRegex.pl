@@ -3,6 +3,8 @@
 use strict;
 use JSON;
 
+use Encode::Guess;
+
 my $src_file = $ARGV[0];
 
 if ( ! ( defined $src_file && -f $src_file ) ) {
@@ -15,6 +17,12 @@ open FH, "<$src_file"
   or die "Unable to load source file $src_file";
 my $source = do { local($/); <FH> };
 close FH;
+
+
+my $guess = guess_encoding( $source, qw/iso-8859-15 UTF-8/ );
+if ( ref($guess) and ( $guess->name ne 'UTF-8' ) ) {
+    $source = $guess->decode( $source );
+}
 
 #print STDERR $json_data;
 
@@ -35,5 +43,5 @@ foreach my $expression_name ( keys %{$data} ) {
 }
 
 
-print JSON->new->indent->encode( $results );
+print JSON->new->utf8->encode( $results );
 
