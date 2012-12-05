@@ -101,5 +101,18 @@ class TraitementAdmin extends Admin
         }
         
     }
+
+
+    public function getNewInstance()
+    {
+        $instance = parent::getNewInstance();
+        $id_agence = $this->request->get('idAgence');
+        if ( ! empty( $id_agence ) ) {
+            $agence_repo = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository( 'Viteloge\AdminBundle\Entity\Agence' );
+            $agence = $agence_repo->find( $id_agence );
+            $instance->agence = $agence;
+        }
+        return $instance;
+    }
     
 }
