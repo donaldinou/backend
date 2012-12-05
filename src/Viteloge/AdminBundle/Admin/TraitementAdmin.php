@@ -80,7 +80,7 @@ class TraitementAdmin extends Admin
         $listMapper
             ->addIdentifier('agence.nom')
             ->addIdentifier('StringTypeTransaction')
-            ->addIdentifier('UrlTraitement')
+            ->addIdentifier('ShortUrlTraitement')
             ->addIdentifier('Exclus');
         
     }

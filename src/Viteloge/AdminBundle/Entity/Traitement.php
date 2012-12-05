@@ -254,5 +254,13 @@ class Traitement
     {
         $this->overwriteUrlTraitement( array( 'post' => $value ) );
     }
+
+    public function getShortUrlTraitement()
+    {
+        if ( strlen( $this->UrlTraitement ) > 100 ) {
+            return substr( $this->UrlTraitement, 0, 100 ) . "...";
+        }
+        return $this->UrlTraitement;
+    }
     
 }
