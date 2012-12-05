@@ -32,13 +32,15 @@
       {{ result.value|length }} résultats
       {% elseif result.url is defined %}
       <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a href="{{ result.value }}">{{ result.value }}</a>     
-      {% else %}
+      {% elseif result.value|length > 0 %}
       {{ result.value }}
         {% if result.photo is defined %}
           <br />
           <img src="{{ result.photo }}" width="320">
         {% endif %}
 
+      {% else %}
+        <span class="error">No result</span>
       {% endif %}
       </li>
     {% endfor %}

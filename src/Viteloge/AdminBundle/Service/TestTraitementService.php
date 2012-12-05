@@ -17,6 +17,7 @@ class TestTraitementService
 
         $results['urls'] = $this->get_url_list( $this->traitement->UrlTraitement );
         preg_match ( "/([^\?#]*)\?{0,1}([^#]*)#{0,1}(.*)/", $results['urls'][0], $match_array);
+        $this->full_url = $results['urls'][0];
         $base_url = $match_array[1];
             
 
@@ -55,9 +56,10 @@ class TestTraitementService
 
             if ( array_key_exists( 'ExpLiensFiche', $results['expressions'] )
                  && count( $results['expressions']['ExpLiensFiche']['value'] ) > 0 ) {
-                
+
+                $results['expressions']['ExpLiensFiche']['value'] = array_unique( $results['expressions']['ExpLiensFiche']['value'] );
                 foreach ( $results['expressions']['ExpLiensFiche']['value'] as $lien ) {
-                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $lien ), $base_url );
+                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlFicheTraitement, $lien ), $base_url );
                 }
             }
             if ( array_key_exists( 'ExpUrlPhoto', $results['expressions'] ) && ! empty( $results['expressions']['ExpUrlPhoto']['value'] ) ) {
@@ -100,7 +102,8 @@ class TestTraitementService
 
         $process = proc_open( $cmd, array(
                                   0 => array( "pipe", "r" ),
-                                  1 => array( "pipe", "w" ) ), $pipes );
+                                  1 => array( "pipe", "w" )/*,
+                                  2 => array( "file", "/tmp/error.txt", "w")*/ ), $pipes );
         $results = array();
         if (is_resource($process)) {
             
@@ -109,6 +112,7 @@ class TestTraitementService
             fwrite( $pipes[0], $config );
             fclose( $pipes[0] );
             $regex_result = stream_get_contents( $pipes[1] );
+
             $decoded_result = json_decode( $regex_result, true );
             
             foreach ( $decoded_result as $id => $output ) {
@@ -165,7 +169,7 @@ class TestTraitementService
                 preg_match ( "/(\{[^\}]+\})/", $model, $out);
                 if(!empty($out[1])) {
                     $next_exp = $out[1];
-                    $next_urls = get_url_list($url);
+                    $next_urls = $this->get_url_list($url);
                     foreach ($next_urls as $url) {
                         array_push($URLS, $url);
                     }
@@ -193,9 +197,10 @@ class TestTraitementService
         preg_match ( $mask, $url, $out);
         while(!empty($out[1]))
         {
-            $var = $out[1]; 
+            $var = $out[1];
+            $FULL_URL = $this->full_url;
             $formule = substr($var,1,strlen($var) - 2);
-            eval("\$result = " . $formule .";"); 
+            eval("\$result = \$this->" . $formule .";"); 
             //$cmd = sprintf('perl -e "print %s"', preg_replace('/"/', '\\"', $formule));
             //$result = exec($cmd);
             $url = preg_replace ( "/".preg_quote($var, "/")."/i", $result, $url);
@@ -239,8 +244,12 @@ class TestTraitementService
                 $i++;
             }
         }
-        if (count($base_array) and $base_array[-1] == ".")
-            $base_array[-1] = "";
+/*        if ( count($base_array) > 0 ) {
+            if ( $base_array[-1] == "." ){
+                $base_array[-1] = "";
+            }
+            }*/
+        
 		
         if ($REMOVE_LEADING_DOTS) {
             while (count($base_array) and preg_match("/^\.\.?$/", $base_array[0])) {
@@ -251,10 +260,32 @@ class TestTraitementService
     } 
     private function download_file( $url )
     {
+        $post_vars = false;
+        $parts = explode("#", $url);
+        if(!empty($parts[1])) {
+            $post_vars 	= $parts[1];
+            $url 		= $parts[0];
+        }
+
         $ch = curl_init( $url );
+
+        $headers = array();
+        $headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+        $headers[] = "Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3";	
+        //$headers[] = "Accept-Encoding: gzip, deflate";		
+        $headers[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+
+
         curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        
+        if( $post_vars ) {
+            curl_setopt( $ch, CURLOPT_POST, 1 );
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_vars );
+        }
+
         $data = curl_exec( $ch );
         $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
         if ( $return_code != 200 ) {
@@ -262,4 +293,13 @@ class TestTraitementService
         }
         return $data;
     }
+    private function clean_url($url) {
+        $args = func_get_args();
+        unset($args[0]);
+        foreach( $args as $item ) {
+            $url = preg_replace("/((?<=\?|#)|&)$item=[^&]*/si","",$url);
+        }
+        return $url;
+    }
+
 }
