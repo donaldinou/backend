@@ -57,4 +57,42 @@ class TraitementController extends Controller
         return $variables;
     }
     
+    /**
+     * @Route("/{id}/control")
+     * @Template()
+     */
+    public function controlAction( $id )
+    {
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $pile_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Pile' );
+        $annonce_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Annonce' );
+        $traitement = $repo->find( $id );
+
+        $variables = array(
+            'traitement' => $traitement,
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
+            'pile' =>  $pile_repo->getPileForTraitement( $traitement ),
+            'flags' => $this->flattenFlags( $annonce_repo->getCountByFlag( $traitement ) ),
+            'nbAnnoncesExportees' => $annonce_repo->getCountExported( $traitement )
+        );
+        return $variables;
+    }
+
+    /**
+     * @Route("/{id}/heap_remove/{heap_id}")
+     */
+    public function heapRemove( $id, $heap_id )
+    {
+    }
+
+    private function flattenFlags( $flags )
+    {
+        $flag_mapping = array( 0 => 'handled', 1 => 'unhandled' );
+        $new_flags = array( 'unhandled' => 0, 'handled' => 0 );
+        foreach ( $flags as $flag ) {
+            $new_flags[$flag_mapping[$flag['flag']]] = $flag['nbAnnonces'];
+        }
+        return $new_flags;
+    }
 }
