@@ -34,10 +34,8 @@ class TestCommand extends ContainerAwareCommand
         if ( is_null( $t ) ) {
             $output->writeln( "Unable to find traitement" );
         } else {
-/*            $t->ExpLiensFiche = "test";
-            $em->persist( $t );
-            $em->flush();*/
-            $output->writeln( $t->StringTypeTransaction );
-        }   
+            $ann_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Annonce' );
+            print_r( $ann_repo->getCountExported( $t ) );
+        }
 	}
 }

@@ -35,7 +35,26 @@ class AnnonceRepository extends EntityRepository
             ->setParameter( 'type', $traitement->TypeTransactionTraitement );
         $x = $query->getScalarResult();
         return $x[0]['nbAnnonces'];
-        
     }
+
+    public function resetFlag( $traitement )
+    {
+        $dbh = $this->_em->getConnection();
+        $nb = $dbh->executeUpdate(
+            "UPDATE annonce SET Flag = 0 WHERE IdTraitement = ?",
+            array( $traitement->id )
+        );
+        return $nb;
+    }
+    public function forceUpdate( $traitement )
+    {
+        $dbh = $this->_em->getConnection();
+        $nb = $dbh->executeUpdate(
+            "UPDATE annonce SET DateUpdate = '2000-01-01' WHERE IdTraitement = ?",
+            array( $traitement->id )
+        );
+        return $nb;
+    }
+    
     
 }

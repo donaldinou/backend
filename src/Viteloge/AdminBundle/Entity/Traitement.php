@@ -155,11 +155,14 @@ class Traitement
                 return self::$TypesTransaction[ $this->TypeTransactionTraitement ];
             }
         }
+        if ( property_exists( $this, $property ) ) {
+            return $this->$property;
+        }
         $this->createExpressionIfNecessary();
         if ( property_exists( $this->expression, $property ) ) {
             return $this->expression->$property;
         }
-        return $this->$property;
+        return null;
     }
 
     public static $STRING_NONNULLABLE_KEYS = array( 'UrlInitSession', 'ModelUrlFicheTraitement', 'ModelUrlResultatTraitement', 'ModelUrlFicheTraitement' );
@@ -262,5 +265,22 @@ class Traitement
         }
         return $this->UrlTraitement;
     }
+
+    public function reactivate( $full = false )
+    {
+        $this->TimeStampTraitement =  new \DateTime('2001-01-01');
+        $this->Exclus = false;
+        $this->NbPauseTraitement = 0;
+        if ( $full ) {
+            $this->TimestampPause = null;
+            $this->StatutTraitement = 1;
+        }
+    }
+    public function forceEnd()
+    {
+        $this->TimeStampTraitement =  new \DateTime('2001-01-01');
+        $this->StatutTraitement = 1;
+    }
+    
     
 }

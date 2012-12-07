@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
-
+<div id="notifications">
+{% if app.session.hasFlash('error') %}
+    <div class="alert alert-error">
+        {{ app.session.flash('error') }}
+    </div>
+{% endif %}
+{% if app.session.hasFlash('notice') %}
+    <div class="alert alert-success">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+</div>
 <div class="viteloge-actions">
   <a href="{{ path( 'admin_viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn">Éditer</a>
   <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn">Tester</a>
@@ -33,12 +44,35 @@
         <tr>
           <td>{{ flags.unhandled }}</td>
           <td>{{ flags.handled }}</td>
-          <td>{{ nbAnnoncesExportees }} (<strong>{{ ( nbAnnoncesExportees * 100 / flags.handled ) | number_format(2) }}%</strong>)</td>
+          <td>{{ nbAnnoncesExportees }} {% if flags.handled > 0 %}(<strong>{{ ( nbAnnoncesExportees * 100 / flags.handled ) | number_format(2) }}%</strong>){% endif %}</td>
         </tr>
         </tbody>
     </table>
   {% endif %}
 
+
+  <div class="control-actions">
+    <form action="{{ path( 'viteloge_admin_traitement_modify', { id: traitement.idTraitement } ) }}" method="POST">
+      <select name="action">
+        <option></option>
+        <optgroup label="Pile">
+          <option value="clear_heap">Vider la pile</option>
+        </optgroup>
+        <optgroup label="Annonces">
+          <option value="reset_flag">Reset des flags d'annonces</option>
+          <option value="heap_top">Mise en haut de la pile</option>
+          <option value="file_update">Forcer l'update des fiches</option>
+        </optgroup>
+        <optgroup label="Traitement">
+          <option value="reset_errors">Reset des erreurs</option>
+          <option value="reactivate_safe">Désexclure le site (Annuler la fin traitement si elle n'a pas eu lieu)</option>
+          <option value="reactivate_continue">Remettre en route (Désexclu et remet en route)</option>
+          <option value="end">Forcer la fin traitement (Forcer une suppression massive)</option>
+        </optgroup>
+      </select>
+      <input class="btn" type="submit" value="Exécuter">
+    </form>
+  </div>
 
 
 </div>

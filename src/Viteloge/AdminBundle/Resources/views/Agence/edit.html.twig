@@ -21,6 +21,7 @@
       <td>{{ traitement.StringTypeTransaction }}</td>
       <td>{{ tr_url }}</td>
       <td>
+        <a href="{{  path('viteloge_admin_traitement_control', { id: admin.id(traitement) } ) }}" class="btn">Contrôler</a>
         <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}" class="btn">Tester</a>
         <a href="{{  path('admin_viteloge_admin_traitement_edit', { id: admin.id(traitement) } ) }}" class="btn">Éditer</a>
       </td>

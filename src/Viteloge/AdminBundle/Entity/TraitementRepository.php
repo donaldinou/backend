@@ -22,4 +22,14 @@ class TraitementRepository extends EntityRepository
             ->where( 'traitement.Exclus = 1' );
         return $qb->getQuery()->getResult();
     }
+
+    public function resetErrors( $traitement )
+    {
+        $dbh = $this->_em->getConnection();
+        $nb = $dbh->executeUpdate(
+            "DELETE FROM erreurs WHERE IdTraitement = ?",
+            array( $traitement->id )
+        );
+        return $nb;        
+    }
 }

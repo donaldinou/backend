@@ -26,5 +26,14 @@ class PileRepository extends EntityRepository
             ->setParameter( 'traitement', $traitement );
         return $qb->getQuery()->getResult();
     }
-    
+
+    public function clearFor( $traitement, $id = null )
+    {
+        $dbh = $this->_em->getConnection();
+        $nb = $dbh->executeUpdate(
+            "DELETE FROM pile WHERE idTraitement = ?",
+            array( $traitement->id )
+        );
+        return $nb;
+    }
 }
