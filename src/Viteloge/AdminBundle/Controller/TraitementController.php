@@ -85,6 +85,21 @@ class TraitementController extends Controller
      */
     public function heapRemoveAction( $id, $heap_id )
     {
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $pile_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Pile' );
+
+        $traitement = $traitement_repo->find( $id );
+        $pile = $pile_repo->find( $heap_id );
+        if ( $pile && $traitement && $pile->traitement == $traitement ) {
+            $full_url = $pile->getFull_url();
+            $em->remove( $pile );
+            $em->flush();
+            $this->get('session')->setFlash( 'notice', $full_url . ' a été supprimée' );
+        } else {
+            $this->get('session')->setFlash( 'error', 'Paramètres invalides' );
+        }
+        return $this->redirect( $this->generateUrl( 'viteloge_admin_traitement_control', array( 'id' => $id )  ) );
     }
 
     /**
