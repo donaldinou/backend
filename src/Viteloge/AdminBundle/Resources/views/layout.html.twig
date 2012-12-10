@@ -11,5 +11,7 @@
 
 {% block javascripts %}
   {{ parent() }}
-  <!-- hi !-->
+  {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}

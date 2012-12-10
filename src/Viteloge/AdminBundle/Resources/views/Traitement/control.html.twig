@@ -55,9 +55,11 @@
     <form action="{{ path( 'viteloge_admin_traitement_modify', { id: traitement.idTraitement } ) }}" method="POST">
       <select name="action">
         <option value="">(Action)</option>
+        {% if pile|length > 0 %}
         <optgroup label="Pile">
           <option value="clear_heap">Vider la pile</option>
         </optgroup>
+        {% endif %}
         <optgroup label="Annonces">
           <option value="reset_flag">Reset des flags d'annonces</option>
           <option value="file_update">Forcer la mise à jour des fiches</option>
@@ -72,10 +74,17 @@
           {% if pile|length > 0 %}
           <option value="end">Forcer la fin traitement (Forcer une suppression massive)</option>
           {% endif %}
+          {% if traitement.isPaused %}
+          <option value="unpause">Annuler la pause</option>
+          {% endif %}
         </optgroup>
       </select>
       <input class="btn" type="submit" value="Exécuter">
     </form>
+  </div>
+
+  <div class="stats">
+    <a class="btn action-display" href="{{ path( 'viteloge_admin_traitement_graph', { id: traitement.idTraitement } ) }}">Afficher les stats</a>
   </div>
 
 

@@ -32,4 +32,15 @@ class TraitementRepository extends EntityRepository
         );
         return $nb;        
     }
+
+    public function getCycles( $traitement )
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select( 'cycle' )
+            ->from( 'Viteloge\AdminBundle\Entity\Cycle', 'cycle' )
+            ->where( 'cycle.traitement = :traitement' )
+            ->addOrderBy( 'cycle.fin', 'ASC' )
+            ->setParameter( 'traitement', $traitement );
+        return $qb->getQuery()->getResult();
+    }
 }

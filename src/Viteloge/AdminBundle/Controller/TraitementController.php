@@ -158,6 +158,12 @@ class TraitementController extends Controller
                 $em->flush();
                 $this->get('session')->setFlash( 'notice', 'Fin de traitement forcée...' );
                 break;
+            case 'unpause':
+                $traitement->endPause();
+                $em->persist( $traitement );
+                $em->flush();                
+                $this->get('session')->setFlash( 'notice', 'Traitement dépausé...' );
+                break;
             default:
                 $this->get('session')->setFlash( 'error', 'No such action!' );
                 break;
@@ -165,6 +171,64 @@ class TraitementController extends Controller
         
         return $this->redirect( $this->generateUrl( 'viteloge_admin_traitement_control', array( 'id' => $id )  ) );
     }
+
+    /**
+     * @Route("/{id}/stats.png")
+     */
+    public function graphAction( $id )
+    {
+        require_once( __DIR__ . '/../libs/jpgraph/jpgraph.php' );
+        require_once( __DIR__ . '/../libs/jpgraph/jpgraph_line.php' );
+        require_once( __DIR__ . '/../libs/jpgraph/jpgraph_date.php' );
+        
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $traitement = $traitement_repo->find( $id );
+
+        $cycles = $traitement_repo->getCycles( $traitement );
+        $xdata = array();
+        $ydata = array();
+        $ydataNew = array();
+        $ydataDel = array();
+        foreach ( $cycles as $cycle ) {
+            $ydata[] = $cycle->nbAnnonce;
+            $ydataNew[] = $cycle->nbAnnonceInsert;
+            $ydataDel[] = $cycle->nbAnnonceDelete;
+            $xdata[] = $cycle->fin->getTimestamp();
+        }
+        
+
+        $graph = new \Graph( 800, 450 );
+        $graph->SetScale("datlin");
+//        $graph->img->SetAntiAliasing();
+        $graph->yaxis->title->Set("Nombre d'annonces");
+        $graph->xaxis->SetLabelAngle( 30 );
+        $graph->legend->setPos( 0.5, 0, 'center', 'top' );
+
+        $lineplot = new \LinePlot($ydata, $xdata );
+        $lineplot->SetStepStyle();
+        $lineplot->SetLegend("Nombre d'annonces total");
+
+        $lineplotNew = new \LinePlot($ydataNew, $xdata );
+        $lineplotNew ->SetColor("blue"); 
+        $lineplotNew->SetStepStyle();
+        $lineplotNew->SetLegend("Nombre d'annonces nouvelles");
+	
+        $lineplotDelete = new \LinePlot($ydataDel, $xdata );
+        $lineplotDelete ->SetColor("red"); 
+        $lineplotDelete->SetStepStyle();
+        $lineplotDelete->SetLegend("Nombre d'annonces supprimées");
+
+        
+        $graph->Add($lineplot);
+        $graph->Add($lineplotNew);
+        $graph->Add($lineplotDelete);
+        
+        $graph->Stroke();
+        exit;
+
+    }
+    
     
 
     private function flattenFlags( $flags )
@@ -176,4 +240,5 @@ class TraitementController extends Controller
         }
         return $new_flags;
     }
+
 }

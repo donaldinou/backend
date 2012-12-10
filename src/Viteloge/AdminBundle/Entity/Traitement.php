@@ -144,6 +144,11 @@ class Traitement
      * @ORM\OneToMany(targetEntity="Blacklist",mappedBy="traitement")
      */
     private $blacklists;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Cycle",mappedBy="traitement")
+     */
+    private $cycles;
     
     /**
      * Methode magique __get()
@@ -280,6 +285,17 @@ class Traitement
     {
         $this->TimeStampTraitement =  new \DateTime('2001-01-01');
         $this->StatutTraitement = 1;
+    }
+    public function endPause()
+    {
+        $this->TimeStampTraitement =  new \DateTime('2001-01-01');
+        $this->TimestampPause = null;
+        $this->NbPauseTraitement = 0;
+    }
+    
+    public function isPaused()
+    {
+        return $this->TimestampPause > new \DateTime('0000-00-00');
     }
     
     
