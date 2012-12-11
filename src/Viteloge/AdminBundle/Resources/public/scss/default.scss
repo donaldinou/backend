@@ -26,3 +26,10 @@
         background: url("../images/loupe.gif") no-repeat;
     }
 }
+
+.table.controles {
+    tr.urgent td {
+        background-color: #f00 !important;
+        color: #fff;
+    }
+}

@@ -19,7 +19,8 @@ class TraitementRepository extends EntityRepository
             ->from( 'Viteloge\AdminBundle\Entity\Traitement', 'traitement' )
             ->leftJoin( 'traitement.agence', 'agence' )
             ->leftJoin( 'traitement.expression', 'expression' )
-            ->where( 'traitement.Exclus = 1' );
+            ->where( 'traitement.Exclus = 1' )
+            ->addOrderBy( 'agence.idPrivilege', 'DESC' );
         return $qb->getQuery()->getResult();
     }
 
@@ -39,8 +40,10 @@ class TraitementRepository extends EntityRepository
         $qb->select( 'cycle' )
             ->from( 'Viteloge\AdminBundle\Entity\Cycle', 'cycle' )
             ->where( 'cycle.traitement = :traitement' )
+            ->andWhere( 'cycle.fin > :date' )
             ->addOrderBy( 'cycle.fin', 'ASC' )
-            ->setParameter( 'traitement', $traitement );
+            ->setParameter( 'traitement', $traitement )
+            ->setParameter( 'date', new \DateTime( '6 months ago' ) );
         return $qb->getQuery()->getResult();
     }
 }

@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class AgenceAdmin extends Admin
+class AgenceAdmin extends VitelogeAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {

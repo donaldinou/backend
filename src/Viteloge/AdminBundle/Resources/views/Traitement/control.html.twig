@@ -24,11 +24,15 @@
 
 <div class="control">
   <h2>Prochaines URL traitée dans la PILE</h2>
+  {% if pile|length > 0 %}
   <ol>
     {% for url in pile %}
     <li><a class="test" href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.id, TypeSource: url.type, source: url.full_url } ) }}">test</a> <a href="{{ url.full_url }}">{{ url.full_url }}</a> <a href="{{ path( 'viteloge_admin_traitement_heapremove', { id:traitement.id,heap_id: url.id }) }}">X</a></li>
     {% endfor %}
   </ol>
+  {% else %}
+  <p>Pile vide</p>
+  {% endif %}
 
   {% if flags|length > 0 %}
     <h2>Etat du traitement</h2>

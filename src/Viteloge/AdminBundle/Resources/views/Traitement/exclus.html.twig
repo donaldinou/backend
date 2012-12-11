@@ -1,19 +1,23 @@
-{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+{% extends 'VitelogeAdminBundle::layout.html.twig' %}
+
 {% block sonata_admin_content %}
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped controles">
   <thead></thead>
   <tbody>
     {% for traitement in traitements %}
       <tr {% if traitement.agence.idPrivilege != 0 %}class="urgent"{% endif %}>
         <td>{{ traitement.agence.nom }}</td>
-        <td>{{ traitement.TypeTransactionTraitement }}</td>
+        <td>{{ traitement.StringTypeTransaction}}</td>
         {% if traitement.blacklists|length > 0 %}
         <td>hasblacklist</td>
         {% else %}
         <td></td>
         {% endif %}
-        <td><a href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}">edit</a></td>
-        <td><a href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}">test</a></td>
+        <td>
+          <a class="btn" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}">Contrôler</a>
+          <a class="btn" href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}">Éditer</a>
+          <a class="btn" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}">Tester</a>
+        </td>
         <td><a href="{{ traitement.agence.url }}">site</a></td>
       </tr>
     {% endfor %}

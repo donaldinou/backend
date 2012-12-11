@@ -11,7 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Viteloge\AdminBundle\Entity\Privilege;
 
 
-class PrivilegeAdmin extends Admin
+class PrivilegeAdmin extends VitelogeAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {

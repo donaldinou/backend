@@ -10,8 +10,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 use Viteloge\AdminBundle\Entity\Traitement;
 
-class TraitementAdmin extends Admin
-{
+class TraitementAdmin extends VitelogeAdmin
+{    
+    
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -81,7 +82,7 @@ class TraitementAdmin extends Admin
             ->addIdentifier('agence.nom')
             ->addIdentifier('StringTypeTransaction')
             ->addIdentifier('ShortUrlTraitement')
-            ->addIdentifier('Exclus');
+            ->addIdentifier('Actif', 'boolean');
         
     }
 

@@ -223,6 +223,12 @@ class Traitement
         return $this->id;
     }
 
+    public function getActif()
+    {
+        return !$this->Exclus;
+    }
+    
+
     public function getBaseUrlTraitement()
     {
         $url = explode( "#", $this->UrlTraitement );

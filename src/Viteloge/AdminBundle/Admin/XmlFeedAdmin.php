@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 use Viteloge\AdminBundle\Entity\XmlFeed;
 
-class XmlFeedAdmin extends Admin
+class XmlFeedAdmin extends VitelogeAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
