@@ -20,7 +20,10 @@ class TestTraitementService
         $this->full_url = $results['urls'][0];
         $base_url = $match_array[1];
             
-
+        if ( empty( $source ) ) {
+            $source = $this->full_url;
+        }
+            
 
         switch ( $type )
         {

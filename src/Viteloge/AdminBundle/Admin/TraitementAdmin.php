@@ -72,7 +72,8 @@ class TraitementAdmin extends VitelogeAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('agence.nom');
+            ->add('agence.nom')
+            ->add('id');
         
     }
 

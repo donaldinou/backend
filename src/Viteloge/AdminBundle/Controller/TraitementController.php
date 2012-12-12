@@ -39,7 +39,8 @@ class TraitementController extends Controller
         $variables = array( 'traitement' => $traitement );
 
         $request = $this->get('request');
-        if ( $source = $request->get('source') ) {
+        $source = $request->get('source');
+        if ( $source || ( $request->getMethod() == 'POST' ) ) {
             $tester = new TestTraitementService( $traitement );
 
             $type = $request->get('TypeSource');
