@@ -4,7 +4,7 @@
   <h2>Liste des URL Traitement utilisée</h2>
   <ul class="links">
   {% for url in results.urls %}
-    <li><a class="test" href="?TypeSource={{ type }}&source={{ url|url_encode }}">test</a> <a href="{{ url }}">{{ url }}</a></li>
+    <li><a class="test" href="?TypeSource={{ type }}&source={{ url|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ url }}">{{ url }}</a></li>
   {% endfor %}
   </ul>
   {% endif %}
@@ -17,7 +17,7 @@
       {% elseif result.array %}
       {{ result.value|length }} résultats
       {% elseif result.url is defined %}
-      <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a href="{{ result.value }}">{{ result.value }}</a>     
+      <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ result.value }}">{{ result.value }}</a>     
       {% elseif result.value|length > 0 %}
       {{ result.value }}
         {% if result.photo is defined %}
@@ -35,7 +35,7 @@
     <h2>Modèle fiche</h2>
     <ol>
     {% for lien_fiche in results.liens_fiches %}
-      <li><a class="test" href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
+      <li><a class="test" href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
     {% endfor %}
     </ol>
   {% endif %}
