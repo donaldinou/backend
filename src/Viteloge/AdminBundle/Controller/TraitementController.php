@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Symfony\Component\HttpFoundation\Response;
+
 use Viteloge\AdminBundle\Service\TestTraitementService;
 
 
@@ -75,6 +77,7 @@ class TraitementController extends Controller
             'traitement' => $traitement,
             'admin_pool' => $this->container->get('sonata.admin.pool'),
             'pile' =>  $pile_repo->getPileForTraitement( $traitement ),
+            'lastDownload' => $repo->getLastContentInfo( $traitement ),
             'flags' => $this->flattenFlags( $annonce_repo->getCountByFlag( $traitement ) ),
             'nbAnnoncesExportees' => $annonce_repo->getCountExported( $traitement )
         );
@@ -227,7 +230,34 @@ class TraitementController extends Controller
         
         $graph->Stroke();
         exit;
+    }
 
+    /**
+     * @Route("/{id}/lastContent")
+     */
+    public function lastContentAction( $id )
+    {
+        require_once( 'my_http_build_url.php' );
+        
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $traitement = $traitement_repo->find( $id );
+
+        $content = $traitement_repo->getLastContentInfo( $traitement, true );
+
+        $content_txt = $content['result'];
+
+        $url = http_build_url( $content['url'] . $content['url2'], null,
+                               HTTP_URL_STRIP_PATH | HTTP_URL_STRIP_QUERY | HTTP_URL_STRIP_FRAGMENT );
+
+        if ( ! preg_match( '/<base *href/i', $content_txt ) ) {
+            $content_txt = '<base href="' . $url . '">' . $content_txt;
+        }
+
+        $response = new Response();
+        $response->setContent( $content_txt );
+        $response->headers->set('Content-Base', 'http://localhost:10101/');
+        return $response;
     }
     
     

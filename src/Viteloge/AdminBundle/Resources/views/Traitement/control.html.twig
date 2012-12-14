@@ -34,6 +34,14 @@
   <p>Pile vide</p>
   {% endif %}
 
+  {% if lastDownload is not null %}
+    <h2>Dernier téléchargement</h2>
+    {% if lastDownload.resultSize > 0 %}
+      <a href="{{ path('viteloge_admin_traitement_lastcontent', {id: traitement.idTraitement }) }}">Afficher la dernière source téléchargée</a>
+    {% endif %}
+    <p>({{ lastDownload.resultSize / 1024 | number_format( 2 ) }} ko le {{ lastDownload.downloadedAt }})</p>
+  {% endif %}
+
   {% if flags|length > 0 %}
     <h2>Etat du traitement</h2>
     <table class="table table-bordered">

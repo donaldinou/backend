@@ -3,6 +3,7 @@
 namespace Viteloge\AdminBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * TraitementRepository
@@ -45,5 +46,30 @@ class TraitementRepository extends EntityRepository
             ->setParameter( 'traitement', $traitement )
             ->setParameter( 'date', new \DateTime( '6 months ago' ) );
         return $qb->getQuery()->getResult();
+    }
+
+    public function getLastContentInfo( $traitement, $full = false ) 
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult( 'resultSize', 'resultSize' );
+        $rsm->addScalarResult( 'downloadedAt', 'downloadedAt' );
+
+        $fields = "resultSize, downloadedAt";
+        if ( $full ) {
+            $rsm->addScalarResult( 'url', 'url' );
+            $rsm->addScalarResult( 'url2', 'url2' );
+            $rsm->addScalarResult( 'result', 'result' );
+            $fields .= ", url, url2, result";
+        }
+        
+
+        $query = $this->_em->createNativeQuery(
+            "SELECT " . $fields . " FROM contenu_traitement WHERE idTraitement = :idTraitement", $rsm )
+            ->setParameter( 'idTraitement', $traitement->id );
+        $x = $query->getScalarResult();
+        if ( count( $x ) > 0 ) {
+            return $x[0];
+        }
+        return null;
     }
 }
