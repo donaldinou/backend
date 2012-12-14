@@ -92,8 +92,14 @@ class TestTraitementService
 
     private function callPerlTester( $source, $expression_bag, $expressions_array )
     {
+        $possible_charset = "";
         if ( preg_match("/^((ht|f)tp(s?))\:\/\//", $source ) ) {
             $source = $this->download_file( $source );
+            if ( is_array( $source ) ) {
+                $possible_charset = " " . $source[1];
+                $source = $source[0];
+            }
+            
         }
         
         $tmp_file = tempnam( sys_get_temp_dir(), "testregex_src" );
@@ -101,7 +107,7 @@ class TestTraitementService
         fwrite( $output, $source );
         fclose( $output );
 
-        $cmd = "/usr/bin/perl " . dirname( __FILE__ ) . "/TestRegex.pl " . escapeshellarg( $tmp_file );
+        $cmd = "/usr/bin/perl " . dirname( __FILE__ ) . "/TestRegex.pl " . escapeshellarg( $tmp_file ) . $possible_charset;
 
         $process = proc_open( $cmd, array(
                                   0 => array( "pipe", "r" ),
@@ -294,6 +300,9 @@ class TestTraitementService
         if ( $return_code != 200 ) {
             return '';
         }
+        $content_type = curl_getinfo($ch,CURLINFO_CONTENT_TYPE);
+        if(preg_match("/charset=\"?([a-z0-9-]+)\"?/si",$content_type, $matches ) )
+            return array( $data, $matches[1] );
         return $data;
     }
     private function clean_url($url) {
