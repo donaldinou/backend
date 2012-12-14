@@ -38,12 +38,14 @@ class AgenceAdmin extends VitelogeAdmin
         $datagridMapper
             ->add('nom')
             ->add('ville')
+            ->add('agenceMere.nom')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('NomAgenceMere')
             ->addIdentifier('nom')
             ->addIdentifier('cp')
             ->addIdentifier('ville')

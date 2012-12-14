@@ -22,6 +22,11 @@ class Agence
     private $id;
 
     /**
+     * @ORM\Column(name="idAgenceMere",type="integer")
+     */
+    private $idAgenceMere;
+
+    /**
      * @ORM\Column(name="specifAgence",type="string",length=255)
      */
     private $specif = '';
@@ -102,6 +107,17 @@ class Agence
     private $xml_feeds;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Agence", mappedBy="agenceMere")
+     */
+    private $filles;
+    /**
+     * @ORM\ManyToOne(targetEntity="Agence",inversedBy="filles",fetch="EAGER" )
+     * @ORM\JoinColumn(name="idAgenceMere", referencedColumnName="idAgence")
+     */
+    private $agenceMere;
+
+
     
     /**
      * Get id
@@ -148,5 +164,13 @@ class Agence
     public function getActive() 
     {
         return ! $this->inactive;
+    }
+
+    public function getNomAgenceMere()
+    {
+        if ( 0 == $this->idAgenceMere ) {
+            return null;
+        }
+        return $this->agenceMere->nom;
     }
 }
