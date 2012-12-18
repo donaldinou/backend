@@ -21,7 +21,7 @@
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/intl-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "master"
     },
     "scripts": {
         "post-install-cmd": [

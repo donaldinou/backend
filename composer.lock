@@ -1,5 +1,5 @@
 {
-    "hash": "cd86bde9e2683fd65599458bb01f9a76",
+    "hash": "08a6ce9d261647293c0dc1d2595d80ef",
     "packages": [
         {
             "name": "doctrine/common",
@@ -278,12 +278,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "de622286fe59ef8ad4ed00649ed6968794af30fa"
+                "reference": "779386c3fa2193347d2cd890f5687c5ee45f0bbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/de622286fe59ef8ad4ed00649ed6968794af30fa.zip",
-                "reference": "de622286fe59ef8ad4ed00649ed6968794af30fa",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/779386c3fa2193347d2cd890f5687c5ee45f0bbe.zip",
+                "reference": "779386c3fa2193347d2cd890f5687c5ee45f0bbe",
                 "shasum": ""
             },
             "require": {
@@ -304,7 +304,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "2012-11-23 08:33:48",
+            "time": "2012-12-18 11:41:10",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1713,7 +1713,6 @@
     "stability-flags": {
         "sonata-project/admin-bundle": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
-        "sonata-project/intl-bundle": 20,
-        "friendsofsymfony/user-bundle": 20
+        "sonata-project/intl-bundle": 20
     }
 }
