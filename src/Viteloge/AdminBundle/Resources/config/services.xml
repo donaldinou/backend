@@ -5,6 +5,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
 
+  <parameters>
+    <parameter key="viteloge.home_path">/home/acreat</parameter>
+  </parameters>
     <!--
     <parameters>
         <parameter key="viteloge_admin.example.class">Viteloge\AdminBundle\Example</parameter>
@@ -66,6 +69,11 @@
       <!-- events -->
       <service id="viteloge.admin.db_listener" class="Viteloge\AdminBundle\EventListener\DefaultSetter">
         <tag name="doctrine.event_listener" event="prePersist" />
+      </service>
+
+      <!-- other -->
+      <service id="viteloge.admin.report_generator" class="Viteloge\AdminBundle\Service\ReportGeneratorService">
+        <argument>%viteloge.home_path%</argument>
       </service>
 
     </services>

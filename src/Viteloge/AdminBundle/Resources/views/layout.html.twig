@@ -10,6 +10,7 @@
 
 {% block javascripts %}
   {{ parent() }}
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
   {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}

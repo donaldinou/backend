@@ -18,7 +18,7 @@ class TestCommand extends ContainerAwareCommand
             ->setName('viteloge:admin:test')
             ->setDescription('Test en tout genre')
             ->addArgument('IdTraitement', InputArgument::OPTIONAL, 'id traitement') 
-            ->addArgument('arg2', InputArgument::OPTIONAL, 'argument') 
+            ->addArgument('IdAgence', InputArgument::OPTIONAL, 'id_agence') 
         ;
     }
 
@@ -30,11 +30,22 @@ class TestCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get( 'doctrine.orm.entity_manager' );
         $repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Traitement' );
-        $t = $repo->find( $input->getArgument( 'IdTraitement' ) );
-        if ( is_null( $t ) ) {
-            $output->writeln( "Unable to find traitement" );
-        } else {
-            print_r( $t->cycles[0]->fin );
+        $ag_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Agence' );
+        $ann_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Annonce' );
+        if ( $input->getArgument( 'IdTraitement' ) ) {
+            $t = $repo->find( $input->getArgument( 'IdTraitement' ) );
+            if ( is_null( $t ) ) {
+                $output->writeln( "Unable to find traitement" );
+                return;
+            }
+        } else if ( $input->getArgument( 'IdAgence' ) ) {
+            $a = $ag_repo->find ( $input->getArgument( 'IdAgence' ) );
+            if ( is_null( $a ) ) {
+                $output->writeln( "Unable to find agence" );
+                return;
+            }
+            print_r( $ann_repo->getCountByInsee( $a ) );
         }
+        
 	}
 }

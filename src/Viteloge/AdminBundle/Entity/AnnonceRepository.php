@@ -24,18 +24,80 @@ class AnnonceRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getCountExported( $traitement )
+    public function getCountMisc( $agence )
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult( 'nbAnnonces', 'nbAnnonces' );
+        $rsm->addScalarResult( 'lastUpdate', 'lastUpdate' );
+        if ( $agence->idAgenceMere != 0 ) {
+            $query = $this->_em->createNativeQuery(
+                "SELECT COUNT(idAnnonce) AS nbAnnonces, MAX(DateUpdate) as lastUpdate FROM annonce WHERE DateSuppression IS NULL AND idAgence = :idAgence OR ( idAgence = :idAgenceMere and agence = :idAgence )", $rsm )
+                ->setParameter( 'idAgence', $agence->id )
+                ->setParameter( 'idAgenceMere', $agence->idAgenceMere );
+        } else {
+            $query = $this->_em->createNativeQuery(
+                "SELECT COUNT(idAnnonce) as nbAnnonces, MAX(DateUpdate) as lastUpdate FROM annonce WHERE DateSuppression IS NULL AND idAgence IN ( SELECT idAgence FROM agence WHERE idAgenceMere = :idAgence OR idAgence = :idAgence )", $rsm )
+                ->setParameter( 'idAgence', $agence->id );
+        }
+        $x = $query->getScalarResult();
+        return $x[0];
+    }
+    
+    public function getCountExported( $traitement, $agence = null )
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult( 'nbAnnonces', 'nbAnnonces' );
 
-        $query = $this->_em->createNativeQuery(
-            "SELECT COUNT(*) as nbAnnonces from export_annonce_src WHERE idAgence = :idAgence and transaction = :type", $rsm
-                                               ) ->setParameter( 'idAgence', $traitement->agence->id )
-            ->setParameter( 'type', $traitement->TypeTransactionTraitement );
+        if ( $traitement ) {
+            $query = $this->_em->createNativeQuery(
+                "SELECT COUNT(*) as nbAnnonces FROM export_annonce_src WHERE idAgence = :idAgence and transaction = :type", $rsm
+                                                   )
+                ->setParameter( 'idAgence', $traitement->agence->id )
+                ->setParameter( 'type', $traitement->TypeTransactionTraitement );
+        } else if ( $agence ) {
+            $query = $this->_em->createNativeQuery(
+                "SELECT COUNT(*) as nbAnnonces FROM export_annonce_src WHERE idAgence IN ( SELECT idAgence FROM agence WHERE idAgenceMere = :idAgence OR idAgence = :idAgence )", $rsm
+                                                   )
+                ->setParameter( 'idAgence', $agence->id );
+        }
         $x = $query->getScalarResult();
         return $x[0]['nbAnnonces'];
     }
+
+    public function getCountByInsee( $agence )
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult( 'fullName', 'fullName' );
+        $rsm->addScalarResult( 'nbAnnonces', 'nbAnnonces' );
+
+        if ( $agence->idAgenceMere != 0 ) {
+            $req_agence = "idAgence = :idAgence OR ( idAgence = :idAgenceMere and agence = :specifAgence";
+        } else {
+            $req_agence = "idAgence IN ( SELECT idAgence FROM agence WHERE idAgenceMere = :idAgence OR idAgence = :idAgence )";
+        }
+
+        $req  = <<<EOREQ
+SELECT COUNT(*) as nbAnnonces,
+       TRIM(CONCAT(article,' ',nom, ' (', codeDepartement,')')) as fullName
+FROM annonce
+LEFT JOIN insee_communes ON insee_communes.codeInsee = annonce.codeInsee            
+WHERE $req_agence
+GROUP BY annonce.codeInsee            
+ORDER BY nbAnnonces DESC
+LIMIT 30
+EOREQ;
+        
+        $query = $this->_em->createNativeQuery( $req, $rsm )
+            ->setParameter( 'idAgence', $agence->id );
+        if ( $agence->idAgenceMere != 0 ) {
+            $query->setParameter( 'idAgenceMere', $agence->idAgenceMere )
+                ->setParameter( 'specifAgence', $agence->specif );
+        }
+        
+        return $query->getScalarResult();
+    }
+    
+    
 
     public function resetFlag( $traitement )
     {

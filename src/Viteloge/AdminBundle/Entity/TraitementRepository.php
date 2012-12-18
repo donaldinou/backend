@@ -35,16 +35,19 @@ class TraitementRepository extends EntityRepository
         return $nb;        
     }
 
-    public function getCycles( $traitement )
+    public function getCycles( $traitement, $full = false )
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select( 'cycle' )
             ->from( 'Viteloge\AdminBundle\Entity\Cycle', 'cycle' )
             ->where( 'cycle.traitement = :traitement' )
-            ->andWhere( 'cycle.fin > :date' )
             ->addOrderBy( 'cycle.fin', 'ASC' )
-            ->setParameter( 'traitement', $traitement )
-            ->setParameter( 'date', new \DateTime( '6 months ago' ) );
+            ->setParameter( 'traitement', $traitement );
+        if ( ! $full ) {
+            $qb->andWhere( 'cycle.fin > :date' )
+                ->setParameter( 'date', new \DateTime( '6 months ago' ) );
+        }
+        
         return $qb->getQuery()->getResult();
     }
 

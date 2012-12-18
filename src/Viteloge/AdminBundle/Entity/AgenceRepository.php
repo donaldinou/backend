@@ -3,6 +3,7 @@
 namespace Viteloge\AdminBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * AgenceRepository
@@ -12,4 +13,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class AgenceRepository extends EntityRepository
 {
+    public function getVisits( $agence ) 
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult( 'nbVisits', 'nbVisits' );
+
+        $query = $this->_em->createNativeQuery(
+            "SELECT COUNT(*) as nbVisits FROM statistiques WHERE idAgence IN ( SELECT idAgence FROM agence WHERE idAgenceMere = :idAgence OR idAgence = :idAgence ) AND EXTRACT( YEAR_MONTH FROM date ) = EXTRACT( YEAR_MONTH FROM NOW() - INTERVAL 1 MONTH )", $rsm
+                                                   )
+                ->setParameter( 'idAgence', $agence->id );
+        $x = $query->getScalarResult();
+        return $x[0]['nbVisits'];
+    }
+    
 }
