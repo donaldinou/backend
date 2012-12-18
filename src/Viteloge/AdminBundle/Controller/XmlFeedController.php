@@ -37,6 +37,7 @@ class XmlFeedController extends Controller
             }, $feed_repo->getCycles( $feed, true ) );
 
         return array(
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
             'xmlfeed' => $feed,
             'cycles' => $cycles
         );
