@@ -97,4 +97,10 @@ class XmlFeed
         }
         return '';
     }
+
+    public function getActif()
+    {
+        return ! $this->inactif;
+    }
+    
 }

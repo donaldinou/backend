@@ -1,0 +1,4 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block sonata_pre_fieldsets %}
+<a href="{{ path('viteloge_admin_xmlfeed_stats',{id:admin.id(object)}) }}">Stats</a>
+{% endblock %}

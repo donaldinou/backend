@@ -1,0 +1,13 @@
+{% extends 'VitelogeAdminBundle::layout.html.twig' %}
+
+{% block title %}
+  Statistiques pour le feed {{ xmlfeed.url }}
+{% endblock %}
+
+{% block sonata_admin_content %}
+
+<p><span>Date de dernier téléchargement:</span> {{ xmlfeed.dateLastDownload }}</p>
+<div id="chart_{{xmlfeed.id}}" class="google_chart" data-cycles="{% spaceless %}{{ cycles|json_encode }}{% endspaceless %}"></div>
+
+
+{% endblock %} 

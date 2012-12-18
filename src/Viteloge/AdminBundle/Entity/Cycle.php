@@ -30,7 +30,7 @@ class Cycle
      * @ORM\ManyToOne(targetEntity="XmlFeed",inversedBy="cycles")
      * @ORM\JoinColumn(name="idXmlFeed",referencedColumnName="idXmlFeed")
      */
-    private $feed;
+    private $xmlfeed;
     
 
     /**

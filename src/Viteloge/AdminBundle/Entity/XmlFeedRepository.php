@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class XmlFeedRepository extends EntityRepository
 {
+    public function getCycles( $xmlfeed, $full = false )
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select( 'cycle' )
+            ->from( 'Viteloge\AdminBundle\Entity\Cycle', 'cycle' )
+            ->where( 'cycle.xmlfeed = :xmlfeed' )
+            ->addOrderBy( 'cycle.fin', 'ASC' )
+            ->setParameter( 'xmlfeed', $xmlfeed );
+        if ( ! $full ) {
+            $qb->andWhere( 'cycle.fin > :date' )
+                ->setParameter( 'date', new \DateTime( '6 months ago' ) );
+        }
+        
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -34,12 +34,26 @@ class XmlFeedAdmin extends VitelogeAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('nomAgence')
-            ->addIdentifier('url')
+            ->addIdentifier( 'nomAgence' )
+            ->addIdentifier( 'url' )
+            ->addIdentifier( 'actif', 'boolean' )
         ;
     }
 
     public function validate(ErrorElement $errorElement, $object)
     {
+    }
+
+    public function getTemplate( $name )
+    {
+        switch ( $name ) 
+        {
+            case 'edit':
+                return 'VitelogeAdminBundle:XmlFeed:edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate( $name );
+        }
+        
     }
 }
