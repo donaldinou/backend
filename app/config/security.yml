@@ -23,9 +23,18 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/, role: ROLE_USER }
 
     role_hierarchy:
+        # viteloge roles
+        ROLE_ADVERTISEMENT: ROLE_USER
+        ROLE_AGENCY: ROLE_USER
+        ROLE_XML: ROLE_USER
+        ROLE_CONTROL: ROLE_USER
+        ROLE_AGENCY_RIGHTS: ROLE_USER
+        ROLE_OPERATOR: [ROLE_AGENCY,ROLE_CONTROL,ROLE_XML]
+        ROLE_COMMERCIAL: [ROLE_AGENCY,ROLE_AGENCY_RIGHTS,ROLE_ADVERTISEMENT]
+        # others
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
