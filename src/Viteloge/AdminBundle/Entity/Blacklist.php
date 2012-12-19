@@ -21,6 +21,16 @@ class Blacklist
      */
     private $id;
 
+    /**
+     * @ORM\Column(name="raison",type="string",length=255)
+     */
+    private $raison;
+
+    /**
+     * @ORM\Column(name="blacklisted_at",type="datetime")
+     */
+    private $when;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Traitement",inversedBy="blacklists")
@@ -38,4 +48,28 @@ class Blacklist
     {
         return $this->id;
     }
+
+        /**
+     * Methode magique __get()
+     */
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+
+    /**
+     * Methode magique __isset()
+     */
+    public function __isset($name)
+    {
+        return property_exists($this, $name);
+    }
+    /**
+     * Methode magique __set()
+     */
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
 }

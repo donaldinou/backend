@@ -8,8 +8,8 @@
       <tr {% if traitement.agence.idPrivilege != 0 %}class="urgent"{% endif %}>
         <td>{{ traitement.agence.nom }}</td>
         <td>{{ traitement.StringTypeTransaction}}</td>
-        {% if traitement.blacklists|length > 0 %}
-        <td>hasblacklist</td>
+        {% if traitement.blacklist is not null %}
+        <td>{{ traitement.blacklist.raison }}</td>
         {% else %}
         <td></td>
         {% endif %}

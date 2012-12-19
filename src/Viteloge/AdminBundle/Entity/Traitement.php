@@ -141,9 +141,9 @@ class Traitement
     private $agence;
 
     /**
-     * @ORM\OneToMany(targetEntity="Blacklist",mappedBy="traitement")
+     * @ORM\OneToOne(targetEntity="Blacklist",mappedBy="traitement", cascade={"remove"} )
      */
-    private $blacklists;
+    private $blacklist;
 
     /**
      * @ORM\OneToMany(targetEntity="Cycle",mappedBy="traitement")
@@ -303,6 +303,5 @@ class Traitement
     {
         return $this->TimestampPause > new \DateTime('0000-00-00');
     }
-    
     
 }

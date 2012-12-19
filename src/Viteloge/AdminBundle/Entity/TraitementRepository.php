@@ -20,6 +20,7 @@ class TraitementRepository extends EntityRepository
             ->from( 'Viteloge\AdminBundle\Entity\Traitement', 'traitement' )
             ->leftJoin( 'traitement.agence', 'agence' )
             ->leftJoin( 'traitement.expression', 'expression' )
+            ->leftJoin( 'traitement.blacklist', 'blacklist' )
             ->where( 'traitement.Exclus = 1' )
             ->addOrderBy( 'agence.idPrivilege', 'DESC' );
         return $qb->getQuery()->getResult();
