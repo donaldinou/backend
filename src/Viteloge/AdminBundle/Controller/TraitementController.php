@@ -25,7 +25,10 @@ class TraitementController extends Controller
     {
         $em =  $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
-        return array( 'traitements' => $repo->getExclus() );
+        return array(
+            'traitements' => $repo->getExclus(),
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
+        );
     }
 
     /**
