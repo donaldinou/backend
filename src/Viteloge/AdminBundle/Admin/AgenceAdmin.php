@@ -45,12 +45,14 @@ class AgenceAdmin extends VitelogeAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('privilegiee', 'boolean' )
             ->addIdentifier('NomAgenceMere')
             ->addIdentifier('nom')
             ->addIdentifier('cp')
             ->addIdentifier('ville')
             ->addIdentifier('departement')
             ->addIdentifier('countTraitements')
+            ->add('hasXml', 'boolean' )
             ->add( 'active', 'boolean' )
         ;
     }

@@ -173,4 +173,16 @@ class Agence
         }
         return $this->agenceMere->nom;
     }
+
+    public function getHasXml()
+    {
+        return count( $this->xml_feeds ) > 0;
+    }
+
+    public function getPrivilegiee()
+    {
+        return $this->idPrivilege != 0;
+    }
+    
+    
 }
