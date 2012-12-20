@@ -79,10 +79,13 @@ class AnnonceRepository extends EntityRepository
         $req  = <<<EOREQ
 SELECT COUNT(*) as nbAnnonces,
        TRIM(CONCAT(article,' ',nom, ' (', codeDepartement,')')) as fullName
-FROM annonce
-LEFT JOIN insee_communes ON insee_communes.codeInsee = annonce.codeInsee            
-WHERE $req_agence
-GROUP BY annonce.codeInsee            
+FROM (
+    SELECT 1 as presence, codeInsee
+    FROM annonce
+    WHERE DateSuppression IS NULL AND $req_agence
+      ) as counts
+LEFT JOIN insee_communes ON insee_communes.codeInsee = counts.codeInsee            
+GROUP BY counts.codeInsee            
 ORDER BY nbAnnonces DESC
 LIMIT 30
 EOREQ;
