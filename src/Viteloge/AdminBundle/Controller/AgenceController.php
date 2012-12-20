@@ -32,6 +32,7 @@ class AgenceController extends Controller
         $agence_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Agence' );
         $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
         $annonce_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Annonce' );
+        $feed_repo = $em->getRepository('Viteloge\AdminBundle\Entity\XmlFeed' );
         $agence = $agence_repo->find( $id );
 
         $cycles = array();
@@ -44,6 +45,18 @@ class AgenceController extends Controller
                         $cycle->nbAnnonceDelete
                     );
                 }, $traitement_repo->getCycles( $traitement, true ) );
+            
+        }
+        $cycles_xml = array();
+        foreach ( $agence->xml_feeds as $xml_feed ) {
+            $cycles_xml[$xml_feed->id] = array_map( function($cycle){
+                    return array(
+                        $cycle->fin->format('Y-m-d'),
+                        $cycle->nbAnnonce,
+                        $cycle->nbAnnonceInsert,
+                        $cycle->nbAnnonceDelete
+                    );
+                }, $feed_repo->getCycles( $xml_feed, true ) );
             
         }
 
@@ -62,6 +75,7 @@ class AgenceController extends Controller
         return array(
             'agence' => $agence,
             'cycles' => $cycles,
+            'cycles_xml' => $cycles_xml,
             'admin_pool' => $this->container->get('sonata.admin.pool'),
             'stats' => array(
                 'exported' => $annonce_repo->getCountExported( null, $agence ),

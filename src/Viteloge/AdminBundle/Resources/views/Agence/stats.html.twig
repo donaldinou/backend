@@ -19,7 +19,7 @@
 {% endif %}
 <p><a href="{{ path( 'viteloge_admin_agence_report', { id: agence.id } ) }}">Dernier rapport</a></p>
 
-{% if agence.traitements|length > 0 %}
+{% if agence.traitements|length > 0 or agence.xml_feeds| length > 0 %}
 <h2>Progression des annonces</h2>
 
 {% for traitement in agence.traitements %}
@@ -27,6 +27,13 @@
 <h3>Traitement {{ traitement.StringTypeTransaction }} (<a href="{{ path('viteloge_admin_traitement_control',{id:traitement.id}) }}">contrôler</a>)</h3>
 
 <div id="chart_{{traitement.id}}" class="google_chart" data-cycles="{% spaceless %}{{ cycles[traitement.id]|json_encode }}{% endspaceless %}"></div>
+
+{% endfor %}
+{% for xml_feed in agence.xml_feeds %}
+
+<h3>Feed {{ xml_feed.id }}</h3>
+
+<div id="chart_{{xml_feed.id}}" class="google_chart" data-cycles="{% spaceless %}{{ cycles_xml[xml_feed.id]|json_encode }}{% endspaceless %}"></div>
 
 {% endfor %}
 {% endif %}
