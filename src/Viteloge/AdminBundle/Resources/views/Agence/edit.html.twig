@@ -1,5 +1,5 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
-{% block sonata_pre_fieldsets %}
+{% block form %}
 <div class="viteloge agence traitements">
 {% if object.traitements|length > 0 %}
 <table class="table sonata-bc table-bordered table-striped sonata-ba-list">
@@ -57,8 +57,26 @@
   </tbody>
 </table>
 {% endif %}
-<a href="{{ path('admin_viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">Créer un nouveau traitement</a>
-<a href="{{ path('admin_viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">Créer des privilèges</a>
-<a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">Statistiques</a>
 </div>
+
+<table width="100%">
+  <tr>
+    <td>
+      <a href="{{ path('admin_viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">Créer un nouveau traitement</a>
+      <a href="{{ path('admin_viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">Créer des privilèges</a>
+      <a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">Statistiques</a>
+    </td>
+    <td>
+      {% if admin.has_logo %}
+      <img src="{{ asset('bundles/vitelogeadmin/images/logos/agence.' ~ admin.id(object) ~ '.gif') }}">
+      {% endif %}
+      {% set upload_form = admin.upload_form %}
+      <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }}>
+        {{ form_widget( upload_form ) }}
+        <input type="submit" />
+      </form>
+    </td>
+  </tr>
+</table>
+{{ parent() }}
 {% endblock %}

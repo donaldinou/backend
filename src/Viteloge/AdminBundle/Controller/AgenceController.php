@@ -5,8 +5,10 @@ namespace Viteloge\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Form\FormBuilder;
 
 /**
  * @Route("/agence")
@@ -115,5 +117,53 @@ class AgenceController extends Controller
         }
         
         return $response;
+    }
+
+    /**
+     * @Route("/{id}/logo")
+     */
+    public function logoAction( Request $request, $id )
+    {
+        $fb = $this->container->get('form.factory')->createNamedBuilder('agence_logo', 'form', null, array() );
+        $form = self::buildLogoForm( $fb );
+        if ( $request->isMethod( 'POST' ) ) {
+            $em =  $this->get('doctrine.orm.entity_manager');
+            $agence_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Agence' );
+            $agence = $agence_repo->find( $id );
+
+            $form->bind( $request );
+            if ( $form->isValid() ) 
+            {
+                $file = $form['logo']->getData();
+
+                $logo_manager = $this->get( 'viteloge.admin.logo_manager' );
+
+                try 
+                {
+                    if ( is_null( $file ) ) {
+                        $this->get('logger')->info( "Removing logo" );
+                        $logo_manager->removeLogo( $agence );
+                    } else if ( $file->isValid() ) {
+                        $this->get('logger')->info( "Handling upload" );
+                        $logo_manager->updateLogo( $agence, $file );
+                    } else {
+                        $this->get('logger')->info( "invalid upload ?" );
+                    }
+                    
+                } catch ( \S3Exception $e ) {
+                    $this->get('logger')->info( $e->getMessage() );
+                    $this->get('session')->setFlash('error', $e->getMessage() );
+                }
+            
+                return $this->redirect( $this->generateUrl( 'admin_viteloge_admin_agence_edit', array( 'id' => $id )  ) );
+            }
+        }
+        return new Response( "hello" );
+    }
+
+    public static function buildLogoForm( FormBuilder $form_builder )
+    {
+        $form_builder->add( 'logo', 'file', array( 'required' => false ) );
+        return $form_builder->getForm();
     }
 }

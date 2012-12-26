@@ -8,8 +8,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 
+use Viteloge\AdminBundle\Controller\AgenceController;
+
 class AgenceAdmin extends VitelogeAdmin
 {
+    public $logo_manager;
+
+    
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -80,6 +85,16 @@ class AgenceAdmin extends VitelogeAdmin
                 return parent::getTemplate( $name );
         }
         
+    }
+
+    public function Upload_Form()
+    {
+        return AgenceController::buildLogoForm( $this->getFormContractor()->getFormBuilder( "agence_logo" ) )->createView();
+    }
+
+    public function has_logo()
+    {
+        return $this->logo_manager->hasLogo( $this->subject );
     }
     
 }

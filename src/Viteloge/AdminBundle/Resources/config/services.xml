@@ -22,6 +22,19 @@
     </services>
     -->
     <services>
+
+      <!-- other -->
+      <service id="viteloge.admin.report_generator" class="Viteloge\AdminBundle\Service\ReportGeneratorService">
+        <argument>%viteloge.home_path%</argument>
+      </service>
+
+      <service id="viteloge.admin.logo_manager" class="Viteloge\AdminBundle\Service\LogoManagerService">
+        <argument>%amazon.access_key%</argument>
+        <argument>%amazon.secret_key%</argument>
+        <argument>%amazon.bucket%</argument>
+        <argument>%amazon.endpoint%</argument>
+      </service>
+
       <!-- pure admin stuff -->
       <service id="viteloge.admin.agence" class="Viteloge\AdminBundle\Admin\AgenceAdmin">
         <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Agences"/>
@@ -31,6 +44,7 @@
         <call method="setTranslationDomain">
           <argument>Viteloge</argument>
         </call>
+        <property name="logo_manager" type="service" id="viteloge.admin.logo_manager" />
       </service>
       <service id="viteloge.admin.traitement" class="Viteloge\AdminBundle\Admin\TraitementAdmin">
         <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Traitements"/>
@@ -69,11 +83,6 @@
       <!-- events -->
       <service id="viteloge.admin.db_listener" class="Viteloge\AdminBundle\EventListener\DefaultSetter">
         <tag name="doctrine.event_listener" event="prePersist" />
-      </service>
-
-      <!-- other -->
-      <service id="viteloge.admin.report_generator" class="Viteloge\AdminBundle\Service\ReportGeneratorService">
-        <argument>%viteloge.home_path%</argument>
       </service>
 
     </services>
