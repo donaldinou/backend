@@ -22,12 +22,8 @@ class LogoManagerService
 
     public function hasLogo( Agence $agence )
     {
-        $host = $this->bucket;
-        if ( preg_match( '/test/', $host ) ) {
-            $host = $host . ".s3.amazonaws.com";
-        }
         $curl = curl_init();
-        curl_setopt( $curl, CURLOPT_URL,  'http://' . $host . '/' . self::formatRemoteFile( $agence ) );
+        curl_setopt( $curl, CURLOPT_URL, $this->logoPath( $agence ) );
         curl_setopt( $curl, CURLOPT_HEADER, true);
         curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
         curl_exec( $curl );
@@ -36,6 +32,16 @@ class LogoManagerService
         return 200 == $return_code;
     }
 
+    public function logoPath( Agence $agence )
+    {
+        $host = $this->bucket;
+        if ( preg_match( '/test/', $host ) ) {
+            $host = $host . ".s3.amazonaws.com";
+        }
+        return 'http://' . $host . '/' . self::formatRemoteFile( $agence );
+    }
+    
+    
     public function removeLogo( Agence $agence )
     {
         $this->s3->deleteObject( $this->bucket, self::formatRemoteFile( $agence ) );
