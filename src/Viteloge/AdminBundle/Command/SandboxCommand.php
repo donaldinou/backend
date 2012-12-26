@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Viteloge\AdminBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
