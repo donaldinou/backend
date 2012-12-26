@@ -10,5 +10,10 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: fr
-    secret: 6f7881065a19625a410e6b293b2571d55a
+    secret: abc
     database_path: null
+
+    amazon.access_key: "def"
+    amazon.secret_key: "ghi"
+    amazon.bucket: "somebucket.viteloge.com"
+    amazon.endpoint: "s3-eu-west-1.amazonaws.com"
