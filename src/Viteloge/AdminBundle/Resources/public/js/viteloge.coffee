@@ -42,3 +42,9 @@ $ ->
                 drawGoogleCharts()
         }
         google.load 'visualization', '1', params
+
+    input_resize_agence = $('input#agence_logo_resize')
+    if input_resize_agence.length > 0
+        input_resize_agence.change =>
+            $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )
+        $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )

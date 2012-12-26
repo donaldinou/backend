@@ -47,9 +47,23 @@ class LogoManagerService
         $this->s3->deleteObject( $this->bucket, self::formatRemoteFile( $agence ) );
     }
     
-    public function updateLogo( Agence $agence, $file )
+    public function updateLogo( Agence $agence, $file, $resize )
     {
-        return $this->s3->putObjectFile( $file->getPathname(),
+        $path = $file->getPathname();
+        if ( false !== $resize ) {
+            $image = new \Imagick();
+            $image->readImage( $path );
+            $imageprops = $image->getImageGeometry();
+
+            $image->resizeImage( $resize['width'], $resize['height'], \imagick::FILTER_BOX, 0 );
+            $image->setImageFormat( "gif" );
+            
+            $image->writeImage( $path );
+            $image->clear();
+            $image->destroy();
+
+        }
+        return $this->s3->putObjectFile( $path,
                                          $this->bucket,
                                          self::formatRemoteFile( $agence ),
                                          \S3::ACL_PUBLIC_READ );

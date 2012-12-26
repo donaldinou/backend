@@ -1,4 +1,12 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block javascripts %}
+  {{ parent() }}
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+  {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
 {% block form %}
 <div class="viteloge agence traitements">
 {% if object.traitements|length > 0 %}
@@ -72,8 +80,13 @@
       {% endif %}
       {% set upload_form = admin.upload_form %}
       <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }}>
-        {{ form_widget( upload_form ) }}
-        <input type="submit" />
+        {% if not admin.has_logo %}
+          {{ form_widget( upload_form ) }}
+          <input class="btn" type="submit" value="Uploader"/>
+        {% else %}
+        {{ form_widget(upload_form._token) }}
+        <input class="btn btn-danger" type="submit" value="Supprimer"/>
+        {% endif %}
       </form>
     </td>
   </tr>

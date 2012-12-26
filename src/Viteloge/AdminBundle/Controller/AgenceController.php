@@ -132,8 +132,7 @@ class AgenceController extends Controller
             $agence = $agence_repo->find( $id );
 
             $form->bind( $request );
-            if ( $form->isValid() ) 
-            {
+            if ( $form->isValid() ) {
                 $file = $form['logo']->getData();
 
                 $logo_manager = $this->get( 'viteloge.admin.logo_manager' );
@@ -145,7 +144,17 @@ class AgenceController extends Controller
                         $logo_manager->removeLogo( $agence );
                     } else if ( $file->isValid() ) {
                         $this->get('logger')->info( "Handling upload" );
-                        $logo_manager->updateLogo( $agence, $file );
+                        if ( 1 == $form['resize']->getData() ) {
+                            $resize = array(
+                                'width' => $form['width']->getData(),
+                                'height' => $form['height']->getData()
+                            );
+                        } else {
+                            $resize = false;
+                        }
+                        print_r( $resize );
+                        print_r( $form->getData() );
+                        $logo_manager->updateLogo( $agence, $file, $resize );
                     } else {
                         $this->get('logger')->info( "invalid upload ?" );
                     }
@@ -163,7 +172,12 @@ class AgenceController extends Controller
 
     public static function buildLogoForm( FormBuilder $form_builder )
     {
+        $form_builder->setData( array( 'resize' => false, 'width' => 50, 'height' => 50 ) );
         $form_builder->add( 'logo', 'file', array( 'required' => false ) );
+        $form_builder->add( 'resize', 'checkbox', array( 'required' => false ) );
+        $form_builder->add( 'width', 'text',  array( 'required' => false ) );
+        $form_builder->add( 'height', 'text', array( 'required' => false ) );
+        
         return $form_builder->getForm();
     }
 }
