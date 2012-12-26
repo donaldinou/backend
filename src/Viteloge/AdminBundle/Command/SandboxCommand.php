@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TestCommand extends ContainerAwareCommand
+class SandboxCommand extends ContainerAwareCommand
 {
 	/*
 	* configuration
@@ -15,7 +15,7 @@ class TestCommand extends ContainerAwareCommand
 	protected function configure()
     {
         $this
-            ->setName('viteloge:admin:test')
+            ->setName('viteloge:admin:sandbox')
             ->setDescription('Test en tout genre')
             ->addArgument('IdTraitement', InputArgument::OPTIONAL, 'id traitement') 
             ->addArgument('IdAgence', InputArgument::OPTIONAL, 'id_agence') 
