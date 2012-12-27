@@ -13,7 +13,7 @@
         {% else %}
         <td></td>
         {% endif %}
-        <td>
+        <td class="actions">
           <a class="btn" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}">Contrôler</a>
           <a class="btn" href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}">Éditer</a>
           <a class="btn" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}">Tester</a>
