@@ -8,15 +8,7 @@
 
 <h2>Statistiques diverses</h2>
 
-<p><span>Nombre d'annonces (publiées/total):</span> {{ stats.exported|number_format }} / {{ stats.all.nbAnnonces | number_format }}</p>
-<p><span>Dernier accès du moteur:</span> {{ stats.all.lastUpdate }}</p>
-<p><span>Nombre de visites le mois dernier:</span> {{ stats.nbvisits|number_format }}</p>
-{% if not stats.repartition is null %}
-<p><span>Répartition géographique:</span></p>
-<div>
-  <img src='http://chart.apis.google.com/chart?cht=p&chd=t:{{ stats.repartition.data|join(',') }}&chs=600x250&chl={{ stats.repartition.labels|join('|') }}&chco=FFA000'>"
-</div>
-{% endif %}
+<a href="{{ path('viteloge_admin_agence_statsdetail', { id: agence.id } ) }}" data-remote="true">Détail des stats</a>
 <p><a href="{{ path( 'viteloge_admin_agence_report', { id: agence.id } ) }}">Dernier rapport</a></p>
 
 {% if agence.traitements|length > 0 or agence.xml_feeds| length > 0 %}

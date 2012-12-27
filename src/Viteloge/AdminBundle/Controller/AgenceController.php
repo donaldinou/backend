@@ -62,6 +62,28 @@ class AgenceController extends Controller
             
         }
 
+        
+        return array(
+            'agence' => $agence,
+            'cycles' => $cycles,
+            'cycles_xml' => $cycles_xml,
+            'admin_pool' => $this->container->get('sonata.admin.pool'),
+        );
+    }
+
+    /**
+     * @Route("/{id}/stats/detail")
+     * @Template()
+     */
+    public function statsDetailAction( $id )
+    {
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $agence_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Agence' );
+        $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $annonce_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Annonce' );
+        $feed_repo = $em->getRepository('Viteloge\AdminBundle\Entity\XmlFeed' );
+        $agence = $agence_repo->find( $id );
+
         $stats_insee = $annonce_repo->getCountByInsee( $agence );
         if ( count( $stats_insee ) > 0 ) {
             $repartition = array(
@@ -73,12 +95,9 @@ class AgenceController extends Controller
                     }, $stats_insee )
             );
         }
-        
+
         return array(
-            'agence' => $agence,
-            'cycles' => $cycles,
-            'cycles_xml' => $cycles_xml,
-            'admin_pool' => $this->container->get('sonata.admin.pool'),
+            'admin_pool' => $this->container->get('sonata.admin.pool'),            
             'stats' => array(
                 'exported' => $annonce_repo->getCountExported( null, $agence ),
                 'all' => $annonce_repo->getCountMisc( $agence ),
@@ -87,6 +106,8 @@ class AgenceController extends Controller
             )
         );
     }
+    
+    
     /**
      * @Route("/{id}/report")
      */

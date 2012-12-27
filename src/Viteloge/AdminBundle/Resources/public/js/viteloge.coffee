@@ -48,3 +48,10 @@ $ ->
         input_resize_agence.change =>
             $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )
         $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )
+
+    $('a[data-remote]').click (e) =>
+        e.preventDefault()
+        link = $(e.currentTarget)
+        console.log( "remote click" )
+        $.get link.attr( 'href' ), {}, (response) ->
+            link.replaceWith response
