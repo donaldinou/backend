@@ -6,6 +6,7 @@ set :app_path,    "app"
 
 set :shared_files,      ["app/config/parameters.yml"]
 set :use_composer, true
+set  :dump_assetic_assets, true
 
 set :repository,  "file:///home/acreat/src/viteloge/new_admin"
 set :scm,         :git
