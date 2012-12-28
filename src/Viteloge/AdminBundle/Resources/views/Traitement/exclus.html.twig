@@ -5,7 +5,7 @@
   <thead></thead>
   <tbody>
     {% for traitement in traitements %}
-      <tr {% if traitement.agence.idPrivilege != 0 %}class="urgent"{% endif %}>
+      <tr {% if traitement.agence.idPrivilege != 0 %}class="error"{% endif %}>
         <td>{{ traitement.agence.nom }}</td>
         <td>{{ traitement.StringTypeTransaction}}</td>
         {% if traitement.blacklist is not null %}
