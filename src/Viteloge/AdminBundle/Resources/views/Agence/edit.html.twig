@@ -1,4 +1,10 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+{% endstylesheets %}
+{% endblock %}
 {% block javascripts %}
   {{ parent() }}
   <script type='text/javascript' src='http://www.google.com/jsapi'></script>
@@ -30,10 +36,18 @@
             <img src="{{ admin.logo_path }}">
           {% endif %}
           {% set upload_form = admin.upload_form %}
-          <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }}>
+          <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }} class="heading">
             {% if not admin.has_logo %}
-            {{ form_widget( upload_form ) }}
-            <input class="btn" type="submit" value="Uploader"/>
+            <div>{{ form_widget( upload_form.logo ) }}</div>
+            <br />
+            <div class="form-inline resize">
+              {{ form_label( upload_form.resize ) }}
+              {{ form_widget( upload_form.resize ) }}
+              {{ form_widget( upload_form.width ) }} x {{ form_widget( upload_form.height ) }}
+              <input class="btn" type="submit" value="Uploader"/>
+            </div>
+            <br />
+            {{ form_rest(upload_form) }}
             {% else %}
             {{ form_widget(upload_form._token) }}
             <input class="btn btn-danger" type="submit" value="Supprimer"/>

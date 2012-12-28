@@ -44,3 +44,14 @@
         white-space: nowrap;
     }
 }
+
+.sonata-ba-form {
+    .resize {
+        input[type="text"] {
+            width: 30px;
+        }
+    }
+    form.heading {
+        margin-bottom: 0;
+    }
+}
