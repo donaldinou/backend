@@ -17,7 +17,7 @@ class TraitementAdmin extends VitelogeAdmin
     {
         $formMapper
             ->with( 'General' )
-              ->add( 'agence' )
+              ->add( 'agence', 'sonata_type_model_list' )
               ->add( 'BaseUrlTraitement', 'text' )
               ->add( 'ParametresPost', 'text', array('required' =>false ) )
               ->add( 'UrlInitSession', null, array( 'required' => false ) )

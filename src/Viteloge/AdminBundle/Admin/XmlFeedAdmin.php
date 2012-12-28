@@ -15,7 +15,7 @@ class XmlFeedAdmin extends VitelogeAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add( 'agence' )
+            ->add( 'agence', 'sonata_type_model_list' )
             ->add( 'ismap', null, array( 'required' => false ) )
             ->add( 'url' )
             ->add( 'module', 'choice', array( 'required' => false, 'choices' => XmlFeed::$Modules ) )
