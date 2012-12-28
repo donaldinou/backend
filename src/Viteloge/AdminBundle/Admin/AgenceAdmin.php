@@ -53,7 +53,7 @@ class AgenceAdmin extends VitelogeAdmin
                               return true;
                           }
                           
-                          $queryBuilder->andWhere('o.idPrivilege != 0');
+                          $queryBuilder->andWhere( $alias . '.idPrivilege != 0');
                           return true;
                       },
                       'field_type' => 'checkbox'
