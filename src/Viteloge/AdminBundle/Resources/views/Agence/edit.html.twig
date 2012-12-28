@@ -8,88 +8,40 @@
 {% endblock %}
 
 {% block form %}
-<div class="viteloge agence traitements">
-{% if object.traitements|length > 0 %}
-<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
-  <thead>
-    <tr>
-      <th>Transaction</th>
-      <th>URL</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-{% for traitement in object.traitements %}
-  {% if traitement.UrlTraitement|length > 50 %}
-    {% set tr_url = traitement.UrlTraitement|slice(0,50) ~ '...' %}
-  {% else %}
-    {% set tr_url = traitement.UrlTraitement %}
+  {% if not object.id is null %}
+    <div class="viteloge agence traitements">
+    {% if object.traitements|length > 0 %}
+      {% include 'VitelogeAdminBundle:Agence:edit_list_traitements.html.twig' %}
+    {% endif %}
+    {% if object.xml_feeds|length > 0 %}
+      {% include 'VitelogeAdminBundle:Agence:edit_list_xmlfeeds.html.twig' %}
+    {% endif %}
+    </div>
+
+    <table width="100%">
+      <tr>
+        <td>
+          <a href="{{ path('admin_viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">Créer un nouveau traitement</a>
+          <a href="{{ path('admin_viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">Créer des privilèges</a>
+          <a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">Statistiques</a>
+        </td>
+        <td>
+          {% if admin.has_logo %}
+            <img src="{{ admin.logo_path }}">
+          {% endif %}
+          {% set upload_form = admin.upload_form %}
+          <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }}>
+            {% if not admin.has_logo %}
+            {{ form_widget( upload_form ) }}
+            <input class="btn" type="submit" value="Uploader"/>
+            {% else %}
+            {{ form_widget(upload_form._token) }}
+            <input class="btn btn-danger" type="submit" value="Supprimer"/>
+            {% endif %}
+          </form>
+        </td>
+      </tr>
+    </table>
   {% endif %}
-    <tr>
-      <td>{{ traitement.StringTypeTransaction }}</td>
-      <td>{{ tr_url }}</td>
-      <td>
-        <a href="{{  path('viteloge_admin_traitement_control', { id: admin.id(traitement) } ) }}" class="btn">Contrôler</a>
-        <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}" class="btn">Tester</a>
-        <a href="{{  path('admin_viteloge_admin_traitement_edit', { id: admin.id(traitement) } ) }}" class="btn">Éditer</a>
-      </td>
-
-    </tr>
-{% endfor %}
-  </tbody>
-</table>
-{% endif %}
-{% if object.xml_feeds|length > 0 %}
-<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
-  <thead>
-    <tr>
-      <th>URL</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-{% for xml_feed in object.xml_feeds %}
-  {#% if traitement.UrlTraitement|length > 50 %}
-    {% set tr_url = traitement.UrlTraitement|slice(0,50) ~ '...' %}
-  {% else %}
-    {% set tr_url = traitement.UrlTraitement %}
-  {% endif %#}
-    <tr>
-      <td>{{ xml_feed.url }}</td>
-      <td>
-        <a href="{{ path( 'admin_viteloge_admin_xmlfeed_edit', {id: xml_feed.id } ) }}" class="btn">Éditer</a>
-      </td>
-
-    </tr>
-{% endfor %}
-  </tbody>
-</table>
-{% endif %}
-</div>
-
-<table width="100%">
-  <tr>
-    <td>
-      <a href="{{ path('admin_viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">Créer un nouveau traitement</a>
-      <a href="{{ path('admin_viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">Créer des privilèges</a>
-      <a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">Statistiques</a>
-    </td>
-    <td>
-      {% if admin.has_logo %}
-      <img src="{{ admin.logo_path }}">
-      {% endif %}
-      {% set upload_form = admin.upload_form %}
-      <form action="{{ path( 'viteloge_admin_agence_logo', {id:admin.id(object)} ) }}" method="POST" {{ form_enctype(upload_form) }}>
-        {% if not admin.has_logo %}
-          {{ form_widget( upload_form ) }}
-          <input class="btn" type="submit" value="Uploader"/>
-        {% else %}
-        {{ form_widget(upload_form._token) }}
-        <input class="btn btn-danger" type="submit" value="Supprimer"/>
-        {% endif %}
-      </form>
-    </td>
-  </tr>
-</table>
-{{ parent() }}
+  {{ parent() }}
 {% endblock %}
