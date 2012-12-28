@@ -1,7 +1,7 @@
 {% extends 'VitelogeAdminBundle::layout.html.twig' %}
 
 {% block sonata_admin_content %}
-<table class="table table-bordered table-striped controles">
+<table class="table table-bordered table-striped table-condensed controles">
   <thead></thead>
   <tbody>
     {% for traitement in traitements %}
@@ -14,11 +14,11 @@
         <td></td>
         {% endif %}
         <td class="actions">
-          <a class="btn" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}">Contrôler</a>
-          <a class="btn" href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}">Éditer</a>
-          <a class="btn" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}">Tester</a>
+          <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}"   ><i class="icon-fire"></i> Contrôler</a>
+          <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}"      ><i class="icon-play"></i> Tester</a>
+          <a class="btn btn-mini" href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}"><i class="icon-pencil"></i> Éditer</a>
         </td>
-        <td><a href="{{ traitement.agence.url }}">site</a></td>
+        <td><a href="{{ traitement.agence.url }}" title="site"><i class="icon-globe"></a></td>
       </tr>
     {% endfor %}
   </tbody>
