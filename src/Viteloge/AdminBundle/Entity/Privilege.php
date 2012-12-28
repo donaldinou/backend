@@ -108,6 +108,17 @@ class Privilege
             return '';
         }
     }
+
+    public function getOffre()
+    {
+        $offre = self::$PRIVILEGE_CODES[$this->code];
+        return preg_replace( '/"([^"]*)"/', '<strong>${1}</strong>', $offre );
+    }
+    
+    public function getNombreDAnnonces()
+    {
+        return "pouet";
+    }
     
 
 }

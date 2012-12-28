@@ -19,14 +19,14 @@ class PrivilegeAdmin extends VitelogeAdmin
         $year_choices = range( $year, $year + 3 );
         
         $formMapper
-            ->add( 'agence' )
-            ->add( 'dateDebut', null, array( 'years' => $year_choices ) )
+            ->add( 'agence', 'sonata_type_model_list' )
+            ->add( 'dateDebut' )
             ->add( 'dateFin', null, array( 'years' => $year_choices ) )
             ->add( 'typeTransaction', 'choice', array( 'expanded' => true, 'choices' => Privilege::$TYPES_TRANSACTION ) )
             ->add( 'minPrix' )
             ->add( 'maxPrix' )
             ->add( 'nbAnnonce' )
-            ->add( 'code', "choice", array( "choices" => Privilege::$PRIVILEGE_CODES ) )
+            ->add( 'code', "choice", array( "choices" => Privilege::$PRIVILEGE_CODES, 'disabled' => ( $this->subject->id != 0 ) ) )
             ->add( 'specifAgence' )
         ;
     }
@@ -35,6 +35,19 @@ class PrivilegeAdmin extends VitelogeAdmin
     {
         $datagridMapper
             ->add('agence.nom')
+            ->add('include_obsolete','doctrine_orm_callback', array(
+                      'callback' => function($queryBuilder, $alias, $field, $value) {
+                          if (!$value) {
+                              return;
+                          }
+                          if ( $value["value"] ) {
+                              return true;
+                          }
+                          $queryBuilder->andWhere( '( ' . $alias . '.dateFin IS NULL OR ' . $alias . '.dateFin >= CURRENT_DATE() )');
+                          return true;
+                      },
+                      'field_type' => 'checkbox'
+            )) 
         ;
     }
 
@@ -42,7 +55,7 @@ class PrivilegeAdmin extends VitelogeAdmin
     {
         $listMapper
             ->addIdentifier( 'nomAgence')
-            ->add( 'offre', 'string' )
+            ->add( 'offre', 'html' )
             ->add( "Nombre d'annonces", 'string' )
             ->addIdentifier( 'dateDebut' )
             ->addIdentifier( 'dateFin' )
