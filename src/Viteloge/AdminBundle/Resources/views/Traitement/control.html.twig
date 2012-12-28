@@ -18,8 +18,8 @@
 {% endif %}
 </div>
 <div class="viteloge-actions">
-  <a href="{{ path( 'admin_viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn">Éditer</a>
-  <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn">Tester</a>
+  <a href="{{ path( 'admin_viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
+  <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> Tester</a>
 </div>
 
 <div class="control">
@@ -37,7 +37,7 @@
   {% if lastDownload is not null %}
     <h2>Dernier téléchargement</h2>
     {% if lastDownload.resultSize > 0 %}
-      <a href="{{ path('viteloge_admin_traitement_lastcontent', {id: traitement.idTraitement }) }}">Afficher la dernière source téléchargée</a>
+      <a href="{{ path('viteloge_admin_traitement_lastcontent', {id: traitement.idTraitement }) }}" target="_blank">Afficher la dernière source téléchargée</a>
     {% endif %}
     <p>({{ lastDownload.resultSize / 1024 | number_format( 2 ) }} ko le {{ lastDownload.downloadedAt }})</p>
   {% endif %}
@@ -91,7 +91,7 @@
           {% endif %}
         </optgroup>
       </select>
-      <input class="btn" type="submit" value="Exécuter">
+      <input class="btn btn-danger" type="submit" value="Exécuter">
     </form>
   </div>
 

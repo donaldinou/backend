@@ -183,6 +183,12 @@ class Agence
     {
         return $this->idPrivilege != 0;
     }
+
+    public function getAncienne()
+    {
+        return preg_match( '/^\(ancien client\)/i', $this->nom );
+    }
+    
     
     
 }
