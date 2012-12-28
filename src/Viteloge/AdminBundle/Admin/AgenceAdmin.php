@@ -50,7 +50,7 @@ class AgenceAdmin extends VitelogeAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('privilegiee', 'boolean' )
+            ->add('privilegiee', null, array( 'editable' => true, 'template' => 'VitelogeAdminBundle:Agence:privilegiee.html.twig', 'label' => ' ' ) )
             ->addIdentifier('NomAgenceMere')
             ->addIdentifier('nom')
             ->addIdentifier('cp')
