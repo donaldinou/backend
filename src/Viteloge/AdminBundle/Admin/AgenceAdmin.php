@@ -44,6 +44,20 @@ class AgenceAdmin extends VitelogeAdmin
             ->add('nom')
             ->add('ville')
             ->add('agenceMere.nom')
+            ->add('with_privileges','doctrine_orm_callback', array(
+                      'callback' => function($queryBuilder, $alias, $field, $value) {
+                          if (!$value) {
+                              return;
+                          }
+                          if ( ! $value["value"] ) {
+                              return true;
+                          }
+                          
+                          $queryBuilder->andWhere('o.idPrivilege != 0');
+                          return true;
+                      },
+                      'field_type' => 'checkbox'
+            )) 
         ;
     }
 
