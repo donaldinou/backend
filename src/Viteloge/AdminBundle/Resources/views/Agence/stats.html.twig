@@ -8,7 +8,7 @@
 
 <h2>Statistiques diverses</h2>
 
-<a href="{{ path('viteloge_admin_agence_statsdetail', { id: agence.id } ) }}" data-remote="true">Détail des stats</a>
+<p><a class="btn" href="{{ path('viteloge_admin_agence_statsdetail', { id: agence.id } ) }}" data-remote="true">Détail des stats</a></p>
 <p><a href="{{ path( 'viteloge_admin_agence_report', { id: agence.id } ) }}">Dernier rapport</a></p>
 
 {% if agence.traitements|length > 0 or agence.xml_feeds| length > 0 %}

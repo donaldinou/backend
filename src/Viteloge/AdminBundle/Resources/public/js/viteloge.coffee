@@ -49,10 +49,13 @@ $ ->
             $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )
         $('input#agence_logo_width,input#agence_logo_height').prop( 'disabled', ! input_resize_agence.prop( "checked" ) )
 
-    $('a[data-remote]').click (e) =>
+    $('a[data-remote]').one 'click', (e) =>
         e.preventDefault()
         link = $(e.currentTarget)
+        link.click (en) =>
+            en.preventDefault()
         if viteloge_ajax_loader?
-            link.append $("<img>").attr( "src", viteloge_ajax_loader )
+            link.parent().append $("<img>").attr( "src", viteloge_ajax_loader )
+        link.addClass "disabled"
         $.get link.attr( 'href' ), {}, (response) ->
-            link.replaceWith response
+            link.parent().replaceWith response
