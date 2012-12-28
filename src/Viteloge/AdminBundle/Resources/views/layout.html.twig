@@ -14,4 +14,7 @@
   {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
+  <script type='text/javascript'>
+    var viteloge_ajax_loader = "{{ asset('bundles/vitelogeadmin/images/ajax-loader.gif') }}";
+  </script>
 {% endblock %}

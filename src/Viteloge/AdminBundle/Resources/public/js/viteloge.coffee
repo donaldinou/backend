@@ -52,6 +52,7 @@ $ ->
     $('a[data-remote]').click (e) =>
         e.preventDefault()
         link = $(e.currentTarget)
-        console.log( "remote click" )
+        if viteloge_ajax_loader?
+            link.append $("<img>").attr( "src", viteloge_ajax_loader )
         $.get link.attr( 'href' ), {}, (response) ->
             link.replaceWith response
