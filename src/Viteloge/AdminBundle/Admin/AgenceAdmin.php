@@ -115,5 +115,5 @@ class AgenceAdmin extends VitelogeAdmin
     {
         return $this->logo_manager->logoPath( $this->subject );
     }
-    
+
 }
