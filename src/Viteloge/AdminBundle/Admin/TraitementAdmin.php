@@ -38,7 +38,7 @@ class TraitementAdmin extends VitelogeAdmin
             ->with( 'Liens vers fiche / Page de résultats' )
               ->add( 'ExpLiensFiche', 'text', array( 'required' => false ) )
             ->add( 'ModelUrlFicheTraitement', null, array( 'required' => false ) )
-            ->add( 'ModelUrlResultatTraitement', null, array( 'required' => false ) )
+            ->add( 'ModelUrlResultatTraitement', null, array( 'required' => false, 'help' => "Si pas de page suivante" ) )
               ->add( 'SplitResultAnnonce', 'text', array( 'required' => false ) )
               ->add( 'ExpUrlElements', 'text', array( 'required' => false ) )
             ->add( 'ModelUrlFicheFinal', null, array( 'required' => false ) )
