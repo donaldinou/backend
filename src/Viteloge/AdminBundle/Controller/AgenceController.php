@@ -88,7 +88,7 @@ class AgenceController extends Controller
         if ( count( $stats_insee ) > 0 ) {
             $repartition = array(
                 'labels' => array_map( function($stat) {
-                        return join( ' : ', array( $stat['fullName'], $stat['nbAnnonces'] ) );
+                        return join( ' : ', array( empty( $stat['fullName'] ) ? "(Non localisées)" : $stat['fullName'], $stat['nbAnnonces'] ) );
                     }, $stats_insee ),
                 'data' => array_map( function($stat){
                         return $stat['nbAnnonces'];
