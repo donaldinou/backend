@@ -9,9 +9,10 @@
         <td>{{ traitement.agence.nom }}</td>
         <td>{{ traitement.StringTypeTransaction}}</td>
         {% if traitement.blacklist is not null %}
+        <td>{{ traitement.blacklist.when|date("d/m/Y") }}</td>
         <td>{{ traitement.blacklist.raison }}</td>
         {% else %}
-        <td></td>
+        <td colspan="2"></td>
         {% endif %}
         <td class="actions">
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}"   ><i class="icon-fire"></i> Contrôler</a>
