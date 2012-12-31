@@ -6,7 +6,7 @@
   <tbody>
     {% for traitement in traitements %}
       <tr {% if traitement.agence.idPrivilege != 0 %}class="error"{% elseif traitement.agence.ancienne %}class="muted"{% endif %}>
-        <td>{{ traitement.agence.nom }}</td>
+        <td><a href="{{ path('admin_viteloge_admin_agence_edit', {id:traitement.agence.id} ) }}">{{ traitement.agence.nom }}</a></td>
         <td>{{ traitement.StringTypeTransaction}}</td>
         {% if traitement.blacklist is not null %}
         <td>{{ traitement.blacklist.when|date("d/m/Y") }}</td>
