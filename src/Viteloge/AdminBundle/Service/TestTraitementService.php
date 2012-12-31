@@ -5,6 +5,8 @@ namespace Viteloge\AdminBundle\Service;
 class TestTraitementService 
 {
     private $traitement;
+
+    public $downloadedSource = null;
     
     public function __construct( $traitement)
     {
@@ -92,6 +94,8 @@ class TestTraitementService
 
     private function callPerlTester( $source, $expression_bag, $expressions_array )
     {
+        $results = array();
+
         $possible_charset = "";
         if ( preg_match("/^((ht|f)tp(s?))\:\/\//", $source ) ) {
             $source = $this->download_file( $source );
@@ -99,7 +103,7 @@ class TestTraitementService
                 $possible_charset = " " . $source[1];
                 $source = $source[0];
             }
-            
+            $this->downloadedSource = $source;
         }
         
         $tmp_file = tempnam( sys_get_temp_dir(), "testregex_src" );
@@ -113,7 +117,6 @@ class TestTraitementService
                                   0 => array( "pipe", "r" ),
                                   1 => array( "pipe", "w" )/*,
                                   2 => array( "file", "/tmp/error.txt", "w")*/ ), $pipes );
-        $results = array();
         if (is_resource($process)) {
             
             $config = json_encode( $expression_bag );

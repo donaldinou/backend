@@ -54,6 +54,11 @@ class TraitementController extends Controller
             $variables['source'] = $source;
 
             $variables['results'] = $tester->run( $type, $source );
+
+            if ( ! is_null( $tester->downloadedSource ) ) {
+                $variables['source'] = $tester->downloadedSource;
+            }
+            
         }
 
         if ( ! array_key_exists( 'type', $variables ) ) {
