@@ -126,6 +126,8 @@ sonata_admin:
       - { position: right, type: viteloge.admin.service.menu_live }
   security:
     handler: sonata.admin.security.handler.role
+  templates:
+    user_block: VitelogeAdminBundle::user_block.html.twig
       
 services:
   twig.extension.debug:
