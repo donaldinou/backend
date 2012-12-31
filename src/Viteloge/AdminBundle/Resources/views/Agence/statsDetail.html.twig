@@ -4,6 +4,6 @@
 {% if not stats.repartition is null %}
 <p><span>Répartition géographique:</span></p>
 <div>
-  <img src='http://chart.apis.google.com/chart?cht=p&chd=t:{{ stats.repartition.data|join(',') }}&chs=600x250&chl={{ stats.repartition.labels|join('|') }}&chco=FFA000'>"
+  <img src='http://chart.apis.google.com/chart?cht=p&chd=t:{{ stats.repartition.data|join(',') }}&chs=600x250&chl={{ stats.repartition.labels|join('|') }}&chco=FFA000'>
 </div>
 {% endif %}
