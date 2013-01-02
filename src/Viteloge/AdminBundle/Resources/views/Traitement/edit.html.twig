@@ -1,7 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 {% block sonata_pre_fieldsets %}
 <div class="viteloge-actions">
-  <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn">Contrôler</a>
-  <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn">Tester</a>
+  <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn btn-small"><i class="icon-fire"></i> Contrôler</a>
+  <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn btn-small"><i class="icon-play"></i> Tester</a>
 </div>
 {% endblock%}
