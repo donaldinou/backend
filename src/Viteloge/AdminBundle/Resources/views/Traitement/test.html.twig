@@ -26,8 +26,10 @@
       </div>
     </div>
     <div class="well form-actions">
-      <input type="submit" value="Tester" name="btn_test" class="btn btn-primary">
-      <a href="{{ path('admin_viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn">Éditer</a>
+      <button type="submit" value="Tester" name="btn_test" class="btn btn-primary">
+        <i class="icon-play"></i> Tester
+      </button>
+      <a href="{{ path('admin_viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn"><i class="icon-pencil"></i> Éditer</a>
     </div>
   </form>
 </div>
