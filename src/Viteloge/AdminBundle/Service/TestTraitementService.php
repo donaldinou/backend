@@ -221,7 +221,7 @@ class TestTraitementService
         
         $url = preg_replace ("/\\\{|~%7B~/", "{" ,$url);
         $url = preg_replace ("/\\\}|~%7D~/", "}" ,$url);
-        $url = html_entity_decode($url);
+        $url = html_entity_decode( $url, ENT_COMPAT, 'UTF-8' );
         
         //$url = preg_replace ("/\s*(\r\n|\r|\n)\s*/", "" ,$url);
         return $url;
