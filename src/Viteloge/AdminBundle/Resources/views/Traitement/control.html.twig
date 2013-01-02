@@ -83,14 +83,14 @@
           <option value="heap_top">Mise en haut de la pile</option>
           <option value="reset_errors">Reset des erreurs</option>
           {% if traitement.Exclus %}
-          <option value="reactivate_safe">Désexclure le site (Annuler la fin traitement si elle n'a pas eu lieu)</option>
-          <option value="reactivate_continue">Remettre en route (Désexclu et remet en route)</option>
-          {% endif %}
-          {% if pile|length > 0 %}
-          <option value="end">Forcer la fin traitement (Forcer une suppression massive)</option>
-          {% endif %}
-          {% if traitement.isPaused %}
-          <option value="unpause">Annuler la pause</option>
+            <option value="reactivate_safe">Désexclure le site (Annuler la fin traitement si elle n'a pas eu lieu)</option>
+            <option value="reactivate_continue">Remettre en route (Désexclu et remet en route)</option>
+            {% if pile|length == 0 %}
+              <option value="end">Forcer la fin traitement (Forcer une suppression massive)</option>
+            {% endif %}
+            {% if traitement.isPaused %}
+              <option value="unpause">Annuler la pause</option>
+            {% endif %}
           {% endif %}
         </optgroup>
       </select>
