@@ -10,6 +10,18 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 use Viteloge\AdminBundle\Entity\XmlFeed;
 
+if ( ! is_callable('Viteloge\AdminBundle\Admin\array_to_array') ){
+    function array_to_array( $src )
+    {
+        $dest = array();
+        foreach ( $src as $k ) {
+            $dest[$k] = $k;
+        }
+        return $dest;
+    }
+}
+
+
 class XmlFeedAdmin extends VitelogeAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
@@ -18,7 +30,7 @@ class XmlFeedAdmin extends VitelogeAdmin
             ->add( 'agence', 'sonata_type_model_list' )
             ->add( 'ismap', null, array( 'required' => false ) )
             ->add( 'url' )
-            ->add( 'module', 'choice', array( 'required' => false, 'choices' => XmlFeed::$Modules ) )
+            ->add( 'module', 'choice', array( 'required' => false, 'choices' => array_to_array( XmlFeed::$Modules ) ) )
             ->add( 'transaction', null, array( 'required' => false ) )
             ->add('inactif', null, array('required' => false))
         ;

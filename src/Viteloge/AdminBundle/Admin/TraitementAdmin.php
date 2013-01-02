@@ -10,6 +10,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 use Viteloge\AdminBundle\Entity\Traitement;
 
+if ( ! is_callable('Viteloge\AdminBundle\Admin\array_to_array') ){
+    function array_to_array( $src )
+    {
+        $dest = array();
+        foreach ( $src as $k ) {
+            $dest[$k] = $k;
+        }
+        return $dest;
+    }
+}
+
 class TraitementAdmin extends VitelogeAdmin
 {    
     
@@ -44,8 +55,8 @@ class TraitementAdmin extends VitelogeAdmin
             ->add( 'ModelUrlFicheFinal', null, array( 'required' => false ) )
             ->end()
             ->with( 'Modules' )
-              ->add( 'ModuleResultatTraitement', 'choice', array( 'choices' => Traitement::$ModulesResultat ) )
-              ->add( 'ModuleFicheTraitement', 'choice', array( 'choices' => Traitement::$ModulesFiche ) )
+              ->add( 'ModuleResultatTraitement', 'choice', array( 'choices' => array_to_array( Traitement::$ModulesResultat ) ) )
+              ->add( 'ModuleFicheTraitement', 'choice', array( 'choices' =>  array_to_array( Traitement::$ModulesFiche ) ) )
             ->end()
             ->with( 'Photo de la fiche' )
               ->add( 'ExpUrlPhoto', 'text', array( 'required' => false ) )

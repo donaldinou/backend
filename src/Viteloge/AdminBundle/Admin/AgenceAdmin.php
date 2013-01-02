@@ -10,6 +10,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 use Viteloge\AdminBundle\Controller\AgenceController;
 
+if ( ! is_callable('Viteloge\AdminBundle\Admin\array_to_array') ){
+    function array_to_array( $src )
+    {
+        $dest = array();
+        foreach ( $src as $k ) {
+            $dest[$k] = $k;
+        }
+        return $dest;
+    }
+}
+
 class AgenceAdmin extends VitelogeAdmin
 {
     public $logo_manager;
@@ -22,7 +33,7 @@ class AgenceAdmin extends VitelogeAdmin
               ->add('nom')
               ->add('url')
               ->add('departement', null, array( 'required' => false ))
-            ->add('civiliteContact', 'choice', array( 'choices' => array( 'Monsieur', 'Mademoiselle', 'Madame', 'Maître' ), 'required' => false ))
+            ->add('civiliteContact', 'choice', array( 'choices' => array_to_array( array( 'Monsieur', 'Mademoiselle', 'Madame', 'Maître' ) ), 'required' => false ))
               ->add('nomContact', null, array( 'required' => false ))
               ->add('mail', null, array( 'required' => false ))
               ->add('inactive', 'choice', array( 'choices' => array( true => 'Désactivée', false => 'Activée' ), 'required' => true ))
