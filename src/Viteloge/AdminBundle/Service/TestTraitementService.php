@@ -99,11 +99,12 @@ class TestTraitementService
         $possible_charset = "";
         if ( preg_match("/^((ht|f)tp(s?))\:\/\//", $source ) ) {
             $source = $this->download_file( $source );
+            $this->downloadedSource = $source;
             if ( is_array( $source ) ) {
                 $possible_charset = " " . $source[1];
                 $source = $source[0];
+                $this->downloadedSource = iconv( $possible_charset, 'UTF-8', $source );
             }
-            $this->downloadedSource = $source;
         }
         
         $tmp_file = tempnam( sys_get_temp_dir(), "testregex_src" );
