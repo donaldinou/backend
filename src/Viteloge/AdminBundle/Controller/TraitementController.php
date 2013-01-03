@@ -68,6 +68,22 @@ class TraitementController extends Controller
 
         return $variables;
     }
+    /**
+     * @Route("/{id}/test/clear_cookies")
+     */
+    public function clearCookiesAction( $id )
+    {
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $traitement = $repo->find( $id );
+        $tester = new TestTraitementService( $traitement );
+        if ( $tester->clearCookies() ) {
+            return new Response( "ok" );
+        } else {
+            return new Response( "ko" );
+        }
+    }
+    
     
     /**
      * @Route("/{id}/control")

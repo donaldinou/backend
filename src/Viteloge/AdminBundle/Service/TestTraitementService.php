@@ -13,6 +13,16 @@ class TestTraitementService
         $this->traitement = $traitement;
     }
 
+    public function clearCookies()
+    {
+        $cookies_file = $this->getCookiesFile();
+        if ( file_exists( $cookies_file ) ) {
+            return @unlink( $cookies_file );
+        }
+        return false;
+    }
+    
+    
     public function run( $type, $source )
     {
         $results = array();
@@ -307,6 +317,10 @@ class TestTraitementService
         curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+        $cookie_file = $this->getCookiesFile();
+        curl_setopt( $ch, CURLOPT_COOKIEJAR, $cookie_file );
+        curl_setopt( $ch, CURLOPT_COOKIEFILE, $cookie_file );
         
         if( $post_vars ) {
             curl_setopt( $ch, CURLOPT_POST, 1 );
@@ -323,6 +337,10 @@ class TestTraitementService
             return array( $data, $matches[1] );
         return $data;
     }
+    private function getCookiesFile(){
+        return sys_get_temp_dir() . "/cookies_" . $this->traitement->id;
+    }
+    
     private function clean_url($url) {
         $args = func_get_args();
         unset($args[0]);

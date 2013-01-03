@@ -17,6 +17,7 @@
           <option value="F" {% if type == 'F' %}selected{% endif %}>Fiche Annonce</option>
           <option value="R" {% if type == 'R' %}selected{% endif %}>Liste de résultats</option>
         </select>
+        <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">Supprimer les cookies</a></span>
       </div>
     </div>
     <div class="control-group">
