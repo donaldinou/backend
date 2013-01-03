@@ -22,7 +22,6 @@ class TestTraitementService
             
         if ( empty( $source ) ) {
             $source = $this->full_url;
-            print_r( $source );
         }
             
 
