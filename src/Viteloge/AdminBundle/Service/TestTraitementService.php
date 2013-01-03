@@ -18,7 +18,11 @@ class TestTraitementService
         $results = array();
 
         $results['urls'] = $this->get_url_list( $this->traitement->UrlTraitement );
-        $this->setUrls( $results['urls'][0] );
+        if ( preg_match("/^((ht|f)tp(s?))\:\/\//", $source ) ) {
+            $this->setUrls( $source );
+        } else {
+            $this->setUrls( $results['urls'][0] );
+        }
             
         if ( empty( $source ) ) {
             $source = $this->full_url;
