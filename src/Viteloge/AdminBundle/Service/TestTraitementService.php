@@ -18,12 +18,11 @@ class TestTraitementService
         $results = array();
 
         $results['urls'] = $this->get_url_list( $this->traitement->UrlTraitement );
-        preg_match ( "/([^\?#]*)\?{0,1}([^#]*)#{0,1}(.*)/", $results['urls'][0], $match_array);
-        $this->full_url = $results['urls'][0];
-        $base_url = $match_array[1];
+        $this->setUrls( $results['urls'][0] );
             
         if ( empty( $source ) ) {
             $source = $this->full_url;
+            print_r( $source );
         }
             
 
@@ -64,17 +63,17 @@ class TestTraitementService
 
                 $results['expressions']['ExpLiensFiche']['value'] = array_unique( $results['expressions']['ExpLiensFiche']['value'] );
                 foreach ( $results['expressions']['ExpLiensFiche']['value'] as $lien ) {
-                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlFicheTraitement, $lien ), $base_url );
+                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlFicheTraitement, $lien ), $this->base_url );
                 }
             }
             if ( array_key_exists( 'ExpUrlPhoto', $results['expressions'] ) && ! empty( $results['expressions']['ExpUrlPhoto']['value'] ) ) {
-                $results['expressions']['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $results['expressions']['ExpUrlPhoto']['value'] ), $base_url );                
+                $results['expressions']['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $results['expressions']['ExpUrlPhoto']['value'] ), $this->base_url );                
             }
             
             foreach ( $expressions_urls as $expression ) {
                 if ( ! empty( $results['expressions'][$expression]['value'] ) ) {
                     $results['expressions'][$expression]['url'] = true;
-                    $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $base_url );
+                    $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $this->base_url );
                 }
             }
         } else {
@@ -103,7 +102,7 @@ class TestTraitementService
             if ( is_array( $source ) ) {
                 $possible_charset = " " . $source[1];
                 $source = $source[0];
-                $this->downloadedSource = iconv( $possible_charset, 'UTF-8', $source );
+                $this->downloadedSource = @iconv( $possible_charset, 'UTF-8', $source );
             }
         }
         
@@ -198,7 +197,7 @@ class TestTraitementService
     }
 
 
-    private function build_custom_url($url, $item = NULL) 
+    protected function build_custom_url($url, $item = NULL) 
     {
         if(empty($url)) $url = "¤";
         
@@ -212,8 +211,20 @@ class TestTraitementService
         {
             $var = $out[1];
             $FULL_URL = $this->full_url;
+            $BASE_URL = $this->base_url;
+            $BASE_URL_GET 	= $this->base_url_get;
+            $BASE_URL_POST  = $this->base_url_post;
+
+
+            
             $formule = substr($var,1,strlen($var) - 2);
-            eval("\$result = \$this->" . $formule .";"); 
+            if ( $formule[0] != '$' ){
+                $prefix = '$this->';
+            } else {
+                $prefix = '';
+            }
+            $to_be_evaled = "\$result = " . $prefix . $formule .";";
+            eval( $to_be_evaled ); 
             //$cmd = sprintf('perl -e "print %s"', preg_replace('/"/', '\\"', $formule));
             //$result = exec($cmd);
             $url = preg_replace ( "/".preg_quote($var, "/")."/i", $result, $url);
@@ -318,4 +329,12 @@ class TestTraitementService
         return $url;
     }
 
+    public function setUrls( $full_url ) 
+    {
+        $this->full_url = $full_url;
+        preg_match ( "/([^\?#]*)\?{0,1}([^#]*)#{0,1}(.*)/", $full_url, $match_array);
+        $this->base_url = $match_array[1];
+        $this->base_url_get 	= $match_array[2];
+        $this->base_url_post 	= $match_array[3];
+    }
 }
