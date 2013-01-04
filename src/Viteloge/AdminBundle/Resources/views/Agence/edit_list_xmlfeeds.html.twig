@@ -16,7 +16,7 @@
       <td>{{ xml_feed.url }}</td>
       <td>
         {% if is_granted('ROLE_VITELOGE_ADMIN_XML_FEED_CREATE') %}
-        <a href="{{ path( 'admin_viteloge_admin_xmlfeed_edit', {id: xml_feed.id } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
+        <a href="{{ path( 'viteloge_admin_xmlfeed_edit', {id: xml_feed.id } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
         {% endif %}
       </td>
 

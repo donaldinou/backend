@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 use Viteloge\AdminBundle\Entity\XmlFeed;
 
@@ -66,6 +67,11 @@ class XmlFeedAdmin extends VitelogeAdmin
             default:
                 return parent::getTemplate( $name );
         }
-        
     }
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $id_param = $this->getRouterIdParameter();
+        $collection->add( 'stats', $id_param . "/stats" );
+    }
+        
 }

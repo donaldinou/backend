@@ -2,7 +2,7 @@
 
 namespace Viteloge\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,15 +15,6 @@ use Symfony\Component\Form\FormBuilder;
  */
 class AgenceController extends Controller
 {
-    /**
-     * @Route("/")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        return array();
-    }
-
     /**
      * @Route("/{id}/stats")
      * @Template()
@@ -185,7 +176,7 @@ class AgenceController extends Controller
                     $this->get('session')->setFlash('error', $e->getMessage() );
                 }
             
-                return $this->redirect( $this->generateUrl( 'admin_viteloge_admin_agence_edit', array( 'id' => $id )  ) );
+                return $this->redirect( $this->generateUrl( 'viteloge_admin_agence_edit', array( 'id' => $id )  ) );
             }
         }
         return new Response( "hello" );

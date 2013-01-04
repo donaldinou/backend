@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 use Viteloge\AdminBundle\Controller\AgenceController;
 
@@ -127,4 +128,13 @@ class AgenceAdmin extends VitelogeAdmin
         return $this->logo_manager->logoPath( $this->subject );
     }
 
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $id_param = $this->getRouterIdParameter();
+        $collection->add('stats',$id_param.'/stats');
+        $collection->add('statsdetail',$id_param.'/stats/detail');
+        $collection->add('report',$id_param.'/report');
+        $collection->add('img','img/{path}');
+        $collection->add('logo', $id_param.'/logo');
+    }
 }

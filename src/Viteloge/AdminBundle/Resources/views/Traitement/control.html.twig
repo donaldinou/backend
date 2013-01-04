@@ -21,7 +21,7 @@
 <p><a href="{{ traitement.agence.url }}">{{ traitement.agence.url }}</a></p>
 {% endif %}
 <div class="viteloge-actions">
-  <a href="{{ path( 'admin_viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
+  <a href="{{ path( 'viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
   <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> Tester</a>
 </div>
 

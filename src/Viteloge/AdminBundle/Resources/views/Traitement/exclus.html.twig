@@ -6,7 +6,7 @@
   <tbody>
     {% for traitement in traitements %}
       <tr {% if traitement.agence.idPrivilege != 0 %}class="error"{% elseif traitement.agence.ancienne %}class="muted"{% endif %}>
-        <td><a href="{{ path('admin_viteloge_admin_agence_edit', {id:traitement.agence.id} ) }}">{{ traitement.agence.nom }}</a></td>
+        <td><a href="{{ path('viteloge_admin_agence_edit', {id:traitement.agence.id} ) }}">{{ traitement.agence.nom }}</a></td>
         <td>{{ traitement.StringTypeTransaction}}</td>
         {% if traitement.blacklist is not null %}
         <td>{{ traitement.blacklist.when|date("d/m/Y") }}</td>
@@ -17,7 +17,7 @@
         <td class="actions">
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}"   ><i class="icon-fire"></i> Contrôler</a>
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}"      ><i class="icon-play"></i> Tester</a>
-          <a class="btn btn-mini" href="{{ path('admin_viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}"><i class="icon-pencil"></i> Éditer</a>
+          <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}"><i class="icon-pencil"></i> Éditer</a>
         </td>
         <td><a href="{{ traitement.agence.url }}" title="site"><i class="icon-globe"></a></td>
       </tr>

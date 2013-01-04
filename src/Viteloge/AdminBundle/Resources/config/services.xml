@@ -38,9 +38,9 @@
       <!-- pure admin stuff -->
       <service id="viteloge.admin.agence" class="Viteloge\AdminBundle\Admin\AgenceAdmin">
         <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Agences"/>
-        <argument />
+        <argument>viteloge.admin.agence</argument>
         <argument>Viteloge\AdminBundle\Entity\Agence</argument>
-        <argument>SonataAdminBundle:CRUD</argument>
+        <argument>VitelogeAdminBundle:Agence</argument>
         <call method="setTranslationDomain">
           <argument>Viteloge</argument>
         </call>
@@ -48,9 +48,9 @@
       </service>
       <service id="viteloge.admin.traitement" class="Viteloge\AdminBundle\Admin\TraitementAdmin">
         <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Traitements"/>
-        <argument />
+        <argument>viteloge.admin.traitement</argument>
         <argument>Viteloge\AdminBundle\Entity\Traitement</argument>
-        <argument>SonataAdminBundle:CRUD</argument>
+        <argument>VitelogeAdminBundle:Traitement</argument>
         <call method="setTranslationDomain">
           <argument>Viteloge</argument>
         </call>
@@ -59,7 +59,7 @@
         <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Feeds XML"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\XmlFeed</argument>
-        <argument>SonataAdminBundle:CRUD</argument>
+        <argument>VitelogeAdminBundle:XmlFeed</argument>
         <call method="setTranslationDomain">
           <argument>Viteloge</argument>
         </call>

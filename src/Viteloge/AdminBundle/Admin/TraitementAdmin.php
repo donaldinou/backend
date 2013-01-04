@@ -7,6 +7,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
+
 
 use Viteloge\AdminBundle\Entity\Traitement;
 
@@ -94,7 +96,11 @@ class TraitementAdmin extends VitelogeAdmin
             ->addIdentifier('agence.nom')
             ->addIdentifier('StringTypeTransaction')
             ->addIdentifier('ShortUrlTraitement')
-            ->addIdentifier('Actif', 'boolean');
+            ->addIdentifier('Actif', 'boolean')
+            ->add('_action','actions',array(
+                      'actions' => array('test' => array('template'=>'VitelogeAdminBundle:Traitement:list_action_test.html.twig')
+                      )
+            ));
         
     }
 
@@ -127,5 +133,20 @@ class TraitementAdmin extends VitelogeAdmin
         }
         return $instance;
     }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $id_param = $this->getRouterIdParameter();
+        
+        $collection->add('exclus');
+        $collection->add('test', $id_param.'/test');
+        $collection->add('clearcookies', $id_param.'/test/clear_cookies');
+        $collection->add('control', $id_param.'/control');
+        $collection->add('heapremove', $id_param.'/heap_remove/{heap_id}');
+        $collection->add('graph', $id_param.'/stats.png');
+        $collection->add('modify', $id_param.'/modify');
+        $collection->add('lastcontent', $id_param.'/lastContent');
+    }
+    
     
 }
