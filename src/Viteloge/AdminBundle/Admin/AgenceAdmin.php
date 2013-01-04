@@ -85,6 +85,10 @@ class AgenceAdmin extends VitelogeAdmin
             ->addIdentifier('countTraitements')
             ->add('hasXml', 'boolean' )
             ->add( 'active', 'boolean' )
+            ->add( '_action', 'actions', array(
+                       'actions' => array( 'stats' => array( 'template' => 'VitelogeAdminBundle:Agence:list_action_stats.html.twig' ) )
+                  )
+            )
         ;
     }
 
