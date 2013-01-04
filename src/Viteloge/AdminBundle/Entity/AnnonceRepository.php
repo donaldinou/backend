@@ -120,6 +120,15 @@ EOREQ;
         );
         return $nb;
     }
+    public function forceDelete( $traitement )
+    {
+        $dbh = $this->_em->getConnection();
+        $nb = $dbh->executeUpdate(
+            "UPDATE annonce SET DateSuppression = NOW() WHERE IdTraitement = ? AND DateSuppression IS NULL",
+            array( $traitement->id )
+        );
+        return $nb;
+    }
     
     
 }

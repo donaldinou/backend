@@ -164,6 +164,25 @@ class TraitementController extends Controller
                 $nb = $annonce_repo->forceUpdate( $traitement );
                 $this->get('session')->setFlash( 'notice', 'Forçage de la mise à jour... (' . $nb . ' annonces)' );
                 break;
+            case 'file_clear':
+                if ( $traitement->agence->idPrivilege != 0 ) {
+                    $this->get('session')->setFlash( 'error', 'Ce traitement appartient à une agence qui a un contrat de mise en valeur en cours !' );
+                } else if ( ( $nb_annonces = $annonce_repo->getCountExported( $traitement ) ) > 1000 ) {
+                    $this->get('session')->setFlash( 'error', 'Ce traitement a plus de 1 000 annonces, vous ne pouvez pas les supprimer par ce biais.' );
+                } else {
+                    if ( $request->get('confirmed') ) {
+                        $nb = $annonce_repo->forceDelete( $traitement );
+                        $this->get('session')->setFlash( 'notice', $nb . ' annonces supprimées' );
+                        
+                    } else {
+                        return $this->render( 'VitelogeAdminBundle:Traitement:confirm_clear_file.html.twig',
+                                              array( 'traitement' => $traitement,
+                                                     'nb_annonces' => $nb_annonces )
+                        );
+                    }
+                    
+                }
+                break;
             case 'reset_errors':
                 $nb = $traitement_repo->resetErrors( $traitement );
                 $this->get('session')->setFlash( 'notice', 'Reset des erreurs pour traitement... (' . $nb . ' erreurs supprimées)' );

@@ -1,0 +1,17 @@
+{% extends 'VitelogeAdminBundle::layout.html.twig' %}
+
+{% block title %}
+  Suppression d'annonces pour {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction }}
+{% endblock %}
+
+{% block sonata_admin_content %}
+
+<p>Nombre d'annonces: <strong>{{ nb_annonces|number_format }}</strong></p>
+
+<form action="{{ path( 'viteloge_admin_traitement_modify', { id: traitement.idTraitement } ) }}" method="POST">
+  <input type="hidden" name="action" value="file_clear">
+  <input type="hidden" name="confirmed" value="1">
+  <input type="submit" value="Je confirme vouloir supprimer les {{ nb_annonces|number_format }} annonces" class="btn btn-danger">
+  <a href="javascript:history.back();" class="btn">En fait, non</a>
+</form>
+{% endblock %}

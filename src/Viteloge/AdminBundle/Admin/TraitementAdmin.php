@@ -96,12 +96,7 @@ class TraitementAdmin extends VitelogeAdmin
             ->addIdentifier('agence.nom')
             ->addIdentifier('StringTypeTransaction')
             ->addIdentifier('ShortUrlTraitement')
-            ->addIdentifier('Actif', 'boolean')
-            ->add('_action','actions',array(
-                      'actions' => array('test' => array('template'=>'VitelogeAdminBundle:Traitement:list_action_test.html.twig')
-                      )
-            ));
-        
+            ->addIdentifier('Actif', 'boolean');
     }
 
     public function validate(ErrorElement $errorElement, $object)
