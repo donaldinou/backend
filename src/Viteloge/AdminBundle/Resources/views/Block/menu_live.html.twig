@@ -16,4 +16,17 @@
   </tbody>
 </table>     
 {% endif %}
+<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
+  <thead>
+    <tr>
+      <th colspan="2">Divers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mot de passe</td>
+      <td><a class="btn btn-small" href="{{ path('fos_user_change_password') }}">Changer</a></td>
+    </tr>
+  </tbody>
+</table>     
 {% endblock %}
