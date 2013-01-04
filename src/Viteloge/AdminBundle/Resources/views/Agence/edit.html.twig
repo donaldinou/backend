@@ -22,6 +22,9 @@
     {% if object.xml_feeds|length > 0 %}
       {% include 'VitelogeAdminBundle:Agence:edit_list_xmlfeeds.html.twig' %}
     {% endif %}
+    {% if object.privileges|length > 0 %}
+      {% include 'VitelogeAdminBundle:Agence:edit_list_privileges.html.twig' %}
+    {% endif %}
     </div>
 
     <table width="100%">
