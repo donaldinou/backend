@@ -87,8 +87,8 @@ form:
   label_exp_liens_fiche: "Expression pour les liens fiches"
   label_model_url_fiche_traitement: "Modèle d'URL pour les fiches"
   label_model_url_resultat_traitement: "Modèle d'URL pour les pages résultat"
-  label_split_result_annonce: "Split résultat annonce"
-  label_exp_url_elements: "Exporession URL éléments"
+  label_split_result_annonce: "Élement de split de la liste"
+  label_exp_url_elements: "Exp pour extraire élement fiche final"
   label_model_url_fiche_final: "Modèle URL fiche finale"
 
   label_module_resultat_traitement: "Module résultat"
@@ -127,3 +127,6 @@ form:
 
 help:
   model_url_resultat_traitement: "Si pas de page suivante. (¤ = n° de la page)"
+  split_result_annonce: "En cas d'annonce en liste"
+  exp_url_elements: "En cas d'impossiblité d'enregistrement d'URL en l'état"
+  limit_publication: "Automatiquement exclus en cas de module \"IncResultatAnnonceInListe.pl\""
