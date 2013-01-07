@@ -284,7 +284,7 @@ class TraitementController extends Controller
      */
     public function lastContentAction( $id )
     {
-        require_once( 'my_http_build_url.php' );
+        require_once( __DIR__ . '/../libs/my_http_build_url.php' );
         
         $em =  $this->get('doctrine.orm.entity_manager');
         $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
