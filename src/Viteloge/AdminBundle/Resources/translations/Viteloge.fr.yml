@@ -1,0 +1,129 @@
+list:
+  label_nom_agence_mere: "Agence mère"
+  label_nom: "Nom"
+  label_cp: "Code postal"
+  label_ville: "Ville"
+  label_departement: "Départements"
+  label_count_traitements: "Nbre traitements"
+  label_has_xml: "XML?"
+  label_active: "Active?"
+  label__action: "Actions"
+
+  # traitements
+  label_agence_nom: "Agence"
+  label_string_type_transaction: "Transaction"
+  label_short_url_traitement: "URL"
+  label_actif: "Actif?"
+
+  label_nom_agence: "Agence"
+  label_url: "URL"
+
+  label_offre: "Offre"
+  label_nombre dannonces: "Nombre d'annonces"
+  label_date_debut: "Date de début"
+  label_date_fin: "Date de fin"
+  label_type_transaction: "Transaction"
+  label_min_prix: "Prix mini"
+  label_max_prix: "Prix maxi"
+
+filter:
+  label_nom: "Nom"
+  label_ville: "Ville"
+  label_agence_mere_nom: "Nom de l'agence mère"
+  label_with_privileges: "Uniquement les agences clientes"
+
+  # traitements
+  label_agence_nom: "Nom de l'agence"
+  label_id: "Identifiant DB"
+
+  label_url: "URL"
+
+  label_include_obsolete: "Inclure les droits passés"
+
+breadcrumb:
+  link_agence_list: "Liste des agences"
+  link_agence_edit: "Édition d'une agence"
+
+  link_traitement_list: "Liste des traitements"
+  link_traitement_edit: "Édition d'un traitement"
+
+  link_xml_feed_list: "Liste des feeds XML"
+  link_xml_feed_edit: "Édition d'un feed XML"
+
+  link_privilege_list: "Liste des privilèges"
+  link_privilege_edit: "Édition d'un privilège"
+
+form:
+  label_nom: "Nom"
+  label_url: "URL"
+  label_departement: "Départements"
+  label_civilite_contact: "Civilité"
+  label_nom_contact: "Nom du contact"
+  label_mail: "Email"
+  label_inactive: "Statut"
+  label_adresse: "Adresse"
+  label_cp: "Code postal"
+  label_ville: "Ville"
+  label_tel: "Téléphone"
+  label_fax: "Fax"
+  label_specif: "N/A"
+
+  label_agence: "Agence"
+  label_base_url_traitement: "URL à traiter"
+  label_parametres_post: "Variables POST"
+  label_url_init_session: "URL de réinitialisation de session"
+  label_type_transaction_traitement: "Type de transaction"
+  label_type_url_traitement: "Type d'URL"
+  label_type_transaction: "Type de transaction"
+  label_type_url_sortie_traitement: "Type de sortie"
+  label_limit_publication: "Limiter la publication?"
+  label_exclus: "Exclus"
+  label_exp_nb_bien: "Nombre de biens"
+  label_exp_nb_page: "Nombre de pages"
+
+  label_exp_page_suivante: "Expression"
+  label_model_url_page_suivante: "Modèle"
+
+  label_exp_liens_fiche: "Expression pour les liens fiches"
+  label_model_url_fiche_traitement: "Modèle d'URL pour les fiches"
+  label_model_url_resultat_traitement: "Modèle d'URL pour les pages résultat"
+  label_split_result_annonce: "Split résultat annonce"
+  label_exp_url_elements: "Exporession URL éléments"
+  label_model_url_fiche_final: "Modèle URL fiche finale"
+
+  label_module_resultat_traitement: "Module résultat"
+  label_module_fiche_traitement: "Module fiche"
+
+  label_exp_url_photo: "Expression"
+  label_model_url_photo: "Modèle"
+  label_filename_no_photo: "Exclusion de photo"
+
+  label_exp_type_logement: "Type de logement"
+  label_exp_nb_chambre: "Nombre de chambres"
+  label_exp_surface: "Surface"
+  label_exp_piece: "Nombre de pièces"
+  label_exp_prix: "Prix"
+  label_exclus_in_prix: "Exclure le caractère du prix"
+  label_exp_ville: "Ville"
+  label_exp_arrondissement: "Arrondissement"
+  label_exp_c_p: "Code postal"
+  label_exp_description: "Description"
+  label_exp_agence: "Agence"
+
+  label_ismap: "Catalogue?"
+  label_module: "Module"
+  label_transaction: "Type de transaction"
+  label_inactif: "Désactivé"
+
+  label_date_debut: "Date de début"
+  label_date_fin: "Date de fin"
+  label_min_prix: "Prix minimal"
+  label_max_prix: "Prix maximal"
+  label_nb_annonce: "Maximum d'annonces"
+  label_code: "Privilège"
+  label_specif_agence: "Agence spécifique"
+
+#  
+
+help:
+  model_url_resultat_traitement: "Si pas de page suivante. (¤ = n° de la page)"

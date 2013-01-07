@@ -56,7 +56,7 @@ class PrivilegeAdmin extends VitelogeAdmin
         $listMapper
             ->addIdentifier( 'nomAgence')
             ->add( 'offre', 'html' )
-            ->add( "Nombre d'annonces", 'string' )
+            ->add( "Nombre dannonces", 'string' )
             ->addIdentifier( 'dateDebut' )
             ->addIdentifier( 'dateFin' )
             ->addIdentifier( 'typeTransaction' )

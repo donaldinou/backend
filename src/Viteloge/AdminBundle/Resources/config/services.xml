@@ -37,7 +37,7 @@
 
       <!-- pure admin stuff -->
       <service id="viteloge.admin.agence" class="Viteloge\AdminBundle\Admin\AgenceAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Agences"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Agences" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
         <argument>viteloge.admin.agence</argument>
         <argument>Viteloge\AdminBundle\Entity\Agence</argument>
         <argument>VitelogeAdminBundle:Agence</argument>
@@ -47,7 +47,7 @@
         <property name="logo_manager" type="service" id="viteloge.admin.logo_manager" />
       </service>
       <service id="viteloge.admin.traitement" class="Viteloge\AdminBundle\Admin\TraitementAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Traitements"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Traitements"  label_translator_strategy="sonata.admin.label.strategy.underscore"/>
         <argument>viteloge.admin.traitement</argument>
         <argument>Viteloge\AdminBundle\Entity\Traitement</argument>
         <argument>VitelogeAdminBundle:Traitement</argument>
@@ -56,7 +56,7 @@
         </call>
       </service>
       <service id="viteloge.admin.xml_feed" class="Viteloge\AdminBundle\Admin\XmlFeedAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Feeds XML"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Feeds XML" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\XmlFeed</argument>
         <argument>VitelogeAdminBundle:XmlFeed</argument>
@@ -65,7 +65,7 @@
         </call>
       </service>
       <service id="viteloge.admin.privilege" class="Viteloge\AdminBundle\Admin\PrivilegeAdmin">
-        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Privilèges"/>
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Privilèges" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
         <argument />
         <argument>Viteloge\AdminBundle\Entity\Privilege</argument>
         <argument>SonataAdminBundle:CRUD</argument>

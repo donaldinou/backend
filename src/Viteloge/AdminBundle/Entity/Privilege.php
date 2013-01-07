@@ -117,7 +117,7 @@ class Privilege
     
     public function getNombreDAnnonces()
     {
-        return "pouet";
+        return $this->nbAnnonce;
     }
     
 

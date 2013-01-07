@@ -1,4 +1,17 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+{% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+  {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
 {% block sonata_pre_fieldsets %}
 <div class="viteloge-actions">
 {% if is_granted('ROLE_OPERATOR') %}
