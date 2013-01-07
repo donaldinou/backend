@@ -53,12 +53,16 @@ class TraitementController extends Controller
             
             $variables['source'] = $source;
 
-            $variables['results'] = $tester->run( $type, $source );
+            try 
+            {
+                $variables['results'] = $tester->run( $type, $source );
 
-            if ( ! is_null( $tester->downloadedSource ) ) {
-                $variables['source'] = $tester->downloadedSource;
+                if ( ! is_null( $tester->downloadedSource ) ) {
+                    $variables['source'] = $tester->downloadedSource;
+                }
+            } catch( \Exception $e ) {
+                $this->get('session')->setFlash( 'error', $e->getMessage() );
             }
-            
         }
 
         if ( ! array_key_exists( 'type', $variables ) ) {

@@ -5,6 +5,18 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
+<div id="notifications">
+{% if app.session.hasFlash('error') %}
+    <div class="alert alert-error">
+        {{ app.session.flash('error') }}
+    </div>
+{% endif %}
+{% if app.session.hasFlash('notice') %}
+    <div class="alert alert-success">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+</div>
 {% if results is defined and not results is null %}
   {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results } %}
 {% endif %}

@@ -303,9 +303,9 @@ class TestTraitementService
             $post_vars 	= $parts[1];
             $url 		= $parts[0];
         }
-
+        $url = $this->rebuild_url_for_escaping( $url );
         $ch = curl_init( $url );
-
+        
         $headers = array();
         $headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
         $headers[] = "Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3";	
@@ -330,7 +330,7 @@ class TestTraitementService
         $data = curl_exec( $ch );
         $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
         if ( $return_code != 200 ) {
-            return '';
+            throw new \Exception( "Erreur de téléchargement" );
         }
         $content_type = curl_getinfo($ch,CURLINFO_CONTENT_TYPE);
         if(preg_match("/charset=\"?([a-z0-9-]+)\"?/si",$content_type, $matches ) )
@@ -358,4 +358,10 @@ class TestTraitementService
         $this->base_url_get 	= $match_array[2];
         $this->base_url_post 	= $match_array[3];
     }
+
+    private function rebuild_url_for_escaping( $url )
+    {
+        return str_replace( " ", "%20", $url );
+    }
+    
 }
