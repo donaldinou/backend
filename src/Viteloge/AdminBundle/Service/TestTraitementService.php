@@ -115,7 +115,11 @@ class TestTraitementService
             if ( is_array( $source ) ) {
                 $possible_charset = " " . $source[1];
                 $source = $source[0];
-                $this->downloadedSource = @iconv( $possible_charset, 'UTF-8', $source );
+                if ( 'UTF-8' != strtoupper( $possible_charset ) ) {
+                    // some people mix charsets for one reason or the other
+                    $source = preg_replace( '/[\xE9\xE8]/', 'e', $source );
+                    $this->downloadedSource = @iconv( $possible_charset, 'UTF-8', $source );
+                }
             }
         }
         
