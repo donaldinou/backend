@@ -31,6 +31,15 @@
       </li>
     {% endfor %}
   </ul>
+  {% if results.liens_pages_suivantes_nombre is defined %}
+    <h3>Liste des Url Résultat générées à partir du nombre de pages suivantes</h3>
+    <ul>
+    {% for lien_resultat in results.liens_pages_suivantes_nombre %}
+      <li><a class="test" href="?TypeSource=R&source={{ lien_resultat|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ lien_resultat|url_encode }}">{{ lien_resultat }}</a></li>
+      
+    {% endfor %}
+    </ul>
+  {% endif %}
   {% if results.liens_fiches is defined %}
     <h2>Modèle fiche</h2>
     <ol>

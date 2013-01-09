@@ -89,6 +89,26 @@ class TestTraitementService
                     $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $this->base_url );
                 }
             }
+
+            if ( 'F' == $this->traitement->TypeUrlSortieTraitement && ! empty( $this->traitement->ModelUrlFicheTraitement ) ) {
+                $nb_biens = $results['expressions']['ExpNbBien'];
+                print_r( $nb_biens );
+            }
+            if ( 'R' == $this->traitement->TypeUrlSortieTraitement & ! empty( $this->traitement->ModelUrlResultatTraitement ) ){
+                $nb_biens_total = $results['expressions']['ExpNbBien']['value'];
+                $nb_biens_page = count( $results['liens_fiches'] );
+                $nb_pages = ceil( $nb_biens_total / $nb_biens_page );
+                $max = $nb_pages > 10 ? 10 : $nb_pages;
+                $urls_by_page = array();
+                for( $i = 2; $i <= $max; $i++ ) {
+                    $urls_by_page[] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlResultatTraitement, $i ), $this->full_url );
+                }
+                $results['liens_pages_suivantes_nombre'] = $urls_by_page;
+            }
+            
+            
+
+            
         } else {
             $results['expressions'] = array();
         }
@@ -235,7 +255,7 @@ class TestTraitementService
 
             
             $formule = substr($var,1,strlen($var) - 2);
-            if ( $formule[0] != '$' ){
+            if ( preg_match( '/^[a-z]/', $formule[0] ) ){
                 $prefix = '$this->';
             } else {
                 $prefix = '';
