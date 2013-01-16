@@ -351,6 +351,10 @@ class TestTraitementService
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_vars );
         }
 
+        if ( preg_match( '/annoncesjaunes.fr/', $url ) ) {
+            curl_setopt($ch, CURLOPT_REFERER, 'http://www.annoncesjaunes.fr/');
+        }
+
         $data = curl_exec( $ch );
         $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
         if ( $return_code != 200 ) {
