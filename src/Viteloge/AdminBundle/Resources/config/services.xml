@@ -87,6 +87,7 @@
 
       <service id="viteloge.admin.locale_listener" class="Viteloge\AdminBundle\EventListener\LocaleListener">
         <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="8"/>
+        <argument>%locale%</argument>
       </service>
 
     </services>
