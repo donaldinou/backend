@@ -30,7 +30,7 @@ class AgenceAdmin extends VitelogeAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with("Général")
+            ->with($this->trans("group.agence.general") )
               ->add('nom')
               ->add('url')
               ->add('departement', null, array( 'required' => false ))
@@ -39,7 +39,7 @@ class AgenceAdmin extends VitelogeAdmin
               ->add('mail', null, array( 'required' => false ))
               ->add('inactive', 'choice', array( 'choices' => array( true => 'Désactivée', false => 'Activée' ), 'required' => true ))
             ->end()
-            ->with("Coordonnées")
+            ->with($this->trans("group.agence.details"))
               ->add( 'adresse', 'textarea', array( 'required' => false ) )
               ->add('cp', null, array( 'required' => false ))
               ->add('ville', null, array( 'required' => false ))

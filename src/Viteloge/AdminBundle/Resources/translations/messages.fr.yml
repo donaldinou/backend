@@ -1,0 +1,68 @@
+agence:
+  edit:
+    create_treatment: "Créer un nouveau traitement"
+    create_privileges: "Créer des privilèges"
+  website: "Site web"
+
+treatment:
+  control: "Contrôler"
+  test: "Tester"
+  title: "Traitements"
+  controls: "Contrôles"
+  edit: "Éditer"
+
+misc:
+  title: "Divers" 
+  password: "Mot de passe"
+  change: "Changer"
+
+privilege:
+  offer: "Offre"
+  begin: "Début"
+  end: "Fin"
+
+edit: "Éditer"
+
+
+control:
+  title:
+    general: "Contrôle du traitement pour"
+    next_urls: "Prochaines URL traitée dans la pile"
+    last_download: "Dernier téléchargement"
+    state: "État du traitement"
+  empty_heap: "Pile vide"
+  last_download: "Afficher la dernière source téléchargée"
+  ads:
+    flagged: "Nombre d'annonces non-traitées"
+    unflagged: "Nombre d'annonces traitées"
+    export: "Nombre d'annonces exportées"
+  actions:
+    title: "(Action)"
+    execute: "Exécuter"
+    clear_heap: "Vider la pile"
+    reset_flag: "Reset des flags d'annonces"
+    file_update: "Forcer la mise à jour des fiches"
+    file_clear: "Supprimer les fiches"
+    heap_top: "Mise en haut de la pile"
+    reset_errors: "Reset des erreurs"
+    reactivate_safe: "Désexclure le site (Annuler la fin traitement si elle n'a pas eu lieu)"
+    reactivate_continue: "Remettre en route (Désexclu et remet en route)"
+    end: "Forcer la fin traitement (Forcer une suppression massive)"
+    unpause: "Annuler la pause"
+  stats: "Afficher les stats"
+
+test:
+  title: "Test d'expression pour"
+  delete_cookies: "Supprimer les cookies"
+  source: "Source"
+  enter_source: "Entrer le code source de la page"
+  results:
+    title:
+      urls: "Liste des URL Traitement utilisée"
+      expr: "Expressions"
+      next_page_urls: "Liste des Url Résultat générées à partir du nombre de pages suivantes"
+      sheet_template: "Modèle fiche"
+    results: "résultats"
+    not_completed: "Non rempli"
+    no_result: "Pas de résultat"
+    

@@ -1,7 +1,7 @@
 {% extends 'VitelogeAdminBundle::layout.html.twig' %}
 
 {% block title %}
-  Test d'expression pour {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction }}
+  {{ 'test.title'|trans }} {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction | trans }}
 {% endblock %}
 
 {% block sonata_admin_content %}
@@ -23,26 +23,26 @@
 <div class="sonata-bc">
   <form method="POST" class="form-horizontal" action="{{ path( 'viteloge_admin_traitement_test', { id:traitement.idTraitement} ) }}">
     <div class="control-group">
-      <label for="TypeSource" class="control-label">Source: </label>
+      <label for="TypeSource" class="control-label">{{ 'test.source' |trans }}: </label>
       <div class="controls">
         <select name="TypeSource">
-          <option value="F" {% if type == 'F' %}selected{% endif %}>Fiche Annonce</option>
-          <option value="R" {% if type == 'R' %}selected{% endif %}>Liste de résultats</option>
+          <option value="F" {% if type == 'F' %}selected{% endif %}>{{ 'Fiche Annonce'|trans }}</option>
+          <option value="R" {% if type == 'R' %}selected{% endif %}>{{ 'Liste de résultats'|trans }}</option>
         </select>
-        <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">Supprimer les cookies</a></span>
+        <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">{{ 'test.delete_cookies'|trans }}</a></span>
       </div>
     </div>
     <div class="control-group">
-      <label for="source" class="control-label">Entrer le code source de la page:</label>
+      <label for="source" class="control-label">{{ 'test.enter_source'|trans }}:</label>
       <div class="controls">
         <textarea name="source" style="width: 600px; height: 300px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
       </div>
     </div>
     <div class="well form-actions">
       <button type="submit" value="Tester" name="btn_test" class="btn btn-primary">
-        <i class="icon-play"></i> Tester
+        <i class="icon-play"></i> {{ 'treatment.test'|trans }}
       </button>
-      <a href="{{ path('viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn"><i class="icon-pencil"></i> Éditer</a>
+      <a href="{{ path('viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
     </div>
   </form>
 </div>

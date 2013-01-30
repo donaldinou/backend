@@ -5,13 +5,13 @@
 <table class="table sonata-bc table-bordered table-striped sonata-ba-list">
   <thead>
     <tr>
-      <th colspan="2">Contrôles</th>
+      <th colspan="2">{% trans %}treatment.controls{% endtrans %}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Traitements</td>
-      <td><a class="btn btn-small" href="{{ path('viteloge_admin_traitement_exclus') }}"><i class="icon-fire"></i> contrôles</a></td>
+      <td>{% trans %}treatment.title{% endtrans %}</td>
+      <td><a class="btn btn-small" href="{{ path('viteloge_admin_traitement_exclus') }}"><i class="icon-fire"></i> {% trans %}treatment.controls{% endtrans %}</a></td>
     </tr>
   </tbody>
 </table>     
@@ -19,13 +19,13 @@
 <table class="table sonata-bc table-bordered table-striped sonata-ba-list">
   <thead>
     <tr>
-      <th colspan="2">Divers</th>
+      <th colspan="2">{% trans %}misc.title{% endtrans %}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Mot de passe</td>
-      <td><a class="btn btn-small" href="{{ path('fos_user_change_password') }}">Changer</a></td>
+      <td>{% trans %}misc.password{% endtrans %}</td>
+      <td><a class="btn btn-small" href="{{ path('fos_user_change_password') }}">{% trans %}misc.change{% endtrans %}</a></td>
     </tr>
   </tbody>
 </table>     

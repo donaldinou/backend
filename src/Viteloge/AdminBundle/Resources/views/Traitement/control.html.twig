@@ -1,7 +1,7 @@
 {% extends 'VitelogeAdminBundle::layout.html.twig' %}
 
 {% block title %}
-  Contrôle de traitement pour {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction }}
+  {{ 'control.title.general'|trans }} {{ traitement.agence.nom }}, {{ traitement.StringTypeTransaction | trans}}
 {% endblock %}
 
 {% block sonata_admin_content %}
@@ -21,12 +21,12 @@
 <p><a href="{{ traitement.agence.url }}">{{ traitement.agence.url }}</a></p>
 {% endif %}
 <div class="viteloge-actions">
-  <a href="{{ path( 'viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
-  <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> Tester</a>
+  <a href="{{ path( 'viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
+  <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> {{ 'treatment.test'|trans }}</a>
 </div>
 
 <div class="control">
-  <h2>Prochaines URL traitée dans la PILE</h2>
+  <h2>{{ 'control.title.next_urls'|trans }}</h2>
   {% if pile|length > 0 %}
   <ol>
     {% for url in pile %}
@@ -34,25 +34,25 @@
     {% endfor %}
   </ol>
   {% else %}
-  <p>Pile vide</p>
+  <p>{{ 'control.empty_heap'|trans }} </p>
   {% endif %}
 
   {% if lastDownload is not null %}
-    <h2>Dernier téléchargement</h2>
+    <h2>{{ 'control.title.last_download' | trans }}</h2>
     {% if lastDownload.resultSize > 0 %}
-      <a href="{{ path('viteloge_admin_traitement_lastcontent', {id: traitement.idTraitement }) }}" target="_blank">Afficher la dernière source téléchargée</a>
+      <a href="{{ path('viteloge_admin_traitement_lastcontent', {id: traitement.idTraitement }) }}" target="_blank">{{ 'control.last_download' | trans }}</a>
     {% endif %}
-    <p>({{ lastDownload.resultSize / 1024 | number_format( 2 ) }} ko le {{ lastDownload.downloadedAt }})</p>
+    <p>({{ ( lastDownload.resultSize / 1024 ) | number_format( 2 ) }} ko le {{ lastDownload.downloadedAt }})</p>
   {% endif %}
 
   {% if flags|length > 0 %}
-    <h2>Etat du traitement</h2>
+    <h2>{{ 'control.title.state' | trans }}</h2>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Nombre d'annonces non-traitées</th>
-          <th>Nombre d'annonces traitées</th>
-          <th>Nombre d'annonces exportées</strong></th>
+          <th>{{ 'control.ads.flagged' | trans }}</th>
+          <th>{{ 'control.ads.unflagged' | trans }}</th>
+          <th>{{ 'control.ads.export' | trans }}</th>
       </tr>
       </thead>
       <tbody>
@@ -69,38 +69,38 @@
   <div class="control-actions">
     <form action="{{ path( 'viteloge_admin_traitement_modify', { id: traitement.idTraitement } ) }}" method="POST">
       <select name="action">
-        <option value="">(Action)</option>
+        <option value="">{{ 'control.actions.title'|trans }}</option>
         {% if pile|length > 0 %}
         <optgroup label="Pile">
-          <option value="clear_heap">Vider la pile</option>
+          <option value="clear_heap">{{ 'control.actions.clear_heap'|trans }}</option>
         </optgroup>
         {% endif %}
         <optgroup label="Annonces">
-          <option value="reset_flag">Reset des flags d'annonces</option>
-          <option value="file_update">Forcer la mise à jour des fiches</option>
-          <option value="file_clear" style="color:red;">Supprimer les fiches</option>
+          <option value="reset_flag">{{ 'control.actions.flag'|trans }}</option>
+          <option value="file_update">{{ 'control.actions.file_update'|trans }}</option>
+          <option value="file_clear" style="color:red;">{{ 'control.actions.file_clear'|trans }}</option>
         </optgroup>
         <optgroup label="Traitement">
-          <option value="heap_top">Mise en haut de la pile</option>
-          <option value="reset_errors">Reset des erreurs</option>
+          <option value="heap_top">{{ 'control.actions.heap_top'|trans }}</option>
+          <option value="reset_errors">{{ 'control.actions.reset_errors'|trans }}</option>
           {% if traitement.Exclus %}
-            <option value="reactivate_safe">Désexclure le site (Annuler la fin traitement si elle n'a pas eu lieu)</option>
-            <option value="reactivate_continue">Remettre en route (Désexclu et remet en route)</option>
+            <option value="reactivate_safe">{{ 'control.actions.reactivate_safe'|trans }}</option>
+            <option value="reactivate_continue">{{ 'control.actions.reactive_continue'|trans }}</option>
             {% if pile|length == 0 %}
-              <option value="end">Forcer la fin traitement (Forcer une suppression massive)</option>
+              <option value="end">{{ 'control.actions.end'|trans }}</option>
             {% endif %}
             {% if traitement.isPaused %}
-              <option value="unpause">Annuler la pause</option>
+              <option value="unpause">{{ 'control.actions.unpause'|trans }}</option>
             {% endif %}
           {% endif %}
         </optgroup>
       </select>
-      <input class="btn btn-danger" type="submit" value="Exécuter">
+      <input class="btn btn-danger" type="submit" value="{{ 'control.actions.execute'|trans }}">
     </form>
   </div>
 
   <div class="stats">
-    <a class="btn action-display" href="{{ path( 'viteloge_admin_traitement_graph', { id: traitement.idTraitement } ) }}">Afficher les stats</a>
+    <a class="btn action-display" href="{{ path( 'viteloge_admin_traitement_graph', { id: traitement.idTraitement } ) }}">{{ 'control.stats'|trans}}</a>
   </div>
 
 

@@ -85,6 +85,10 @@
         <tag name="doctrine.event_listener" event="prePersist" />
       </service>
 
+      <service id="viteloge.admin.locale_listener" class="Viteloge\AdminBundle\EventListener\LocaleListener">
+        <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="8"/>
+      </service>
+
     </services>
     
 </container>

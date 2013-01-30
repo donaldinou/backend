@@ -130,3 +130,8 @@ help:
   split_result_annonce: "En cas d'annonce en liste"
   exp_url_elements: "En cas d'impossiblité d'enregistrement d'URL en l'état"
   limit_publication: "Automatiquement exclus en cas de module \"IncResultatAnnonceInListe.pl\""
+
+group:
+  agence:
+    general: "Général"
+    details: "Coordonnées"

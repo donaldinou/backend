@@ -31,13 +31,13 @@
       <tr>
         <td>
           {% if is_granted('ROLE_VITELOGE_ADMIN_TRAITEMENT_CREATE') %}
-          <a href="{{ path('viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">Créer un nouveau traitement</a>
+          <a href="{{ path('viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">{% trans %}agence.edit.create_treatment{% endtrans %}</a>
           {% endif %}
           {% if is_granted('ROLE_AGENCY_RIGHTS') %}
-          <a href="{{ path('viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">Créer des privilèges</a>
+          <a href="{{ path('viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">{% trans %}agence.edit.create_privileges{% endtrans %}</a>
           {% endif %}
           {% if is_granted('ROLE_CONTROL') %}
-          <a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">Statistiques</a>
+          <a href="{{ path('viteloge_admin_agence_stats',{id:admin.id(object)})}}">{% trans %}Statistiques{% endtrans %}</a>
           {% endif %}
         </td>
         <td>
@@ -53,13 +53,13 @@
               {{ form_label( upload_form.resize ) }}
               {{ form_widget( upload_form.resize ) }}
               {{ form_widget( upload_form.width ) }} x {{ form_widget( upload_form.height ) }}
-              <input class="btn" type="submit" value="Uploader"/>
+              <input class="btn" type="submit" value="{% trans %}Uploader{% endtrans %}"/>
             </div>
             <br />
             {{ form_rest(upload_form) }}
             {% else %}
             {{ form_widget(upload_form._token) }}
-            <input class="btn btn-danger" type="submit" value="Supprimer"/>
+            <input class="btn btn-danger" type="submit" value="{% trans %}Supprimer{% endtrans %}"/>
             {% endif %}
           </form>
         </td>

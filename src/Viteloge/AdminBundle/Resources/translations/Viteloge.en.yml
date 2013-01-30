@@ -1,0 +1,146 @@
+list:
+   label_nom_agence_mere: "Parent agency"
+   label_nom: "Name"
+   label_cp: "Postal code"
+   label_ville: "City"
+   label_departement: "Regions"
+   label_count_traitements: "# treatments"
+   label_has_xml: "XML?"
+   label_active: "Active?"
+   label__action: "Actions"
+
+#   # traitements
+   label_agence_nom: "Agency"
+   label_string_type_transaction: "Transaction"
+   label_short_url_traitement: "URL"
+   label_actif: "Active?"
+
+   label_nom_agence: "Agency"
+   label_url: "URL"
+
+   label_offre: "Offer"
+   label_nombre dannonces: "# of ads"
+   label_date_debut: "Start date"
+   label_date_fin: "End date"
+   label_type_transaction: "Transaction"
+   label_min_prix: "Min price"
+   label_max_prix: "Max price"
+
+filter:
+   label_nom: "Name"
+   label_ville: "City"
+   label_agence_mere_nom: "Parent agency name"
+   label_with_privileges: "Only paying agencies"
+
+#   # traitements
+   label_agence_nom: "Agency name"
+   label_id: "Database ID"
+
+   label_url: "URL"
+
+   label_include_obsolete: "Include past privileges"
+
+breadcrumb:
+   link_agence_list: "Agencies list"
+   link_agence_edit: "Editing an agency"
+
+   link_traitement_list: "Treatments list"
+   link_traitement_edit: "Treatment editing"
+
+   link_xml_feed_list: "XML feed list"
+   link_xml_feed_edit: "XML feed edition"
+
+   link_privilege_list: "Privilege list"
+   link_privilege_edit: "Privilege edition"
+
+form:
+   label_nom: "Name"
+   label_url: "URL"
+   label_departement: "Regions"
+   label_civilite_contact: "Civilité"
+   label_nom_contact: "Contact name"
+   label_mail: "Email"
+   label_inactive: "Status"
+   label_adresse: "Address"
+   label_cp: "Postal code"
+   label_ville: "City"
+   label_tel: "Phone #"
+   label_fax: "Fax #"
+   label_specif: "N/A"
+
+   label_agence: "Agency"
+   label_base_url_traitement: "Base URL"
+   label_parametres_post: "POST parameters"
+   label_url_init_session: "Session initialization URL"
+   label_type_transaction_traitement: "Transaction type"
+   label_type_url_traitement: "URL type"
+   label_type_url_sortie_traitement: "Output type"
+   label_limit_publication: "Limit publication?"
+   label_exclus: "Excluded"
+   label_exp_nb_bien: "# of properties"
+   label_exp_nb_page: "# of pages"
+
+   label_exp_page_suivante: "Expression"
+   label_model_url_page_suivante: "Template"
+
+   label_exp_liens_fiche: "Expression for sheet link"
+   label_model_url_fiche_traitement: "URL template for sheets"
+   label_model_url_resultat_traitement: "URL template for results"
+   label_split_result_annonce: "List splitting"
+   label_exp_url_elements: "Final sheet element extraction expression"
+   label_model_url_fiche_final: "Final sheet URL template"
+
+   label_module_resultat_traitement: "Result module"
+   label_module_fiche_traitement: "Sheet module"
+
+   label_exp_url_photo: "Expression"
+   label_model_url_photo: "Template"
+   label_filename_no_photo: "Picture exclusion"
+
+   label_exp_type_logement: "Housing type"
+   label_exp_nb_chambre: "# of bedrooms"
+   label_exp_surface: "Area"
+   label_exp_piece: "# of rooms"
+   label_exp_prix: "Price"
+   label_exclus_in_prix: "Filter character from price"
+   label_exp_ville: "City"
+   label_exp_arrondissement: "Arrondissement"
+   label_exp_c_p: "Postal code"
+   label_exp_description: "Description"
+   label_exp_agence: "Agency"
+
+   label_ismap: "Catalog?"
+   label_module: "Module"
+   label_transaction: "Transaction type"
+   label_inactif: "Disabled"
+
+   label_type_transaction: "Transaction type"
+   label_date_debut: "Start date"
+   label_date_fin: "End date"
+   label_min_prix: "Minimum price"
+   label_max_prix: "Maximum price"
+   label_nb_annonce: "Maximum # of ads"
+   label_code: "Privilege"
+   label_specif_agence: "Agency specificity"
+
+# #  
+
+help:
+   model_url_resultat_traitement: "If no next page. (¤ = page #)"
+   split_result_annonce: "If full listing on the page"
+   exp_url_elements: "If unable to record the URL as is"
+   limit_publication: "Automatically excluded when using module \"IncResultatAnnonceInListe.pl\""
+
+
+group:
+  agence:
+    general: "General"
+    details: "Details"
+
+
+
+Agences: "Agencies"
+Traitements: "Treatments"
+"Feeds XML": "XML feeds"
+"Privilèges": "Privileges"
+"Configuration Viteloge": "Vitelogé configuration"

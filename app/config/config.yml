@@ -127,6 +127,7 @@ sonata_admin:
   security:
     handler: sonata.admin.security.handler.role
   templates:
+    layout: VitelogeAdminBundle::layout.html.twig
     user_block: VitelogeAdminBundle::user_block.html.twig
       
 services:

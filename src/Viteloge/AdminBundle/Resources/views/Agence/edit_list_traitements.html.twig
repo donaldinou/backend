@@ -18,11 +18,11 @@
       <td>{{ tr_url }}</td>
       <td class="actions">
         {% if is_granted('ROLE_CONTROL') %}
-        <a href="{{  path('viteloge_admin_traitement_control', { id: admin.id(traitement) } ) }}"    class="btn btn-small"><i class="icon-fire"></i> Contrôler</a>
-        <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}"       class="btn btn-small"><i class="icon-play"></i> Tester</a>
+        <a href="{{  path('viteloge_admin_traitement_control', { id: admin.id(traitement) } ) }}"    class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
+        <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}"       class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
         {% endif %}
         {% if is_granted('ROLE_VITELOGE_ADMIN_TRAITEMENT_CREATE') %}
-        <a href="{{  path('viteloge_admin_traitement_edit', { id: admin.id(traitement) } ) }}" class="btn btn-small"><i class="icon-pencil"></i> Éditer</a>
+        <a href="{{  path('viteloge_admin_traitement_edit', { id: admin.id(traitement) } ) }}" class="btn btn-small"><i class="icon-pencil"></i> {% trans %}edit{% endtrans %}</a>
         {% endif %}
       </td>
 

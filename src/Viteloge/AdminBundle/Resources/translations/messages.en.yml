@@ -1,0 +1,100 @@
+agence:
+  edit:
+    create_treatment: "Create a new treatment"
+    create_privileges: "Create privileges"
+  website: "web site"
+
+treatment:
+  control: "Check"
+  controls: "Checks"
+  test: "Test"
+  title: "Treatments"
+  edit: "Edit"
+
+privilege:
+  offer: "Offer"
+  begin: "Start"
+  end: "End"
+
+misc:
+  title: "Misc" 
+  password: "Password"
+  change: "Change"
+    
+
+
+Statistiques: "Statistics"
+Uploader: "Upload"
+Supprimer: "Delete"
+edit: "Edit"
+
+"Mise en valeur <strong>Plus</strong>": "<strong>Plus</strong> Highlighting"
+'Mise en valeur "Plus"': '"Plus" Highlighting'
+"Mise en valeur <strong>Basic</strong>": "<strong>Basic</strong> Highlighting"
+'Mise en valeur "Basic"': '"Basic" Highlighting'
+"Mise en valeur <strong>Premium</strong>": "<strong>Premium</strong> Highlighting"
+'Mise en valeur "Premium"': '"Premium" Highlighting'
+'Référencement "Précense"': '"Précense" listing'
+'Référencement <strong>Précense</strong>': '<strong>Précense</strong> listing'
+'Référencement "Basic"': '"Basic" listing'
+'Référencement <strong>Basic</strong>': '<strong>Basic</strong> listing'
+'Référencement "Plus"': '"Plus" listing'
+'Référencement <strong>Plus</strong>': '<strong>Plus</strong> listing'
+
+'Vente': 'Sell'
+'Location': 'Rental'
+'Toutes': 'Any'
+
+control:
+  title:
+    general: "Treatment control for"
+    next_urls: "Next URLs on the heap"
+    last_download: "Last download"
+    state: "State of the treatment"
+  empty_heap: "Empty heap"
+  last_download: "Display the last downloaded source"
+  ads:
+    flagged: "# of ads to be crawled"
+    unflagged: "# of ads crawled"
+    export: "# of exported ads"
+  actions:
+    title: "(Action)"
+    execute: "Execute"
+    clear_heap: "Clear heap"
+    reset_flag: "Reset ads flag"
+    file_update: "Force update of ads"
+    file_clear: "Delete ads"
+    heap_top: "Put on top of the heap"
+    reset_errors: "Reset errors"
+    reactivate_safe: "Re-enable site (cancels end-of-treatment if it didn't happen)"
+    reactivate_continue: "Re-enable site"
+    end: "Force end of treatment (may cause mass deletion)"
+    unpause: "Un-pause"
+  stats: "Display statistics"
+
+test:
+  title: "Expression testing for"
+  delete_cookies: "Delete cookies"
+  source: "Source"
+  enter_source: "Enter page source code"
+  results:
+    title:
+      urls: "List of treatment URLs used"
+      expr: "Expressions"
+      next_page_urls: "List of result URLs generated from next page"
+      sheet_template: "Sheet template"
+    results: "results"
+    not_completed: "Not filled"
+    no_result: "No result"
+
+
+"Liste de résultats": "List of results"
+"Fiche annonce":  "Ad sheet"
+
+"Non": "No"
+"Exclus de l'alerte mail": "Exclude from mail alert"
+"Exclus de la redirection web": "Exclude from web redirection"
+
+
+"Activée": "Enabled"
+"Désactivée": "Disabled"

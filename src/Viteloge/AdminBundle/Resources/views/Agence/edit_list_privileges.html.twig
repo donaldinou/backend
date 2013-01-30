@@ -2,15 +2,15 @@
 <table class="table sonata-bc table-bordered table-striped sonata-ba-list">
   <thead>
     <tr>
-      <th>Offre</th>
-      <th>Début</th>
-      <th>Fin</th>
+      <th>{% trans %}privilege.offer{% endtrans %}</th>
+      <th>{% trans %}privilege.begin{% endtrans %}</th>
+      <th>{% trans %}privilege.end{% endtrans %}</th>
     </tr>
   </thead>
   <tbody>
   {% for privilege in object.privileges %}
     <tr>
-      <td>{{ privilege.offre|raw }}</td>
+      <td>{{ privilege.offre|trans|raw }}</td>
       <td>{{ privilege.dateDebut|date("d/m/Y") }}</td>
       <td>{% if privilege.dateFin is not null %}{{ privilege.dateFin|date("d/m/Y") }}{% endif %}</td>
     </tr>

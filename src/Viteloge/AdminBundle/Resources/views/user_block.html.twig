@@ -1,6 +1,7 @@
 {% block user_block %}
-    {% if app.user %}
-        {{ app.user }} - <a href="{{ url('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
-    {% endif %}
-
+  <a {% if app.request.locale == 'fr' %}class="muted"{% endif %} href="{{ url('viteloge_admin_misc_lang', {lang: 'fr'} ) }}">fr</a> /
+  <a {% if app.request.locale == 'en' %}class="muted"{% endif %} href="{{ url('viteloge_admin_misc_lang', {lang: 'en'} ) }}">en</a> |
+  {% if app.user %}
+    {{ app.user }} - <a href="{{ url('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+  {% endif %}
 {% endblock %}

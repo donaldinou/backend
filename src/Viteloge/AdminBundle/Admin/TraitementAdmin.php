@@ -37,7 +37,7 @@ class TraitementAdmin extends VitelogeAdmin
               ->add( 'TypeUrlTraitement', 'choice', array( 'choices' => Traitement::$TypesUrl, 'empty_value' => '' ) )
               ->add( 'TypeTransactionTraitement', 'choice', array( 'choices' => Traitement::$TypesTransaction, 'empty_value' => '' ) )
               ->add( 'TypeUrlSortieTraitement', 'choice', array( 'choices' => Traitement::$TypesUrl, 'empty_value' => '' ) )
-            ->add( 'LimitPublication', 'choice', array( 'choices' => Traitement::$PublicationLimits, 'help' => $this->trans('help.limit_publication') ) )
+              ->add( 'LimitPublication', 'choice', array( 'choices' => Traitement::$PublicationLimits, 'help' => $this->trans('help.limit_publication') ) )
               ->add( 'Exclus', null, array( 'required' => false ) )
             ->end()
             ->with('Détails des expressions rationelles')
