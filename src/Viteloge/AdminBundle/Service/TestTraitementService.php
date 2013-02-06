@@ -48,7 +48,7 @@ class TestTraitementService
                 $expressions_urls = array( 'ExpPageSuivante' );
                 break;
             case 'F':
-                $expressions = array( 'ExpUrlElements', 'ExpTypeLogement', 'ExpNbChambre', 'ExpSurface', 'ExpUrlPhoto', 'ExpPiece', 'ExpPrix', 'ExpVille', 'ExpArrondissement', 'ExpCp', 'ExpDescription', 'ExpAgence' );
+                $expressions = array( 'ExpUrlElements', 'ExpTypeLogement', 'ExpNbChambre', 'ExpSurface', 'ExpUrlPhoto', 'ExpPiece', 'ExpPrix', 'ExpVille', 'ExpArrondissement', 'ExpCP', 'ExpDescription', 'ExpAgence' );
                 $expressions_array = array();
                 $expressions_urls = array();
                 break;
