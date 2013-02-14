@@ -122,6 +122,7 @@ form:
   label_nb_annonce: "Maximum d'annonces"
   label_code: "Privilège"
   label_specif_agence: "Agence spécifique"
+  label_keywords: "Mots-clés"
 
 #  
 
@@ -130,6 +131,7 @@ help:
   split_result_annonce: "En cas d'annonce en liste"
   exp_url_elements: "En cas d'impossiblité d'enregistrement d'URL en l'état"
   limit_publication: "Automatiquement exclus en cas de module \"IncResultatAnnonceInListe.pl\""
+  keywords: "N'applique le privilège qu'aux annonces dont la description contient ces mots clés"
 
 group:
   agence:

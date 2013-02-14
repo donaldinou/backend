@@ -120,6 +120,7 @@ form:
    label_min_prix: "Minimum price"
    label_max_prix: "Maximum price"
    label_nb_annonce: "Maximum # of ads"
+   label_keywords: "Keywords"
    label_code: "Privilege"
    label_specif_agence: "Agency specificity"
 
@@ -130,7 +131,7 @@ help:
    split_result_annonce: "If full listing on the page"
    exp_url_elements: "If unable to record the URL as is"
    limit_publication: "Automatically excluded when using module \"IncResultatAnnonceInListe.pl\""
-
+   keywords: "Apply privileges only to ads whose description matches those keywords"
 
 group:
   agence:

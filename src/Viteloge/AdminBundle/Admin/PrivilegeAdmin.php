@@ -27,6 +27,7 @@ class PrivilegeAdmin extends VitelogeAdmin
             ->add( 'maxPrix' )
             ->add( 'nbAnnonce' )
             ->add( 'code', "choice", array( "choices" => Privilege::$PRIVILEGE_CODES, 'disabled' => ( $this->subject->id != 0 ) ) )
+            ->add( 'keywords', null, array( 'required' => false, 'help' => $this->trans('help.keywords' ) ) )
             ->add( 'specifAgence' )
         ;
     }
