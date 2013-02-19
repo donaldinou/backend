@@ -18,7 +18,8 @@ class Privilege
         "0111000" => 'Référencement "Plus"',
         "1110000" => 'Mise en valeur "Basic"',
         "1111000" => 'Mise en valeur "Plus"',
-        "1111100" => 'Mise en valeur "Premium"'
+        "1111100" => 'Mise en valeur "Premium"',
+        "1111001" => 'Mise en valeur "Exclusivité"'
     );
     
     public static $TYPES_TRANSACTION = array(
