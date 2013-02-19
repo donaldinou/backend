@@ -87,6 +87,9 @@ class Privilege
      */
     public function __set($property, $value)
     {
+        if ( is_null( $value ) && ! is_null( $this->$property ) ) {
+            $value = '';
+        }
         $this->$property = $value;
     }
     public function __isset($name)

@@ -45,9 +45,9 @@ class XmlFeed
      */
     private $url ;
     /**
-     * @ORM\Column(type="string",length=50)
+     * @ORM\Column(type="string",length=50,nullable=false)
      */
-    private $module;
+    private $module = '';
     /**
      * @ORM\Column(type="string",length=1)
      */
