@@ -367,8 +367,12 @@ class TestTraitementService
             $possible_head = substr( $data, 0, 1024 );
             if ( preg_match( '/<meta +charset=["\']([^"\']+)["\']/i', $data, $matches ) ) {
                 return array( $data, $matches[1] );
+            } else if ( preg_match( '/<meta([^>]+content-type[^>]*)>/i', $data, $matches ) ){
+                $tag = $matches[1];
+                if ( preg_match( '/content=["\'][^"\']*charset=([^"\']+)["\']/i', $tag, $matches ) ) {
+                    return array( $data, $matches[1] );
+                }
             }
-            
         }
         return $data;
     }
