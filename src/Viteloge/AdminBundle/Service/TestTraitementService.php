@@ -361,8 +361,15 @@ class TestTraitementService
             throw new \Exception( "Erreur de téléchargement (" . $return_code . ")" );
         }
         $content_type = curl_getinfo($ch,CURLINFO_CONTENT_TYPE);
-        if(preg_match("/charset=\"?([a-z0-9-]+)\"?/si",$content_type, $matches ) )
+        if(preg_match("/charset=\"?([a-z0-9-]+)\"?/si",$content_type, $matches ) ) {
             return array( $data, $matches[1] );
+        } else {
+            $possible_head = substr( $data, 0, 1024 );
+            if ( preg_match( '/<meta +charset=["\']([^"\']+)["\']/i', $data, $matches ) ) {
+                return array( $data, $matches[1] );
+            }
+            
+        }
         return $data;
     }
     private function getCookiesFile(){
