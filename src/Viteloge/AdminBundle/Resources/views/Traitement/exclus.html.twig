@@ -10,7 +10,13 @@
         <td>{{ traitement.StringTypeTransaction | trans }}</td>
         {% if traitement.blacklist is not null %}
         <td>{{ traitement.blacklist.when|date("d/m/Y") }}</td>
-        <td>{{ traitement.blacklist.raison }}</td>
+        <td>
+{% set tr_raison = traitement.blacklist.translatableReason %}
+{% if tr_raison %}
+  {{ tr_raison.msg|trans({},'blacklist') }}{% if tr_raison.detail %} : {{ tr_raison.detail }}{% endif %}
+{% else %}
+  {{ traitement.blacklist.raison|trans({},'blacklist') }}
+{% endif %}</td>
         {% else %}
         <td colspan="2"></td>
         {% endif %}

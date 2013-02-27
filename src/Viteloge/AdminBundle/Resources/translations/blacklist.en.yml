@@ -1,0 +1,9 @@
+
+
+
+"Le Nombre de Mise en pause est depassé": "Max number of pauses reached"
+"La longueur d'url de l'annonce dépasse 255 carac.": "The URL for the ad is longer than 255 chars."
+"La longueur d'url dépasse 510 carac.": "The URL is longer than 510 chars."
+"Tentative de FinTraitement avec pile entièrement vide": "Attempt to end treatment with an empty heap"
+"Tentative de suppression massive": "Attempt to mass delete"
+"Pourcentage Erreurs Grave": "Grave error proportions"
