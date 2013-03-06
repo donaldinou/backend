@@ -73,6 +73,24 @@
           <argument>Viteloge</argument>
         </call>
       </service>
+      <service id="viteloge.admin.type_bien" class="Viteloge\AdminBundle\Admin\TypeBienAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Types biens" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\TypeBien</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+      <service id="viteloge.admin.type_bien_regex" class="Viteloge\AdminBundle\Admin\TypeBienRegexAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Regex Types biens" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\TypeBienRegex</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
       <!-- dashboard -->
       <service id="viteloge.admin.service.menu_live" class="Viteloge\AdminBundle\Service\MenuBlockService">
         <tag name="sonata.block" />
