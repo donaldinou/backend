@@ -18,16 +18,16 @@ class TypeBienRegexAdmin extends VitelogeAdmin
     {
         $listMapper->addIdentifier( 'code' )
             ->addIdentifier( 'score' )
-            ->addIdentifier( 'regexp' )
-            ->addIdentifier( 'order' )
+            ->addIdentifier( 'expression' )
+            ->addIdentifier( 'rank' )
             ;
     }
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add( 'code' )
+        $formMapper->add( 'code', null, array( 'label' => 'form.label_type_bien') )
             ->add( 'score' )
-            ->add( 'regexp' )
-            ->add( 'order' )
+            ->add( 'expression' )
+            ->add( 'rank' )
             ;
     }
 }

@@ -30,11 +30,11 @@ class TypeBienRegex
     /**
      * @ORM\Column(type="string")
      */
-    private $regexp;
+    private $expression;
     /**
      * @ORM\Column(type="integer")
      */
-    private $order;
+    private $rank;
     
 
     /**
@@ -58,7 +58,7 @@ class TypeBienRegex
 
     public function __toString()
     {
-        return join( "-", array( $this->code, $this->regexp ) );
+        return join( "-", array( $this->code, substr( $this->expression, 0, 15 ) ) );
     }
     
 

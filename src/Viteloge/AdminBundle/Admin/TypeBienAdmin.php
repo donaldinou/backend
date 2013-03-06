@@ -21,7 +21,7 @@ class TypeBienAdmin extends VitelogeAdmin
     }
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add( 'code' )
+        $formMapper->add( 'code', null, array( 'label' => 'form.label_code_type') )
             ->add( 'libelle' )
             ->add( 'regexs', 'sonata_type_model', array( 'multiple' => true ) )
             ;

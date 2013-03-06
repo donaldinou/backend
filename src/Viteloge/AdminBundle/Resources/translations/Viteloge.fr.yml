@@ -53,6 +53,12 @@ breadcrumb:
   link_privilege_list: "Liste des privilèges"
   link_privilege_edit: "Édition d'un privilège"
 
+  link_type_bien_list: "List des types de biens"
+  link_type_bien_edit: "Édition d'un type de biens"
+
+  link_type_bien_regex_list: "Liste des expressions de types de biens"
+  link_type_bien_regex_create: "Créer une expression de type de bien"
+
 form:
   label_nom: "Nom"
   label_url: "URL"
@@ -123,6 +129,15 @@ form:
   label_code: "Privilège"
   label_specif_agence: "Agence spécifique"
   label_keywords: "Mots-clés"
+
+  label_code_type: "Code"
+  label_libelle: "Libellé"
+  label_regexs: "Expressions rationnelles"
+
+  label_type_bien: "Type de bien"
+  label_score: "Score"
+  label_expression: "Expression"
+  label_rank: "Ordre"
 
 #  
 
