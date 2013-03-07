@@ -26,6 +26,12 @@ list:
   label_min_prix: "Prix mini"
   label_max_prix: "Prix maxi"
 
+  label_libelle: "Libellé"
+  label_code: "Type de bien"
+  label_score: "Score"
+  label_expression: "Expression rationelle"
+  label_rank: "Ordre"
+
 filter:
   label_nom: "Nom"
   label_ville: "Ville"
@@ -39,6 +45,8 @@ filter:
   label_url: "URL"
 
   label_include_obsolete: "Inclure les droits passés"
+
+  label_code: "Type de bien"
 
 breadcrumb:
   link_agence_list: "Liste des agences"

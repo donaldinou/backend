@@ -58,7 +58,7 @@ class TypeBienRegex
 
     public function __toString()
     {
-        return join( "-", array( $this->code, substr( $this->expression, 0, 15 ) ) );
+        return join( "-", array( $this->code, substr( $this->expression, 0, 30 ) ) );
     }
     
 

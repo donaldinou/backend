@@ -30,4 +30,11 @@ class TypeBienRegexAdmin extends VitelogeAdmin
             ->add( 'rank' )
             ;
     }
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('code')
+            ;    
+    }
+        
 }

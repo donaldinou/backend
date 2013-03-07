@@ -23,7 +23,8 @@ class TypeBienAdmin extends VitelogeAdmin
     {
         $formMapper->add( 'code', null, array( 'label' => 'form.label_code_type') )
             ->add( 'libelle' )
-            ->add( 'regexs', 'sonata_type_model', array( 'multiple' => true ) )
+//            ->add( 'regexs', 'sonata_type_collection', array( 'edit' => 'inline' ) )
             ;
     }
+
 }
