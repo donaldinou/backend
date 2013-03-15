@@ -20,7 +20,7 @@
         {% else %}
         <td colspan="2"></td>
         {% endif %}
-        <td class="actions">
+        <td class="actions btn-group">
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_control', { id: traitement.idTraitement } ) }}"   ><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_test', { id: traitement.idTraitement } ) }}"      ><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
           <a class="btn btn-mini" href="{{ path('viteloge_admin_traitement_edit', { id: traitement.idTraitement } ) }}"><i class="icon-pencil"></i> {% trans %}treatment.edit{% endtrans %}</a>

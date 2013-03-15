@@ -16,7 +16,7 @@
     <tr>
       <td>{{ traitement.StringTypeTransaction }}</td>
       <td>{{ tr_url }}</td>
-      <td class="actions">
+      <td class="actions btn-group">
         {% if is_granted('ROLE_CONTROL') %}
         <a href="{{  path('viteloge_admin_traitement_control', { id: admin.id(traitement) } ) }}"    class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
         <a href="{{  path('viteloge_admin_traitement_test', { id: admin.id(traitement) } ) }}"       class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>

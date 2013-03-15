@@ -20,9 +20,21 @@
 {% if not traitement.agence.url is empty %}
 <p><a href="{{ traitement.agence.url }}">{{ traitement.agence.url }}</a></p>
 {% endif %}
-<div class="viteloge-actions">
-  <a href="{{ path( 'viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
-  <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> {{ 'treatment.test'|trans }}</a>
+<div class="row-fluid">
+  <div class="span3">
+    <div class="viteloge-actions">
+      <a href="{{ path( 'viteloge_admin_traitement_edit', { id:traitement.idTraitement } ) }}" class="btn btn-small"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
+      <a href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.idtraitement } ) }}" class="btn btn-small"><i class="icon-play"></i> {{ 'treatment.test'|trans }}</a>
+    </div>
+  </div>
+  <div class="span4">
+    {% if traitement.isPaused %}
+    <span class="label label-warning">{{ 'En pause' | trans }}</span>
+    {% endif %}
+    {% if traitement.Exclus %}
+    <span class="label label-important">{{ 'Exclus!' | trans }}</span>
+    {% endif %}
+  </div>
 </div>
 
 <div class="control">
