@@ -91,6 +91,15 @@
           <argument>Viteloge</argument>
         </call>
       </service>
+      <service id="viteloge.admin.location_stopword" class="Viteloge\AdminBundle\Admin\LocationStopwordAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Vocabulaire pour localisation" label_translator_strategy="sonata.admin.label.strategy.underscore"/>
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\LocationStopword</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
       <!-- dashboard -->
       <service id="viteloge.admin.service.menu_live" class="Viteloge\AdminBundle\Service\MenuBlockService">
         <tag name="sonata.block" />
