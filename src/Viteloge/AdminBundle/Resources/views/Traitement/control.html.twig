@@ -29,7 +29,7 @@
   </div>
   <div class="span4">
     {% if traitement.isPaused %}
-    <span class="label label-warning">{{ 'En pause' | trans }}</span>
+    <span class="label label-warning" title="{{ traitement.TimestampPause|date('Y-m-d H:i') }}">{{ 'En pause' | trans }}</span>
     {% endif %}
     {% if traitement.Exclus %}
     <span class="label label-important">{{ 'Exclus!' | trans }}</span>
