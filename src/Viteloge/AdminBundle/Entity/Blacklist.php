@@ -74,7 +74,7 @@ class Blacklist
 
     public function getTranslatableReason()
     {
-        if ( false != ( $pos = strstr( $this->raison, ":" ) ) ) {
+        if ( false != ( $pos = strpos( $this->raison, ":" ) ) ) {
             return array(
                 'msg' => trim( substr( $this->raison, 0, $pos - 1 ) ),
                 'detail' => trim( substr( $this->raison, $pos + 1 ) )
