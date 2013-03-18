@@ -303,5 +303,17 @@ class Traitement
     {
         return $this->TimestampPause > new \DateTime('0000-00-00');
     }
-    
+
+    public function isPoliris() 
+    {
+        $url = $this->getBaseUrlTraitement();
+        if ( preg_match( '#http://([^/]*)#', $url, $matches ) ) {
+            $host = $matches[1];
+            $ip = gethostbyname( $host );
+            if ( $ip ) {
+                return preg_match( '/^217\.151\.(?:[0-9]|1[0-5])\.[0-9]+$/', $ip );
+            }
+        }
+        return false; // more like "maybe"
+    }
 }

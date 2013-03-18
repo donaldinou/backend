@@ -35,6 +35,11 @@
     <span class="label label-important">{{ 'Exclus!' | trans }}</span>
     {% endif %}
   </div>
+  {% if traitement.Exclus and traitement.isPoliris %}
+  <div class="span3">
+    <span class="label label-inverse">Poliris</span>
+  </div>
+  {% endif %}
 </div>
 
 <div class="control">
