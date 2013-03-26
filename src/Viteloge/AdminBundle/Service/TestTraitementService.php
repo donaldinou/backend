@@ -233,6 +233,14 @@ class TestTraitementService
         return $URLS;
     }
 
+    public static function build_single_custom_url( $traitement, $url )
+    {
+        $tester = new TestTraitementService( $traitement );
+        return $tester->build_custom_url( $url );
+            
+    }
+    
+    
 
     protected function build_custom_url($url, $item = NULL) 
     {

@@ -30,6 +30,11 @@
           <option value="R" {% if type == 'R' %}selected{% endif %}>{{ 'Liste de résultats'|trans }}</option>
         </select>
         <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">{{ 'test.delete_cookies'|trans }}</a></span>
+        {% if initsessionurl is defined %}
+        <span>
+          <a class="test" href="?TypeSource={{ type }}&source={{ initsessionurl|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ initsessionurl }}">{{ 'Init session'|trans }}</a>
+        </span>
+        {% endif %}
       </div>
     </div>
     <div class="control-group">

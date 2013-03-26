@@ -64,6 +64,10 @@ class TraitementController extends Controller
                 $this->get('session')->setFlash( 'error', $e->getMessage() );
             }
         }
+        if ( ! empty( $traitement->UrlInitSession ) ) {
+            $variables["initsessionurl"] = TestTraitementService::build_single_custom_url( $traitement, $traitement->UrlInitSession );
+        }
+        
 
         if ( ! array_key_exists( 'type', $variables ) ) {
             $variables['type'] = $traitement->TypeUrlTraitement;
