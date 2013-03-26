@@ -31,6 +31,7 @@ $ ->
             form.attr( "action", post_url[1] )
             for param in post_url[2].split "&"
                 kv = param.split "="
+                continue if kv[0] == "submit"
                 form.append $("<input type='hidden'></input>").attr("name", kv[0] ).attr( "value", kv[1] )
             $(document.body).append form
             form.submit()
