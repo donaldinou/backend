@@ -22,7 +22,7 @@ class Agence
     private $id;
 
     /**
-     * @ORM\Column(name="idAgenceMere",type="integer")
+     * @ORM\Column(name="idAgenceMere",type="integer",nullable=true)
      */
     private $idAgenceMere;
 
