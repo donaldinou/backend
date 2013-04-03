@@ -15,7 +15,7 @@ class Pile
     /**
      * @var integer $id
      *
-     * @ORM\Column(name="idPile", type="integer")
+     * @ORM\Column(name="IdPile", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -49,7 +49,7 @@ class Pile
      */
     private $nextPageTraitement;
     /**
-     * @ORM\Column(name="TimeStampPile",type="datetime")
+     * @ORM\Column(name="TimeStampPile",type="datetime",columnDefinition="timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
      */
     private $timestamp;
     /**

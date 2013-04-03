@@ -52,7 +52,7 @@ class Traitement
      */
     private $StatutTraitement = 0; 
     /**
-     * @ORM\Column(name="TimestampPause",type="datetime")
+     * @ORM\Column(name="TimestampPause",type="datetime",nullable=true)
      */
     private $TimestampPause; 
     /**
@@ -92,7 +92,7 @@ class Traitement
      */
     private $DateTraitement; 
     /**
-     * @ORM\Column(name="TimeStampTraitement",type="datetime")
+     * @ORM\Column(name="TimeStampTraitement",type="datetime",columnDefinition="timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
      */
     private $TimeStampTraitement; 
     /**
