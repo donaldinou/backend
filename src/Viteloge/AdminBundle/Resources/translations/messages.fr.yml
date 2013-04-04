@@ -51,6 +51,26 @@ control:
     end: "Forcer la fin traitement (Forcer une suppression massive)"
     unpause: "Annuler la pause"
   stats: "Afficher les stats"
+  messages:
+    clear_heap: 'Pile vidée'
+    reset_flag: 'Reset des flags pour traitement'
+    file_update: 'Forçage de la mise à jour'
+    file_update_errors: 'Forçage de la mise à jour pour les annonces en erreur'
+    heap_top: 'Traitement remis en haut de la pile'
+    file_clear_privileges_error: 'Ce traitement appartient à une agence qui a un contrat de mise en valeur en cours !'
+    file_clear_too_big: 'Ce traitement a plus de 1 000 annonces, vous ne pouvez pas les supprimer par ce biais.'
+    file_clear: 'annonces supprimées'
+    reset_errors: 'Reset des erreurs pour le traitement (%nb% erreurs supprimées)'
+    reactivate_safe: 'Réactivation du traitement...'
+    reactivate_continue: 'Remise en route du traitement...'
+    end: 'Fin de traitement forcée...'
+    unpause: 'Traitement dépausé...'
+    no_such_action: "Action inconnue"
+  confirm_clear:
+    title: "Suppression d'annonces pour"
+    nb_ads: "Nombre d'annonces"
+    confirm: "Je confirme vouloir supprimer les %nb_annonces% annonces"
+    not_really: "En fait, non"
 
 test:
   title: "Test d'expression pour"

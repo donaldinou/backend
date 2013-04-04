@@ -70,8 +70,26 @@ control:
     reactivate_safe: "Re-enable site (cancels end-of-treatment if it didn't happen)"
     reactivate_continue: "Re-enable site"
     end: "Force end of treatment (may cause mass deletion)"
-    unpause: "Un-pause"
+    unpause: "Un-pause"  
   stats: "Display statistics"
+  messages:
+    clear_heap: 'Heap cleared'
+    reset_flag: 'Reset treatment flag'
+    file_update: 'Force update'
+    file_update_errors: 'Force update for ads with errors'
+    heap_top: 'Treatment put on top of the heap'
+    file_clear: 'deleted ads'
+    reset_errors: 'Reset of errors for the treatment (%nb% errors deleted)'
+    reactivate_safe: 'Re-enabled site...'
+    reactivate_continue: 'Re-enabled site...'
+    end: 'Forced end of treatment...'
+    unpause: 'Unpaused treatment...'
+    no_such_action: "No such action!"
+  confirm_clear:
+    title: "Deleting ads for"
+    nb_ads: "Number of ads"
+    confirm: "I confirm I want to delete %nb_annonces% ads"
+    not_really: "Turns out, not really"
 
 test:
   title: "Expression testing for"

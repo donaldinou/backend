@@ -152,39 +152,42 @@ class TraitementController extends Controller
 
         $request = $this->get('request');
         $action = $request->get('action');
+
+        $t = $this->get('translator');
+        
         switch( $action ) 
         {
             case 'clear_heap':
                 $nb = $pile_repo->clearFor( $traitement );
-                $this->get('session')->setFlash( 'notice', 'Pile vidée... (' . $nb . ' urls)' );
+                $this->get('session')->setFlash( 'notice',  $t->trans( 'control.messages.clear_heap' ) . '... (' . $nb . ' urls)' );
                 break;
             case 'reset_flag':
                 $nb = $annonce_repo->resetFlag( $traitement );
-                $this->get('session')->setFlash( 'notice', 'Reset des flags pour traitement... (' . $nb . ' annonces)' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reset_flag' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'heap_top':
                 $traitement->TimeStampTraitement = new \DateTime('2000-01-01');
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', 'Traitement remis en haut de la pile...' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.heap_top' ) );
                 break;
             case 'file_update':
                 $nb = $annonce_repo->forceUpdate( $traitement );
-                $this->get('session')->setFlash( 'notice', 'Forçage de la mise à jour... (' . $nb . ' annonces)' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.file_update' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'file_update_errors':
                 $nb = $annonce_repo->forceUpdate( $traitement,false );
-                $this->get('session')->setFlash( 'notice', 'Forçage de la mise à jour... (' . $nb . ' annonces)' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.file_update_errors' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'file_clear':
                 if ( $traitement->agence->idPrivilege != 0 ) {
-                    $this->get('session')->setFlash( 'error', 'Ce traitement appartient à une agence qui a un contrat de mise en valeur en cours !' );
+                    $this->get('session')->setFlash( 'error', $t->trans( 'control.messages.file_clear_privileges_error' ) );
                 } else if ( ( $nb_annonces = $annonce_repo->getCountExported( $traitement ) ) > 1000 ) {
-                    $this->get('session')->setFlash( 'error', 'Ce traitement a plus de 1 000 annonces, vous ne pouvez pas les supprimer par ce biais.' );
+                    $this->get('session')->setFlash( 'error', $t->trans( 'control.messages.file_clear_too_big' ) );
                 } else {
                     if ( $request->get('confirmed') ) {
                         $nb = $annonce_repo->forceDelete( $traitement );
-                        $this->get('session')->setFlash( 'notice', $nb . ' annonces supprimées' );
+                        $this->get('session')->setFlash( 'notice', $nb . ' ' . $t->trans( 'control.messages.file_clear' ) );
                         
                     } else {
                         return $this->render( 'VitelogeAdminBundle:Traitement:confirm_clear_file.html.twig',
@@ -197,31 +200,31 @@ class TraitementController extends Controller
                 break;
             case 'reset_errors':
                 $nb = $traitement_repo->resetErrors( $traitement );
-                $this->get('session')->setFlash( 'notice', 'Reset des erreurs pour traitement... (' . $nb . ' erreurs supprimées)' );
+                $this->get('session')->setFlash( 'notice',  $t->trans(  'control.messages.reset_errors', array( '%nb%' => $nb ) ) );
                 break;
             case 'reactivate_safe':
                 $traitement->reactivate();
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', 'Réactivation du traitement...' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reactivate_safe' ) );
                 break;
             case 'reactivate_continue':
                 $traitement->reactivate( true );
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', 'Remise en route du traitement...' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reactivate_continue' ) );
                 break;
             case 'end':
                 $traitement->forceEnd();
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', 'Fin de traitement forcée...' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.end' ) );
                 break;
             case 'unpause':
                 $traitement->endPause();
                 $em->persist( $traitement );
                 $em->flush();                
-                $this->get('session')->setFlash( 'notice', 'Traitement dépausé...' );
+                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.unpause' ) );
                 break;
             default:
                 $this->get('session')->setFlash( 'error', 'No such action!' );
