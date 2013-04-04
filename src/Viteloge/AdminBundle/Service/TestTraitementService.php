@@ -347,7 +347,7 @@ class TestTraitementService
         curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
 
 
-        curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, 15 );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 
