@@ -172,6 +172,10 @@ class TraitementController extends Controller
                 $nb = $annonce_repo->forceUpdate( $traitement );
                 $this->get('session')->setFlash( 'notice', 'Forçage de la mise à jour... (' . $nb . ' annonces)' );
                 break;
+            case 'file_update_errors':
+                $nb = $annonce_repo->forceUpdate( $traitement,false );
+                $this->get('session')->setFlash( 'notice', 'Forçage de la mise à jour... (' . $nb . ' annonces)' );
+                break;
             case 'file_clear':
                 if ( $traitement->agence->idPrivilege != 0 ) {
                     $this->get('session')->setFlash( 'error', 'Ce traitement appartient à une agence qui a un contrat de mise en valeur en cours !' );

@@ -63,6 +63,7 @@ control:
     clear_heap: "Clear heap"
     reset_flag: "Reset ads flag"
     file_update: "Force update of ads"
+    file_update_errors: "Force update of ads with errors"
     file_clear: "Delete ads"
     heap_top: "Put on top of the heap"
     reset_errors: "Reset errors"

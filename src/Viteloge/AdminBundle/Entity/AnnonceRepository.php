@@ -111,11 +111,17 @@ EOREQ;
         );
         return $nb;
     }
-    public function forceUpdate( $traitement )
+    public function forceUpdate( $traitement, $including_good_ones = true )
     {
         $dbh = $this->_em->getConnection();
+
+        $req = "UPDATE annonce SET DateUpdate = '2000-01-01' WHERE IdTraitement = ?";
+
+        if ( ! $including_good_ones ) {
+            $req .= " AND Erreur > 0";
+        }
         $nb = $dbh->executeUpdate(
-            "UPDATE annonce SET DateUpdate = '2000-01-01' WHERE IdTraitement = ?",
+            $req,
             array( $traitement->id )
         );
         return $nb;

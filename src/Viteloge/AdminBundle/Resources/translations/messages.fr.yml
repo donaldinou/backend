@@ -42,6 +42,7 @@ control:
     clear_heap: "Vider la pile"
     reset_flag: "Reset des flags d'annonces"
     file_update: "Forcer la mise à jour des fiches"
+    file_update_errors: "Forcer la mise à jour des fiches en erreur"
     file_clear: "Supprimer les fiches"
     heap_top: "Mise en haut de la pile"
     reset_errors: "Reset des erreurs"
