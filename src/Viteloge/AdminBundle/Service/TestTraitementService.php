@@ -366,7 +366,9 @@ class TestTraitementService
 
         $data = curl_exec( $ch );
         $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
-        if ( $return_code != 200 ) {
+        if ( false === $return_code ) {
+            throw new \Exception( "Erreur interne de téléchargement: " . curl_error( $ch ) );
+        } elseif ( $return_code != 200 ) {
             throw new \Exception( "Erreur de téléchargement (" . $return_code . ")" );
         }
         $content_type = curl_getinfo($ch,CURLINFO_CONTENT_TYPE);
