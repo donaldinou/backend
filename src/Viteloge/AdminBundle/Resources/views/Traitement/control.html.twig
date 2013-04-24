@@ -34,8 +34,14 @@
     {% if traitement.Exclus %}
     <span class="label label-important">{{ 'Exclus!' | trans }}</span>
       {% if traitement.isPoliris %}
-      <span class="label label-inverse">Poliris</span>
+    <span class="label label-inverse">Poliris</span>
       {% endif %}
+{% set tr_raison = traitement.blacklist.translatableReason %}
+    <span>{% if tr_raison %}
+      {{ tr_raison.msg|trans({},'blacklist') }}{% if tr_raison.detail %} : {{ tr_raison.detail }}{% endif %}
+      {% else %}
+      {{ traitement.blacklist.raison|trans({},'blacklist') }}
+      {% endif %}</span>
     {% endif %}
   </div>
 </div>
