@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 use Viteloge\AdminBundle\Service\TestTraitementService;
 
@@ -25,8 +26,14 @@ class TraitementController extends Controller
     {
         $em =  $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $request = $this->get('request');
+
+        $opts = array();
+        if ( $poliris = $request->get( 'poliris' ) ) {
+            $opts['only_poliris'] = 1;
+        }
         return array(
-            'traitements' => $repo->getExclus(),
+            'traitements' => $repo->getExclus( $opts ),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
         );
     }

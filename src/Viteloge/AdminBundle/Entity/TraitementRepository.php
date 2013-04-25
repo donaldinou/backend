@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
  */
 class TraitementRepository extends EntityRepository
 {
-    public function getExclus()
+    public function getExclus( $opts = array()  )
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select( 'traitement' )
@@ -23,7 +23,13 @@ class TraitementRepository extends EntityRepository
             ->leftJoin( 'traitement.blacklist', 'blacklist' )
             ->where( 'traitement.Exclus = 1' )
             ->addOrderBy( 'agence.idPrivilege', 'DESC' );
-        return $qb->getQuery()->getResult();
+        $traitements = $qb->getQuery()->getResult();
+        if ( array_key_exists( 'only_poliris', $opts ) /*&& $opts['only_poliris']*/ ) {
+            $traitements = array_filter( $traitements, function($traitement) {
+                    return $traitement->isPoliris();
+            } );            
+        }
+        return $traitements;
     }
 
     public function resetErrors( $traitement )
