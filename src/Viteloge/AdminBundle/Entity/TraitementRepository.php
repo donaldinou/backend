@@ -13,16 +13,33 @@ use Doctrine\ORM\Query\ResultSetMapping;
  */
 class TraitementRepository extends EntityRepository
 {
+    const SORT_BY_PRIVILEGE = 1;
+    const SORT_BY_EXDATE = 2;
+    const SORT_BY_AGENCY = 3;
+
+    private $SORT_KEYS = array(
+        self::SORT_BY_PRIVILEGE => "agence.idPrivilege",
+        self::SORT_BY_AGENCY => "agence.id",
+        self::SORT_BY_EXDATE => "blacklist.when"
+    );
+    
     public function getExclus( $opts = array()  )
     {
         $qb = $this->_em->createQueryBuilder();
+
+        if ( array_key_exists( 'sort_key', $opts ) && array_key_exists( $opts['sort_key'], $this->SORT_KEYS ) ) {
+            $sort_key = $this->SORT_KEYS[ $opts['sort_key'] ];
+        } else {
+            $sort_key = $this->SORT_KEYS[ self::SORT_BY_PRIVILEGE ];
+        }
+        
         $qb->select( 'traitement' )
             ->from( 'Viteloge\AdminBundle\Entity\Traitement', 'traitement' )
             ->leftJoin( 'traitement.agence', 'agence' )
             ->leftJoin( 'traitement.expression', 'expression' )
             ->leftJoin( 'traitement.blacklist', 'blacklist' )
             ->where( 'traitement.Exclus = 1' )
-            ->addOrderBy( 'agence.idPrivilege', 'DESC' );
+            ->addOrderBy( $sort_key, 'DESC' );
         $traitements = $qb->getQuery()->getResult();
         if ( array_key_exists( 'only_poliris', $opts ) ) {
             $traitements = array_filter( $traitements, $opts['only_poliris']

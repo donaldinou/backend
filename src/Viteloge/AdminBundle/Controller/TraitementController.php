@@ -32,6 +32,10 @@ class TraitementController extends Controller
         if ( $poliris = $request->get( 'poliris' ) ) {
             $opts['only_poliris'] = ( "1" == $poliris );
         }
+        if ( $sort = $request->get( 'sort' ) ) {
+            $opts['sort_key'] = $sort;
+        }
+        
         return array(
             'traitements' => $repo->getExclus( $opts ),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
