@@ -30,7 +30,7 @@ class TraitementController extends Controller
 
         $opts = array();
         if ( $poliris = $request->get( 'poliris' ) ) {
-            $opts['only_poliris'] = 1;
+            $opts['only_poliris'] = ( "1" == $poliris );
         }
         return array(
             'traitements' => $repo->getExclus( $opts ),

@@ -24,10 +24,11 @@ class TraitementRepository extends EntityRepository
             ->where( 'traitement.Exclus = 1' )
             ->addOrderBy( 'agence.idPrivilege', 'DESC' );
         $traitements = $qb->getQuery()->getResult();
-        if ( array_key_exists( 'only_poliris', $opts ) /*&& $opts['only_poliris']*/ ) {
-            $traitements = array_filter( $traitements, function($traitement) {
-                    return $traitement->isPoliris();
-            } );            
+        if ( array_key_exists( 'only_poliris', $opts ) ) {
+            $traitements = array_filter( $traitements, $opts['only_poliris']
+                                         ? function($traitement ) { return $traitement->isPoliris(); }
+                                         : function($traitement) { return ! $traitement->isPoliris(); }
+            );
         }
         return $traitements;
     }
