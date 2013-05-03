@@ -84,12 +84,16 @@ class AgenceAdmin extends VitelogeAdmin
             ->addIdentifier('departement')
             ->addIdentifier('countTraitements')
             ->add('hasXml', 'boolean' )
-            ->add( 'active', 'boolean' )
-            ->add( '_action', 'actions', array(
-                       'actions' => array( 'stats' => array( 'template' => 'VitelogeAdminBundle:Agence:list_action_stats.html.twig' ) )
-                  )
-            )
-        ;
+            ->add( 'active', 'boolean' );
+
+        if ( $this->isGranted( 'ROLE_OPERATOR' ) || $this->isGranted( 'ROLE_COMMERCIAL' ) ) {
+            
+            $listMapper->add( '_action', 'actions', array(
+                                  'actions' => array( 'stats' => array( 'template' => 'VitelogeAdminBundle:Agence:list_action_stats.html.twig' ) )
+                                                          )
+                              )
+                ;
+        }
     }
 
     public function validate(ErrorElement $errorElement, $object)
