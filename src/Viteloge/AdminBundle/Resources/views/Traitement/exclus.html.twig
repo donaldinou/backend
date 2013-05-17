@@ -13,11 +13,13 @@
     </div>
   </div>
   <div class="row">
-  <table class="table table-bordered table-striped table-condensed controles">
-    <thead></thead>
-  <tbody>
+    <form name="handle_exclus" method="POST" action="{{ path('viteloge_admin_traitement_massmodify') }}" > 
+      <table class="table table-bordered table-striped table-condensed controles">
+        <thead></thead>
+        <tbody>
     {% for traitement in traitements %}
       <tr {% if traitement.agence.idPrivilege != 0 %}class="error"{% elseif traitement.agence.ancienne %}class="muted"{% endif %}>
+        <td><input name="selected[{{ traitement.id }}]" type="checkbox" value="{{ traitement.id }}"></td>
         <td><a href="{{ path('viteloge_admin_agence_edit', {id:traitement.agence.id} ) }}">{{ traitement.agence.nom }}</a></td>
         <td>{{ traitement.StringTypeTransaction | trans }}</td>
         {% if traitement.blacklist is not null %}
@@ -40,8 +42,20 @@
         <td><a href="{{ traitement.agence.url }}" title="{{ 'agence.website'|trans}}"><i class="icon-globe"></a></td>
       </tr>
     {% endfor %}
-  </tbody>
-</table>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7" class="form-inline">
+            <select name="action">
+              <option value="reactivate_safe">{{ 'control.actions.reactivate_safe'|trans }}</option>
+              <option value="reactivate_continue">{{ 'control.actions.reactivate_continue'|trans }}</option>
+            </select>
+            <input class="btn btn-danger" type="submit" value="{{ 'control.actions.execute' | trans }}" />
+          </td>
+        </tr>
+      </tfoot>
+      </table>
+    </form>
   </div>
 </div>
 {% endblock %}

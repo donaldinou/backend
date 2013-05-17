@@ -134,6 +134,7 @@ class TraitementAdmin extends VitelogeAdmin
         $id_param = $this->getRouterIdParameter();
         
         $collection->add('exclus');
+        $collection->add('massmodify' );
         $collection->add('test', $id_param.'/test');
         $collection->add('clearcookies', $id_param.'/test/clear_cookies');
         $collection->add('control', $id_param.'/control');

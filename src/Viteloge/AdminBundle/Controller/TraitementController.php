@@ -269,6 +269,47 @@ class TraitementController extends Controller
     }
 
     /**
+     * @Route("/modify")
+     * @Method("POST")
+     */
+    public function massModifyAction()
+    {
+        $em =  $this->get('doctrine.orm.entity_manager');
+        $traitement_repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+//        $traitement = $traitement_repo->find( $id );
+
+        $request = $this->get('request');
+        $action = $request->get('action');
+        switch( $action ) 
+        {
+            case 'reactivate_safe':
+                $full = false;
+                break;
+            case 'reactivate_continue':
+                $full = true;
+                break;
+            default:
+                throw new \Exception( "Unknown action" );
+        }
+        
+        $selected = $request->get('selected');
+
+        if ( $selected ) {    
+            foreach ( $selected as $id => $_id ) {
+                $traitement = $traitement_repo->find( $id );
+                $traitement->reactivate( $full );
+                $em->persist( $traitement );
+            }
+            $em->flush();
+        }
+        
+        
+        return $this->redirect( $this->generateUrl( 'viteloge_admin_traitement_exclus' ) );
+    }
+    
+
+
+    /**
      * @Route("/{id}/stats.png")
      */
     public function graphAction( $id )
