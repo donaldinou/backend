@@ -27,6 +27,10 @@
     }
 }
 
+.form-inline input[type="radio"] {
+    margin: 0 5px;
+}
+
 .table.controles {
     tr.urgent td {
         background-color: #f00 !important;

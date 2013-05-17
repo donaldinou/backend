@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use Viteloge\AdminBundle\Service\TestTraitementService;
+use Viteloge\AdminBundle\Entity\BlacklistFilter;
 
 
 /**
@@ -26,19 +27,41 @@ class TraitementController extends Controller
     {
         $em =  $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
+        $t = $this->get('translator');
+
         $request = $this->get('request');
 
+        $filter = new BlacklistFilter();
+        $form = $this->createFormBuilder( $filter )
+            ->add( 'poliris', 'choice',
+                   array( 'choices' => array(
+                              '-1' => $t->trans( 'Sauf poliris' ),
+                              '0' => $t->trans( 'Tous' ),
+                              '1' => $t->trans( 'Juste poliris' ) ),
+                          'expanded' => true, 'required' => false
+                          ) )
+            ->add( 'sort', 'choice',
+                   array( 'choices' => array(
+                              $repo::SORT_BY_PRIVILEGE => $t->trans( 'Trier par privilège' ),
+                              $repo::SORT_BY_AGENCY => $t->trans( 'Trier par agence' ),
+                              $repo::SORT_BY_EXDATE => $t->trans( 'Trier par date d\'exclusion' ) ),
+                          'required' => false
+                          ) )
+            ->getForm();
+        $form->bind( $request );
+        
         $opts = array();
-        if ( $poliris = $request->get( 'poliris' ) ) {
-            $opts['only_poliris'] = ( "1" == $poliris );
+        if ( $filter->getPoliris() ) {
+            $opts['only_poliris'] = ( "1" == $filter->getPoliris() );
         }
-        if ( $sort = $request->get( 'sort' ) ) {
-            $opts['sort_key'] = $sort;
+        if ( $filter->getSort() ) {
+            $opts['sort_key'] = $filter->getSort();
         }
         
         return array(
             'traitements' => $repo->getExclus( $opts ),
             'admin_pool' => $this->container->get('sonata.admin.pool'),
+            'filter_form' => $form->createView()
         );
     }
 
