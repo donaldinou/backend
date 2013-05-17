@@ -60,3 +60,5 @@ $ ->
         link.addClass "disabled"
         $.get link.attr( 'href' ), {}, (response) ->
             link.parent().replaceWith response
+    $('input#select_all').on 'change', (e) =>
+        $( 'input[type="checkbox"]', e.target.form ).attr 'checked', e.target.checked
