@@ -27,8 +27,15 @@
     }
 }
 
-.form-inline input[type="radio"] {
-    margin: 0 5px;
+form.form-inline {
+    margin: 0;
+    text-align: right;
+    div#form_poliris {
+        display: inline-block;
+    }
+    input[type="radio"] {
+        margin: 0 5px;
+    }
 }
 
 .table.controles {

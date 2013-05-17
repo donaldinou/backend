@@ -3,18 +3,14 @@
 {% block sonata_admin_content %}
 <div class="container">
   <div class="row">
-    <div class="span2">Total: {{ traitements | length }}</div>
-    <form name="filter_exclus" method="GET" class="form-inline">
-      <div class="span3 offset3">
+    <div class="span1">Total: {{ traitements | length }}</div>
+    <div class="span6 offset5">
+      <form name="filter_exclus" method="GET" class="form-inline">
         {{ form_widget(filter_form.poliris) }}
-      </div>
-      <div class="span3">
         {{ form_widget(filter_form.sort) }}
-      </div>
-      <div class="span1">
-        <input class="btn" type="submit" value="{{ 'filtrer'|trans }}">
-      </div>
-    </form>
+        <input class="btn btn-small" type="submit" value="{{ 'filtrer'|trans }}">
+      </form>
+    </div>
   </div>
   <div class="row">
   <table class="table table-bordered table-striped table-condensed controles">
