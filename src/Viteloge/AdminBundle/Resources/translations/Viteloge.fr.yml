@@ -160,3 +160,11 @@ group:
   agence:
     general: "Général"
     details: "Coordonnées"
+  traitement:
+    general: "Général"
+    expr_detail: 'Détails des expressions rationelles'
+    next_page: 'Page suivante'
+    prop_link: 'Liens vers fiche / Page de résultats'
+    modules: 'Modules' 
+    prop_photo: 'Photo de la fiche'
+    prop_info: 'Éléments de la fiche'

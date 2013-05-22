@@ -137,7 +137,14 @@ group:
   agence:
     general: "General"
     details: "Details"
-
+  traitement:
+    general: "General"
+    expr_detail: 'Regular expression details'
+    next_page: 'Next page'
+    prop_link: 'Property / results link'
+    modules: 'Modules' 
+    prop_photo: 'Property photo'
+    prop_info: 'Property information'
 
 
 Agences: "Agencies"
