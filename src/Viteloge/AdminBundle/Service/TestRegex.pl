@@ -40,17 +40,29 @@ if ( ref($guess) and ( $guess->name ne 'utf8' ) ) {
 my $data = decode_json( $json_data );
 
 my $results = {};
+my %errors;
 
 foreach my $expression_name ( keys %{$data} ) {
     my $expr = $data->{$expression_name}{'expr'};
     my $result;
-    if ( $data->{$expression_name}{'array'}) {
-        my @RESULT = $source =~ /$expr/sig;
-        $result = \@RESULT;
+    eval {
+        if ( $data->{$expression_name}{'array'}) {
+            my @RESULT = $source =~ /$expr/sig;
+            $result = \@RESULT;
+        } else {
+            ($result) = $source =~ /$expr/sig;
+        }
+    };
+    if ( $@ ) {
+        $@ =~ s/ at [^ ]*TestRegex.pl line \d+//;
+        $errors{$expression_name} = $@ ;
     } else {
-        ($result) = $source =~ /$expr/sig;
+        $results->{$expression_name} = $result;
     }
-    $results->{$expression_name} = $result;
+}
+
+if ( %errors ) {
+    $results->{'_errors'} = \%errors;
 }
 
 

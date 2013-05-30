@@ -14,6 +14,8 @@
     <li><i>{{ expression_name }} </i>{% if result.expr is defined %} (<span class="expression">{{ result.expr }}</span>){% endif %} :
       {% if result.empty is defined %}
       <span class="empty">{{ 'test.results.not_completed'|trans }}</span>
+      {% elseif result.error is defined %}
+      <span class="error">{{ result.error }}</span>
       {% elseif result.array %}
       {{ result.value|length }} {{ 'test.results.results'|trans }}
       {% elseif result.url is defined %}

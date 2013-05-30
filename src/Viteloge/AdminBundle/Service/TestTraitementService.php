@@ -157,12 +157,20 @@ class TestTraitementService
         if (is_resource($process)) {
             
             $config = json_encode( $expression_bag );
-            
+
             fwrite( $pipes[0], $config );
             fclose( $pipes[0] );
             $regex_result = stream_get_contents( $pipes[1] );
 
             $decoded_result = json_decode( $regex_result, true );
+
+            if ( array_key_exists( '_errors', $decoded_result ) ) {
+                $errors = $decoded_result['_errors'];
+                unset( $decoded_result['_errors'] );
+                foreach ( $errors as $id => $msg ) {
+                    $results[$id] = array( 'error' => $msg );
+                }
+            }
             
             foreach ( $decoded_result as $id => $output ) {
                 $results[$id] = array( 'value' => $output, 'array' => in_array( $id, $expressions_array ) );
