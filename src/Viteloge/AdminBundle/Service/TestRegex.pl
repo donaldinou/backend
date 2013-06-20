@@ -1,6 +1,7 @@
 #! /usr/bin/perl -w
 
 use strict;
+use Data::Dumper;
 use JSON;
 use utf8;
 
@@ -39,30 +40,46 @@ if ( ref($guess) and ( $guess->name ne 'utf8' ) ) {
 
 my $data = decode_json( $json_data );
 
-my $results = {};
-my %errors;
-
-foreach my $expression_name ( keys %{$data} ) {
-    my $expr = $data->{$expression_name}{'expr'};
-    my $result;
-    eval {
-        if ( $data->{$expression_name}{'array'}) {
-            my @RESULT = $source =~ /$expr/sig;
-            $result = \@RESULT;
+sub extract_info($$) {
+    my($data,$source) = @_;
+    my $results = {};
+    my %errors;
+    
+    foreach my $expression_name ( keys %{$data} ) {
+        my $expr = $data->{$expression_name}{'expr'};
+        my $result;
+        eval {
+            if ( $data->{$expression_name}{'array'}) {
+                my @RESULT = $source =~ /$expr/sig;
+                $result = \@RESULT;
+            } else {
+                ($result) = $source =~ /$expr/sig;
+            }
+        };
+        if ( $@ ) {
+            $@ =~ s/ at [^ ]*TestRegex.pl line \d+//;
+            $errors{$expression_name} = $@ ;
         } else {
-            ($result) = $source =~ /$expr/sig;
+            $results->{$expression_name} = $result;
         }
-    };
-    if ( $@ ) {
-        $@ =~ s/ at [^ ]*TestRegex.pl line \d+//;
-        $errors{$expression_name} = $@ ;
-    } else {
-        $results->{$expression_name} = $result;
     }
+    if ( %errors ) {
+        $results->{'_errors'} = \%errors;
+    }
+    return $results;
 }
-
-if ( %errors ) {
-    $results->{'_errors'} = \%errors;
+my $results = {};
+if ( $data->{SplitResultAnnonce} ) {
+    my $split = delete $data->{SplitResultAnnonce};
+    eval {
+        my @ads_list = split /$split->{'expr'}/si, $source;
+        $results = ();
+        foreach my $ad_content ( @ads_list ) {
+            push @{$results}, extract_info( $data, $ad_content );
+        }
+    }
+} else {
+    $results = extract_info( $data, $source );
 }
 
 

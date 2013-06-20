@@ -18,7 +18,7 @@
 {% endif %}
 </div>
 {% if results is defined and not results is null %}
-  {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results } %}
+  {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results, 'expressions': expressions } %}
 {% endif %}
 <div class="sonata-bc">
   <form method="POST" class="form-horizontal" action="{{ path( 'viteloge_admin_traitement_test', { id:traitement.idTraitement} ) }}">

@@ -1,0 +1,26 @@
+  <ul class="expressions">
+      {% for expression_name, result in individual_result %}
+        <li><i>{{ expression_name }} </i>{% if expressions[expression_name].value is defined %} (<span class="expression">{{ expressions[expression_name].value }}</span>){% endif %} :
+      {% if result.empty is defined %}
+      <span class="empty">{{ 'test.results.not_completed'|trans }}</span>
+      {% elseif result.error is defined %}
+      <span class="error">{{ result.error }}</span>
+      {% elseif expressions[expression_name].array %}
+      {{ result.value|length }} {{ 'test.results.results'|trans }} 
+      {% elseif result.url is defined %}
+      <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ result.value }}">{{ result.value }}</a>     
+      {% elseif result.value|length > 0 %}
+      {{ result.value }}
+        {% if result.photo is defined %}
+          <br />
+          <img src="{{ result.photo }}" width="320">
+        {% endif %}
+
+      {% else %}
+        <span class="error">{{ 'test.results.no_result'|trans }}</span>
+      {% endif %}
+{#%
+%#}
+      </li>
+    {% endfor %}
+  </ul>

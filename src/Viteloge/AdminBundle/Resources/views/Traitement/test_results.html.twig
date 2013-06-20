@@ -9,30 +9,26 @@
   </ul>
   {% endif %}
   <h2>{{ 'test.results.title.expr'|trans }}</h2>
-  <ul class="expressions">
-    {% for expression_name, result in results.expressions %}
-    <li><i>{{ expression_name }} </i>{% if result.expr is defined %} (<span class="expression">{{ result.expr }}</span>){% endif %} :
-      {% if result.empty is defined %}
-      <span class="empty">{{ 'test.results.not_completed'|trans }}</span>
-      {% elseif result.error is defined %}
-      <span class="error">{{ result.error }}</span>
-      {% elseif result.array %}
-      {{ result.value|length }} {{ 'test.results.results'|trans }}
-      {% elseif result.url is defined %}
-      <a class="test" href="?TypeSource={{ type }}&source={{ result.value|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ result.value }}">{{ result.value }}</a>     
-      {% elseif result.value|length > 0 %}
-      {{ result.value }}
-        {% if result.photo is defined %}
-          <br />
-          <img src="{{ result.photo }}" width="320">
-        {% endif %}
-
-      {% else %}
-        <span class="error">{{ 'test.results.no_result'|trans }}</span>
-      {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+    {% if results.expressions|length > 1 %}
+      <div class="accordion" id="fiches">
+        {% for individual_result in results.expressions %}
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#fiches" href="#collapse{{ loop.index }}">
+                Fiche {{ loop.index }}
+              </a>
+            </div>
+            <div id="collapse{{ loop.index }}" class="accordion-body collapse">
+              <div class="accordion-inner">
+                {% include 'VitelogeAdminBundle:Traitement:test_detail.html.twig'  %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% include 'VitelogeAdminBundle:Traitement:test_detail.html.twig' with { 'individual_result': results.expressions[0] }  %}
+    {% endif %}
   {% if results.liens_pages_suivantes_nombre is defined %}
     <h3>{{ 'test.results.title.next_page_urls'|trans }}</h3>
     <ul>

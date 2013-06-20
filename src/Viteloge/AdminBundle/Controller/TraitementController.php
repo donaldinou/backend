@@ -89,7 +89,10 @@ class TraitementController extends Controller
 
             try 
             {
-                $variables['results'] = $tester->run( $type, $source );
+                $tmp = $tester->run( $type, $source );
+                $variables['results'] = $tmp['results'];
+                $variables['expressions'] = $tmp['info_expressions'];
+                
 
                 if ( ! is_null( $tester->downloadedSource ) ) {
                     $variables['source'] = $tester->downloadedSource;

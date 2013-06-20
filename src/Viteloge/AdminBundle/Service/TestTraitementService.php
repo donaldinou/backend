@@ -2,11 +2,15 @@
 
 namespace Viteloge\AdminBundle\Service;
 
+use Viteloge\AdminBundle\Entity\ExpressionUnderTest;
+
 class TestTraitementService 
 {
     private $traitement;
 
     public $downloadedSource = null;
+    public $expects_array_results = false;
+    
     
     public function __construct( $traitement)
     {
@@ -48,67 +52,62 @@ class TestTraitementService
                 $expressions_urls = array( 'ExpPageSuivante' );
                 break;
             case 'F':
-                $expressions = array( 'ExpUrlElements', 'ExpTypeLogement', 'ExpNbChambre', 'ExpSurface', 'ExpUrlPhoto', 'ExpPiece', 'ExpPrix', 'ExpVille', 'ExpArrondissement', 'ExpCP', 'ExpDescription', 'ExpAgence' );
+                $expressions = array( 'ExpUrlElements', 'ExpTypeLogement', 'ExpNbChambre', 'ExpSurface', 'ExpUrlPhoto', 'ExpPiece', 'ExpPrix', 'ExpVille', 'ExpArrondissement', 'ExpCP', 'ExpDescription', 'ExpAgence', 'SplitResultAnnonce' );
                 $expressions_array = array();
                 $expressions_urls = array();
+                $this->expects_array_results = ! empty( $this->traitement->SplitResultAnnonce );
                 break;
         }
         $expression_bag = array();
         $expressions_empty = array();
+        $number_of_expressions = 0;
         foreach ( $expressions as $expression ) {
-            if ( empty( $this->traitement->$expression ) ) {
-                $expressions_empty[$expression] = array( 'empty' => true );
-            } else {
-                $expression_bag[$expression] = array( "expr" => $this->traitement->$expression, "array" => false );
-            }
+            $expression_bag[$expression] = new ExpressionUnderTest( $expression, $this->traitement );
+            if ( $expression_bag[$expression]->isValid() ) {
+                $number_of_expressions++;
+            }   
         }
         foreach ( $expressions_array as $expression ) {
-            if ( ! empty( $this->traitement->$expression ) ) {
-                $expression_bag[$expression] = array( "expr" => $this->traitement->$expression, "array" => true );
-            }
+            $expression_bag[$expression] = new ExpressionUnderTest( $expression, $this->traitement, true );
         }
-        if ( ! empty( $expression_bag ) ) {
-            $results['expressions'] = $this->callPerlTester( $source, $expression_bag, $expressions_array );
+        if ( $number_of_expressions > 0 ) {
+            $results['expressions'] = $this->callPerlTester( $source, $expression_bag );
         
 
-            if ( array_key_exists( 'ExpLiensFiche', $results['expressions'] )
-                 && count( $results['expressions']['ExpLiensFiche']['value'] ) > 0 ) {
+            if ( 'F' == $type ) {
+                foreach ( $results['expressions'] as &$result ) {
+                    if ( array_key_exists( 'ExpUrlPhoto', $result ) && ! empty( $result['ExpUrlPhoto']['value'] ) ) {
+                        $result['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $result['ExpUrlPhoto']['value'] ), $this->base_url );                
+                    }
+                }
+            } elseif ( 'R' == $type ) {
+                foreach ( $expressions_urls as $expression ) {
+                    if ( ! empty( $results['expressions'][0][$expression]['value'] ) ) {
+                        $results['expressions'][0][$expression]['url'] = true;
+                        $results['expressions'][0][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][0][$expression]['value'] ), $this->base_url );
+                    }
+                }
 
-                $results['expressions']['ExpLiensFiche']['value'] = array_unique( $results['expressions']['ExpLiensFiche']['value'] );
-                foreach ( $results['expressions']['ExpLiensFiche']['value'] as $lien ) {
-                    $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlFicheTraitement, $lien ), $this->base_url );
+                if ( array_key_exists( 'ExpLiensFiche', $results['expressions'][0] )
+                     && count( $results['expressions'][0]['ExpLiensFiche']['value'] ) > 0 ) {
+                    
+                    $results['expressions'][0]['ExpLiensFiche']['value'] = array_unique( $results['expressions'][0]['ExpLiensFiche']['value'] );
+                    foreach ( $results['expressions'][0]['ExpLiensFiche']['value'] as $lien ) {
+                        $results['liens_fiches'][] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlFicheTraitement, $lien ), $this->base_url );
+                    }
+                }
+                if ( 'R' == $this->traitement->TypeUrlSortieTraitement & ! empty( $this->traitement->ModelUrlResultatTraitement ) ){
+                    $nb_biens_total = $results['expressions'][0]['ExpNbBien']['value'];
+                    $nb_biens_page = count( $results['liens_fiches'] );
+                    $nb_pages = ceil( $nb_biens_total / $nb_biens_page );
+                    $max = $nb_pages > 10 ? 10 : $nb_pages;
+                    $urls_by_page = array();
+                    for( $i = 2; $i <= $max; $i++ ) {
+                        $urls_by_page[] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlResultatTraitement, $i ), $this->full_url );
+                    }
+                    $results['liens_pages_suivantes_nombre'] = $urls_by_page;
                 }
             }
-            if ( array_key_exists( 'ExpUrlPhoto', $results['expressions'] ) && ! empty( $results['expressions']['ExpUrlPhoto']['value'] ) ) {
-                $results['expressions']['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $results['expressions']['ExpUrlPhoto']['value'] ), $this->base_url );                
-            }
-            
-            foreach ( $expressions_urls as $expression ) {
-                if ( ! empty( $results['expressions'][$expression]['value'] ) ) {
-                    $results['expressions'][$expression]['url'] = true;
-                    $results['expressions'][$expression]['value'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPageSuivante, $results['expressions'][$expression]['value'] ), $this->base_url );
-                }
-            }
-
-            if ( 'F' == $this->traitement->TypeUrlSortieTraitement && ! empty( $this->traitement->ModelUrlFicheTraitement ) ) {
-                $nb_biens = $results['expressions']['ExpNbBien'];
-                print_r( $nb_biens );
-            }
-            if ( 'R' == $this->traitement->TypeUrlSortieTraitement & ! empty( $this->traitement->ModelUrlResultatTraitement ) ){
-                $nb_biens_total = $results['expressions']['ExpNbBien']['value'];
-                $nb_biens_page = count( $results['liens_fiches'] );
-                $nb_pages = ceil( $nb_biens_total / $nb_biens_page );
-                $max = $nb_pages > 10 ? 10 : $nb_pages;
-                $urls_by_page = array();
-                for( $i = 2; $i <= $max; $i++ ) {
-                    $urls_by_page[] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlResultatTraitement, $i ), $this->full_url );
-                }
-                $results['liens_pages_suivantes_nombre'] = $urls_by_page;
-            }
-            
-            
-
-            
         } else {
             $results['expressions'] = array();
         }
@@ -118,13 +117,11 @@ class TestTraitementService
                 $results['expressions'][$name]['expr'] = $expression_bag[$name]['expr'];
             }
         }
-        
-
-        return $results;
+        return array( 'results' => $results, 'info_expressions' => $expression_bag );
     }
 
 
-    private function callPerlTester( $source, $expression_bag, $expressions_array )
+    private function callPerlTester( $source, $expression_bag )
     {
         $results = array();
 
@@ -154,9 +151,10 @@ class TestTraitementService
                                   0 => array( "pipe", "r" ),
                                   1 => array( "pipe", "w" )/*,
                                   2 => array( "file", "/tmp/error.txt", "w")*/ ), $pipes );
+        $expression_config = $this->generateExpressionConfig( $expression_bag );
         if (is_resource($process)) {
             
-            $config = json_encode( $expression_bag );
+            $config = json_encode( $expression_config );
 
             fwrite( $pipes[0], $config );
             fclose( $pipes[0] );
@@ -164,25 +162,59 @@ class TestTraitementService
 
             $decoded_result = json_decode( $regex_result, true );
 
-            if ( array_key_exists( '_errors', $decoded_result ) ) {
-                $errors = $decoded_result['_errors'];
-                unset( $decoded_result['_errors'] );
-                foreach ( $errors as $id => $msg ) {
-                    $results[$id] = array( 'error' => $msg );
+            if ( $this->isHandlingArrayOfResults() ) {
+                foreach ( $decoded_result as $individual_result ) {
+                    $results[] = $this->prep_result( $individual_result, $expression_bag );
                 }
+            } else {
+                $results[] = $this->prep_result( $decoded_result, $expression_bag );
             }
             
-            foreach ( $decoded_result as $id => $output ) {
-                $results[$id] = array( 'value' => $output, 'array' => in_array( $id, $expressions_array ) );
-            }
             fclose( $pipes[1] );
             proc_close( $process );
         }
         unlink( $tmp_file );
         return $results;
     }
+
+    private function prep_result( $result, $expressions ) 
+    {
+        if ( array_key_exists( '_errors', $result ) ) {
+            $errors = $result['_errors'];
+            unset( $result['_errors'] );
+            foreach ( $errors as $id => $msg ) {
+                $results[$id] = array( 'error' => $msg );
+            }
+        }   
+        foreach ( $result as $id => $output ) {
+            $results[$id] = array( 'value' => $output );
+        }
+        return $results;
+    }
+    
+    
+    private function generateExpressionConfig( $expression_bag )
+    {
+        $config = array();
+        foreach ( $expression_bag as $name => $expression ) {
+            if ( $expression->isValid() ) {
+                $config[$name] = array(
+                    'expr' => $expression->getValue(),
+                    'array' => $expression->isArray()
+                );
+            }
+        }
+        return $config;
+    }
     
 
+    private function isHandlingArrayOfResults()
+    {
+        return $this->expects_array_results;
+    }
+    
+    
+    
 
     function get_url_list($model) 
     {
