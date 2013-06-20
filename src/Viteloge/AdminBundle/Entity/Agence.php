@@ -154,7 +154,11 @@ class Agence
 
     public function __toString() 
     {
-        return $this->nom;
+        if ( $this->nom ) {
+            return $this->nom;
+        } else {
+            return "";
+        }
     }
 
     public function getCountTraitements()
