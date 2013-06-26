@@ -8,6 +8,7 @@
   {% endfor %}
   </ul>
   {% endif %}
+  {% if results.expressions|length > 0 %}
   <h2>{{ 'test.results.title.expr'|trans }}</h2>
     {% if results.expressions|length > 1 %}
       <div class="accordion" id="fiches">
@@ -45,5 +46,6 @@
       <li><a class="test" href="?TypeSource=F&source={{ lien_fiche|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ lien_fiche }}">{{ lien_fiche }}</a></li>
     {% endfor %}
     </ol>
+  {% endif %}
   {% endif %}
 </div>
