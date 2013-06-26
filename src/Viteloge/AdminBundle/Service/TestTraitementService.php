@@ -69,6 +69,9 @@ class TestTraitementService
         }
         foreach ( $expressions_array as $expression ) {
             $expression_bag[$expression] = new ExpressionUnderTest( $expression, $this->traitement, true );
+            if ( $expression_bag[$expression]->isValid() ) {
+                $number_of_expressions++;
+            }   
         }
         if ( $number_of_expressions > 0 ) {
             $results['expressions'] = $this->callPerlTester( $source, $expression_bag );
