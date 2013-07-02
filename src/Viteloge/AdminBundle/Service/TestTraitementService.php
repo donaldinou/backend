@@ -114,10 +114,12 @@ class TestTraitementService
         } else {
             $results['expressions'] = array();
         }
-        $results['expressions'] = array_merge( $results['expressions'], $expressions_empty );
-        foreach ( $results['expressions'] as $name => $result ) {
-            if ( array_key_exists( $name, $expression_bag ) ) {
-                $results['expressions'][$name]['expr'] = $expression_bag[$name]['expr'];
+        foreach ( $results['expressions'] as &$result ) {
+            $result = array_merge( $result, $expressions_empty );
+            foreach ( $result as $name => $result_value ) {
+                if ( array_key_exists( $name, $expression_bag ) ) {
+                    $result[$name]['expr'] = $expression_bag[$name];
+                }
             }
         }
         return array( 'results' => $results, 'info_expressions' => $expression_bag );
