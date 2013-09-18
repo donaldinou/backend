@@ -87,7 +87,11 @@ class XmlFeed
 
     public function __toString()
     {
-        return $this->url;
+        if ( $this->url ) 
+        {
+            return $this->url;
+        }
+        return "";
     }
 
     public function getNomAgence()
