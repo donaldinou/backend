@@ -33,6 +33,9 @@
           {% if is_granted('ROLE_VITELOGE_ADMIN_TRAITEMENT_CREATE') %}
           <a href="{{ path('viteloge_admin_traitement_create', {idAgence: admin.id(object)}) }}" class="btn">{% trans %}agence.edit.create_treatment{% endtrans %}</a>
           {% endif %}
+          {% if is_granted('ROLE_VITELOGE_ADMIN_XML_FEED_CREATE') %}
+          <a href="{{ path('viteloge_admin_xmlfeed_create', {idAgence: admin.id(object)}) }}" class="btn">{% trans %}agence.edit.create_xml_feed{% endtrans %}</a>
+          {% endif %}
           {% if is_granted('ROLE_AGENCY_RIGHTS') %}
           <a href="{{ path('viteloge_admin_privilege_create', {idAgence: admin.id(object)}) }}" class="btn">{% trans %}agence.edit.create_privileges{% endtrans %}</a>
           {% endif %}

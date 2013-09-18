@@ -1,6 +1,7 @@
 agence:
   edit:
     create_treatment: "Créer un nouveau traitement"
+    create_xml_feed: "Créer un nouveau feed XML"
     create_privileges: "Créer des privilèges"
   website: "Site web"
 
