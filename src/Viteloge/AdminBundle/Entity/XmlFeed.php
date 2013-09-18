@@ -25,9 +25,9 @@ class XmlFeed
 
 
     /**
-     * @ORM\Column() 
+     * @ORM\Column(name="idXmlFeedMap", type="integer") 
      */
-    private $idXmlFeedMap;
+    private $idXmlFeedMap = 0;
 
     /**
      * @ORM\Column(type="boolean")
