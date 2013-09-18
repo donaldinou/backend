@@ -51,7 +51,7 @@ class XmlFeed
     /**
      * @ORM\Column(type="string",length=1)
      */
-    private $transaction;
+    private $transaction = '';
     /**
      * ORM\Column(type="datatime")
      */
@@ -82,6 +82,9 @@ class XmlFeed
      */
     public function __set($property, $value)
     {
+        if ( is_null( $value ) && in_array( $property, array( "module", "transaction" )  ) ) {
+            $value = '';
+        }
         $this->$property = $value;
     }
 
