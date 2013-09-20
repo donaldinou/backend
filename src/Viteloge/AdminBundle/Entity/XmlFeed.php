@@ -99,10 +99,10 @@ class XmlFeed
 
     public function getNomAgence()
     {
-        if ( isset( $this->agence ) ) {
+        if ( $this->idAgence != 0 && isset( $this->agence ) ) {
             return $this->agence->nom;
         }
-        return '';
+        return '-';
     }
 
     public function getActif()
