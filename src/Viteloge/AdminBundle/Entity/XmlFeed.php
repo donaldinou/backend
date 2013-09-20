@@ -39,6 +39,10 @@ class XmlFeed
      * @ORM\JoinColumn(name="IdAgence", referencedColumnName="idAgence")
      */
     private $agence;
+    /**
+     * @ORM\Column(name="IdAgence", type="integer",nullable=false)
+     */
+    private $idAgence;
 
     /**
      * @ORM\Column(type="string",length=255)
