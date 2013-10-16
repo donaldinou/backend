@@ -81,6 +81,11 @@ form.form-inline {
     .controls {
         margin-left: 260px;
     }
+    &.citystats {
+        label {
+            display: inline-block;
+        }
+    }
 }
 
 .sonata-bc .ui-dialog .form-horizontal {

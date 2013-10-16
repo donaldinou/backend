@@ -17,6 +17,9 @@ misc:
   password: "Mot de passe"
   change: "Changer"
 
+city:
+  stats: "Statistiques de clicks/biens par ville"
+
 privilege:
   offer: "Offre"
   begin: "Début"

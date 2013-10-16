@@ -16,6 +16,19 @@
   </tbody>
 </table>     
 {% endif %}
+{% if is_granted('ROLE_COMMERCIAL') %}
+<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
+  <thead>
+    <tr><th>{% trans %}Statistiques{% endtrans %}</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="{{ path('viteloge_admin_citystats_index') }}" class="btn"><i></i>{% trans %}city.stats{% endtrans %}</a></td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
 <table class="table sonata-bc table-bordered table-striped sonata-ba-list">
   <thead>
     <tr>

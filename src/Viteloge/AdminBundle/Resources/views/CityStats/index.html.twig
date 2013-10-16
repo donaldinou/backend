@@ -17,7 +17,7 @@
 
 {% block sonata_admin_content %}
     <div class="row-fluid">
-      <form class="form-horizontal" id="form_stats_city">
+      <form class="form-horizontal citystats" id="form_stats_city">
 
         {{ form_label( filter_form.ville ) }}
         {{ form_widget( filter_form.ville, { 'attr': { 'class': 'ville_autocomplete', 'data-target-field':  filter_form.ville_id.vars.id, 'data-complete-path': path('viteloge_admin_citystats_citycomplete' ) } } ) }}
@@ -31,7 +31,7 @@
         <input type="submit" class="btn" value="Calculer"-->
       </form>
     </div>
-    {% if data is defined %}
+    {% if data is defined and data %}
     <div style="height: 400px; position: relative;" id="chart_div" class="span9"
          data-content="{{ data | json_encode }}">
     </div>
