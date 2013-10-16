@@ -1,0 +1,40 @@
+{% extends 'VitelogeAdminBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+{% endstylesheets %}
+{% endblock %}
+
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge_city.coffee' filter='coffee' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block sonata_admin_content %}
+    <div class="row-fluid">
+      <form class="form-horizontal" id="form_stats_city">
+
+        {{ form_label( filter_form.ville ) }}
+        {{ form_widget( filter_form.ville, { 'attr': { 'class': 'ville_autocomplete', 'data-target-field':  filter_form.ville_id.vars.id, 'data-complete-path': path('viteloge_admin_citystats_citycomplete' ) } } ) }}
+        {{ form_widget( filter_form.ville_id ) }}
+        {{ form_rest( filter_form ) }}
+        <input type="submit" class="btn" value="Calculer">
+
+        <!--label for="ville" class="control-label">Ville</label>
+        <input type="hidden" name="ville_id" />
+        <input type="text" name="ville"  class="input-medium ville_autocomplete" data-target-field="ville_id" data-complete-path="{{ path('viteloge_admin_citystats_citycomplete' ) }}"/>
+        <input type="submit" class="btn" value="Calculer"-->
+      </form>
+    </div>
+    {% if data is defined %}
+    <div style="height: 400px; position: relative;" id="chart_div" class="span9"
+         data-content="{{ data | json_encode }}">
+    </div>
+    {% endif %}
+
+{% endblock %}
