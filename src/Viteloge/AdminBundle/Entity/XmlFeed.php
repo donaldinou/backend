@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class XmlFeed
 {
-    public static $Modules = array( 'AC3', 'ERA', 'trovit', 'adaptimmo' );
+    public static $Modules = array( 'AC3', 'ERA', 'trovit', 'adaptimmo', 'VLNeuf' );
     
     /**
      * @var integer $id
