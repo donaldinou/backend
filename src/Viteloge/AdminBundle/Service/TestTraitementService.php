@@ -80,6 +80,7 @@ class TestTraitementService
             if ( 'F' == $type ) {
                 foreach ( $results['expressions'] as &$result ) {
                     if ( array_key_exists( 'ExpUrlPhoto', $result ) && ! empty( $result['ExpUrlPhoto']['value'] ) ) {
+                        $result['ExpUrlPhoto']['value'] = str_replace( array( '$'), array( '%24' ), $result['ExpUrlPhoto']['value'] );
                         $result['ExpUrlPhoto']['photo'] = $this->make_absolute( $this->build_custom_url( $this->traitement->ModelUrlPhoto, $result['ExpUrlPhoto']['value'] ), $this->base_url );                
                     }
                 }
