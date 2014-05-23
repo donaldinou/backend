@@ -1,24 +1,30 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
 {% block stylesheets %}
-{{ parent() }}
-{% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
+  {{ parent() }}
+  {% stylesheets '@VitelogeAdminBundle/Resources/public/scss/default.scss' filter='scss' output='bundles/vitelogeadmin/css/compiled.css' %}
   <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
-{% endstylesheets %}
+  {% endstylesheets %}
 {% endblock %}
+
 {% block javascripts %}
   {{ parent() }}
   <script type='text/javascript' src='http://www.google.com/jsapi'></script>
   {% javascripts '@VitelogeAdminBundle/Resources/public/js/viteloge.coffee' filter='coffee' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+  <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
 {% endblock %}
+
 {% block sonata_pre_fieldsets %}
-<div class="viteloge-actions">
-{% if is_granted('ROLE_OPERATOR') %}
-  <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
-{% endif %}
-{% if is_granted( 'ROLE_OPERATOR' ) or is_granted( 'ROLE_INPUT_OPERATOR' ) %}
-  <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
-{% endif %}
-</div>
+  <div class="viteloge-actions">
+    {% if is_granted('ROLE_OPERATOR') %}
+      <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
+    {% endif %}
+    {% if is_granted( 'ROLE_OPERATOR' ) or is_granted( 'ROLE_INPUT_OPERATOR' ) %}
+      <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
+    {% endif %}
+  </div>
+
+  {{ parent() }}
 {% endblock%}
+

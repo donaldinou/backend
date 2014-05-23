@@ -76,7 +76,6 @@ class AgenceAdmin extends VitelogeAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('privilegiee', null, array( 'editable' => true, 'template' => 'VitelogeAdminBundle:Agence:privilegiee.html.twig', 'label' => ' ' ) )
             ->addIdentifier('NomAgenceMere')
             ->addIdentifier('nom')
             ->addIdentifier('cp')
@@ -84,8 +83,10 @@ class AgenceAdmin extends VitelogeAdmin
             ->addIdentifier('departement')
             ->addIdentifier('countTraitements')
             ->add('hasXml', 'boolean' )
-            ->add( 'active', 'boolean' );
-
+            ->add( 'active', 'boolean' )
+            ->add('privilegiee', null, array( 'editable' => false, 'template' => 'VitelogeAdminBundle:Agence:privilegiee.html.twig', 'label' => '[P]' ) )
+        ;
+        
         if ( $this->isGranted( 'ROLE_OPERATOR' ) || $this->isGranted( 'ROLE_COMMERCIAL' ) ) {
             
             $listMapper->add( '_action', 'actions', array(

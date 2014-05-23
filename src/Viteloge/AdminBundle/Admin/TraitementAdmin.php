@@ -111,7 +111,7 @@ class TraitementAdmin extends VitelogeAdmin
                 return 'VitelogeAdminBundle:Traitement:edit.html.twig';
                 break;
             default:
-                return parent::getTemplate( $name );
+                return parent::getTemplate( $name );                
         }
         
     }
