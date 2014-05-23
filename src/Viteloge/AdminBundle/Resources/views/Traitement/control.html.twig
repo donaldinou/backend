@@ -6,16 +6,13 @@
 
 {% block sonata_admin_content %}
 <div id="notifications">
-{% if app.session.hasFlash('error') %}
+{% for category in [ 'error', 'notice' ] %}
+  {% for message in app.session.flashbag.get( category ) %}
     <div class="alert alert-error">
-        {{ app.session.flash('error') }}
+        {{ message }}
     </div>
-{% endif %}
-{% if app.session.hasFlash('notice') %}
-    <div class="alert alert-success">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
+  {% endfor %}
+{% endfor %}
 </div>
 {% if not traitement.agence.url is empty %}
 <p><a href="{{ traitement.agence.url }}">{{ traitement.agence.url }}</a></p>
