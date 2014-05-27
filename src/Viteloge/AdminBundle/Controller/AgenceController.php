@@ -173,7 +173,7 @@ class AgenceController extends Controller
                     
                 } catch ( \S3Exception $e ) {
                     $this->get('logger')->info( $e->getMessage() );
-                    $this->get('session')->setFlash('error', $e->getMessage() );
+                    $this->addFlash('error', $e->getMessage() );
                 }
             
                 return $this->redirect( $this->generateUrl( 'viteloge_admin_agence_edit', array( 'id' => $id )  ) );
