@@ -124,6 +124,8 @@ sonata_doctrine_orm_admin:
 sonata_admin:
   title: "Admin Vitelogé"
   title_logo: bundles/vitelogeadmin/images/house.png
+  options:
+    confirm_exit: false
   dashboard:
     blocks: 
       - { position: left, type: sonata.admin.block.admin_list }
