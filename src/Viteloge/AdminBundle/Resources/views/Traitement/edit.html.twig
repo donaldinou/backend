@@ -17,11 +17,13 @@
 
 {% block sonata_pre_fieldsets %}
   <div class="viteloge-actions btn-group">
-    {% if is_granted('ROLE_OPERATOR') %}
-      <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
-    {% endif %}
-    {% if is_granted( 'ROLE_OPERATOR' ) or is_granted( 'ROLE_INPUT_OPERATOR' ) %}
-      <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
+    {% if admin.id(object) %}
+      {% if is_granted('ROLE_OPERATOR') %}
+        <a href="{{ path( 'viteloge_admin_traitement_control', { id:admin.id(object) } ) }}" class="btn btn-small"><i class="icon-fire"></i> {% trans %}treatment.control{% endtrans %}</a>
+      {% endif %}
+      {% if is_granted( 'ROLE_OPERATOR' ) or is_granted( 'ROLE_INPUT_OPERATOR' ) %}
+        <a href="{{ path( 'viteloge_admin_traitement_test', { id: admin.id(object) } ) }}" class="btn btn-small"><i class="icon-play"></i> {% trans %}treatment.test{% endtrans %}</a>
+      {% endif %}
     {% endif %}
   </div>
   <br />
