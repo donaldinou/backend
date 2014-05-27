@@ -100,6 +100,27 @@
           <argument>Viteloge</argument>
         </call>
       </service>
+
+      <service id="viteloge.admin.campaign" class="Viteloge\AdminBundle\Admin\CampaignAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Campagne de mailing" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+        <argument>viteloge.admin.campaign</argument>
+        <argument>Viteloge\AdminBundle\Entity\Campaign</argument>
+        <argument>VitelogeAdminBundle:Campaign</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+
+      <service id="viteloge_admin.admin.campaign_schedules" class="Viteloge\AdminBundle\Admin\CampaignScheduleAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Programmation des campagne de mailing" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+        <argument />
+        <argument>Viteloge\AdminBundle\Entity\CampaignSchedule</argument>
+        <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+
       <!-- dashboard -->
       <service id="viteloge.admin.service.menu_live" class="Viteloge\AdminBundle\Service\MenuBlockService">
         <tag name="sonata.block" />

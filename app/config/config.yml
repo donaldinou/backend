@@ -130,6 +130,27 @@ sonata_admin:
     blocks: 
       - { position: left, type: sonata.admin.block.admin_list }
       - { position: right, type: viteloge.admin.service.menu_live }
+    groups:
+      viteloge.admin.group.admin:
+        label_catalogue: Viteloge
+        items:
+          - viteloge.admin.agence
+          - viteloge.admin.privilege
+      viteloge.admin.group.operations:
+        label_catalogue: Viteloge
+        items:
+          - viteloge.admin.traitement
+          - viteloge.admin.xml_feed
+      viteloge.admin.group.mailing:
+        label_catalogue: Viteloge
+        items:
+          - viteloge.admin.campaign
+      viteloge.admin.group.advanced:
+        label_catalogue: Viteloge
+        items:
+          - viteloge.admin.type_bien
+          - viteloge.admin.type_bien_regex
+          - viteloge.admin.location_stopword
   security:
     handler: sonata.admin.security.handler.role
   templates:

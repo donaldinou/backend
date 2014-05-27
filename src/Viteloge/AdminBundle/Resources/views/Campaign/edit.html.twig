@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block sonata_pre_fieldsets %}
+  {% if admin.id(object) %}
+    <div class="viteloge-actions btn-group">
+      <a href="{{ path('viteloge_admin_campaign_visualize', { id: admin.id(object) } ) }}" class="btn btn-small">{{ 'campaign.visualize' | trans }}</a>
+    </div>
+  {% endif %}
+  <br />
+  {{ parent() }}
+{% endblock%}
+

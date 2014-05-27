@@ -1,6 +1,8 @@
 list:
   label_nom_agence_mere: "Agence mère"
   label_nom: "Nom"
+  label_name: "Nom"
+  label_transaction: "Transaction"
   label_cp: "Code postal"
   label_ville: "Ville"
   label_departement: "Départements"
@@ -48,6 +50,8 @@ filter:
 
   label_code: "Type de bien"
 
+  label_name: "Nom"
+
 breadcrumb:
   link_agence_list: "Liste des agences"
   link_agence_edit: "Édition d'une agence"
@@ -66,6 +70,9 @@ breadcrumb:
 
   link_type_bien_regex_list: "Liste des expressions de types de biens"
   link_type_bien_regex_create: "Créer une expression de type de bien"
+
+  link_campaign_list: "Liste des campagnes"
+  link_campaign_delete: "Suppression de campagne"
 
 form:
   label_nom: "Nom"
@@ -147,6 +154,15 @@ form:
   label_expression: "Expression"
   label_rank: "Ordre"
 
+  label_name: "Nom"
+  label_template: "Template HTML"
+  label_types: "Types de bien"
+  label_pieces: "Nombres de pièces"
+  label_insee: "Code INSEE ville"
+  label_schedules: "Programmations"
+
+  label_send_at: "Date d'envoi"
+
 #  
 
 help:
@@ -168,3 +184,12 @@ group:
     modules: 'Modules' 
     prop_photo: 'Photo de la fiche'
     prop_info: 'Éléments de la fiche'
+
+
+viteloge:
+  admin:
+    group:
+      admin: "Configuration administrative"
+      operations: "Configuration du crawler"
+      mailing: "Campagne de mailing"
+      advanced: "Configuration avancée du crawler"
