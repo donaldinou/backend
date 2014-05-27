@@ -98,7 +98,7 @@ class TraitementController extends Controller
                     $variables['source'] = $tester->downloadedSource;
                 }
             } catch( \Exception $e ) {
-                $this->get('session')->setFlash( 'error', $e->getMessage() );
+                $this->addFlash( 'error', $e->getMessage() );
             }
         }
         if ( ! empty( $traitement->UrlInitSession ) ) {
@@ -168,9 +168,9 @@ class TraitementController extends Controller
             $full_url = $pile->getFull_url();
             $em->remove( $pile );
             $em->flush();
-            $this->get('session')->setFlash( 'notice', $full_url . ' a été supprimée' );
+            $this->addFlash( 'notice', $full_url . ' a été supprimée' );
         } else {
-            $this->get('session')->setFlash( 'error', 'Paramètres invalides' );
+            $this->addFlash( 'error', 'Paramètres invalides' );
         }
         return $this->redirect( $this->generateUrl( 'viteloge_admin_traitement_control', array( 'id' => $id )  ) );
     }
@@ -196,35 +196,35 @@ class TraitementController extends Controller
         {
             case 'clear_heap':
                 $nb = $pile_repo->clearFor( $traitement );
-                $this->get('session')->setFlash( 'notice',  $t->trans( 'control.messages.clear_heap' ) . '... (' . $nb . ' urls)' );
+                $this->addFlash( 'notice',  $t->trans( 'control.messages.clear_heap' ) . '... (' . $nb . ' urls)' );
                 break;
             case 'reset_flag':
                 $nb = $annonce_repo->resetFlag( $traitement );
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reset_flag' ) . '... (' . $nb . ' annonces)' );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.reset_flag' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'heap_top':
                 $traitement->TimeStampTraitement = new \DateTime('2000-01-01');
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.heap_top' ) );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.heap_top' ) );
                 break;
             case 'file_update':
                 $nb = $annonce_repo->forceUpdate( $traitement );
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.file_update' ) . '... (' . $nb . ' annonces)' );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.file_update' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'file_update_errors':
                 $nb = $annonce_repo->forceUpdate( $traitement,false );
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.file_update_errors' ) . '... (' . $nb . ' annonces)' );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.file_update_errors' ) . '... (' . $nb . ' annonces)' );
                 break;
             case 'file_clear':
                 if ( $traitement->agence->idPrivilege != 0 ) {
-                    $this->get('session')->setFlash( 'error', $t->trans( 'control.messages.file_clear_privileges_error' ) );
+                    $this->addFlash( 'error', $t->trans( 'control.messages.file_clear_privileges_error' ) );
                 } else if ( ( $nb_annonces = $annonce_repo->getCountExported( $traitement ) ) > 1000 ) {
-                    $this->get('session')->setFlash( 'error', $t->trans( 'control.messages.file_clear_too_big' ) );
+                    $this->addFlash( 'error', $t->trans( 'control.messages.file_clear_too_big' ) );
                 } else {
                     if ( $request->get('confirmed') ) {
                         $nb = $annonce_repo->forceDelete( $traitement );
-                        $this->get('session')->setFlash( 'notice', $nb . ' ' . $t->trans( 'control.messages.file_clear' ) );
+                        $this->addFlash( 'notice', $nb . ' ' . $t->trans( 'control.messages.file_clear' ) );
                         
                     } else {
                         return $this->render( 'VitelogeAdminBundle:Traitement:confirm_clear_file.html.twig',
@@ -237,34 +237,34 @@ class TraitementController extends Controller
                 break;
             case 'reset_errors':
                 $nb = $traitement_repo->resetErrors( $traitement );
-                $this->get('session')->setFlash( 'notice',  $t->trans(  'control.messages.reset_errors', array( '%nb%' => $nb ) ) );
+                $this->addFlash( 'notice',  $t->trans(  'control.messages.reset_errors', array( '%nb%' => $nb ) ) );
                 break;
             case 'reactivate_safe':
                 $traitement->reactivate();
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reactivate_safe' ) );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.reactivate_safe' ) );
                 break;
             case 'reactivate_continue':
                 $traitement->reactivate( true );
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.reactivate_continue' ) );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.reactivate_continue' ) );
                 break;
             case 'end':
                 $traitement->forceEnd();
                 $em->persist( $traitement );
                 $em->flush();
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.end' ) );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.end' ) );
                 break;
             case 'unpause':
                 $traitement->endPause();
                 $em->persist( $traitement );
                 $em->flush();                
-                $this->get('session')->setFlash( 'notice', $t->trans( 'control.messages.unpause' ) );
+                $this->addFlash( 'notice', $t->trans( 'control.messages.unpause' ) );
                 break;
             default:
-                $this->get('session')->setFlash( 'error', 'No such action!' );
+                $this->addFlash( 'error', 'No such action!' );
                 break;
         }
         
