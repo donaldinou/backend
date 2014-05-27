@@ -1,45 +1,29 @@
 {% extends 'SonataBlockBundle:Block:block_base.html.twig' %}
 
 {% block block %}
+<table class="table table-condensed sonata-ba-list">
 {% if is_granted('ROLE_CONTROL') %}
-<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
-  <thead>
-    <tr>
-      <th colspan="2">{% trans %}treatment.controls{% endtrans %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{% trans %}treatment.title{% endtrans %}</td>
-      <td><a class="btn btn-small" href="{{ path('viteloge_admin_traitement_exclus') }}"><i class="icon-fire"></i> {% trans %}treatment.controls{% endtrans %}</a></td>
-    </tr>
-  </tbody>
-</table>     
+  <tr>
+    <th colspan="2">{% trans %}treatment.controls{% endtrans %}</th>
+  </tr>
+  <tr>
+    <td class="sonata-ba-list-label">{% trans %}treatment.title{% endtrans %}</td>
+    <td><a class="btn btn-link" href="{{ path('viteloge_admin_traitement_exclus') }}"><i class="icon-fire"></i> {% trans %}treatment.controls{% endtrans %}</a></td>
+  </tr>
 {% endif %}
 {% if is_granted('ROLE_COMMERCIAL') %}
-<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
-  <thead>
-    <tr><th>{% trans %}Statistiques{% endtrans %}</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="{{ path('viteloge_admin_citystats_index') }}" class="btn"><i></i>{% trans %}city.stats{% endtrans %}</a></td>
-    </tr>
-  </tbody>
-</table>
+  <tr><th colspan="2">{% trans %}Statistiques{% endtrans %}</th></tr>
+  <tr>
+    <td colspan="2" style="text-align: center;"><a href="{{ path('viteloge_admin_citystats_index') }}" class="btn btn-link"><i></i>{% trans %}city.stats{% endtrans %}</a></td>
+  </tr>
 {% endif %}
 
-<table class="table sonata-bc table-bordered table-striped sonata-ba-list">
-  <thead>
-    <tr>
-      <th colspan="2">{% trans %}misc.title{% endtrans %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{% trans %}misc.password{% endtrans %}</td>
-      <td><a class="btn btn-small" href="{{ path('fos_user_change_password') }}">{% trans %}misc.change{% endtrans %}</a></td>
-    </tr>
-  </tbody>
+  <tr>
+    <th colspan="2">{% trans %}misc.title{% endtrans %}</th>
+  </tr>
+  <tr>
+    <td class="sonata-ba-list-label">{% trans %}misc.password{% endtrans %}</td>
+    <td><a class="btn btn-link" href="{{ path('fos_user_change_password') }}">{% trans %}misc.change{% endtrans %}</a></td>
+  </tr>
 </table>     
 {% endblock %}
