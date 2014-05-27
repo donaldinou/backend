@@ -1,0 +1,9 @@
+<div id="notifications">
+{% for category in [ 'error', 'notice' ] %}
+  {% for message in app.session.flashbag.get( category ) %}
+    <div class="alert alert-error">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endfor %}
+</div>

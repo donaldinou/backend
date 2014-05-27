@@ -5,15 +5,7 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
-<div id="notifications">
-{% for category in [ 'error', 'notice' ] %}
-  {% for message in app.session.flashbag.get( category ) %}
-    <div class="alert alert-error">
-        {{ message }}
-    </div>
-  {% endfor %}
-{% endfor %}
-</div>
+{% include 'VitelogeAdminBundle:Traitement:display_flash.html.twig' %}
 {% if not traitement.agence.url is empty %}
 <p><a href="{{ traitement.agence.url }}">{{ traitement.agence.url }}</a></p>
 {% endif %}
