@@ -36,6 +36,11 @@ class Campaign
     private $template;
 
     /**
+     * @ORM\Column(name="subject", type="string",length=128)
+     */
+    private $subject;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="transaction", type="string", length=1,nullable=true)
@@ -255,5 +260,28 @@ class Campaign
     public function getSchedules()
     {
         return $this->schedules;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return Campaign
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+    
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

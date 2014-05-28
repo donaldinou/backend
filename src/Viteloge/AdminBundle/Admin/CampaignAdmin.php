@@ -54,6 +54,7 @@ class CampaignAdmin extends VitelogeAdmin
     {
         $formMapper
             ->add('name')
+            ->add('subject')
             ->add('template')
             ->add('transaction', 'choice', array( 'choices' => Traitement::$TypesTransaction, 'empty_value' => '', 'required' => false ))
             ->add('types', 'choice', array( 'choices' => array_to_array( array( 'Appartement', 'Maison', 'Terrain' ) ), 'multiple' => true, 'required' => false ) )
