@@ -58,8 +58,8 @@ class CampaignAdmin extends VitelogeAdmin
             ->add('template')
             ->add('transaction', 'choice', array( 'choices' => Traitement::$TypesTransaction, 'empty_value' => '', 'required' => false ))
             ->add('types', 'choice', array( 'choices' => array_to_array( array( 'Appartement', 'Maison', 'Terrain' ) ), 'multiple' => true, 'required' => false ) )
-            ->add('pieces', 'choice', array( 'choices' => array( 1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5 et +" ), 'multiple' => true, 'required' => false ) )
-            ->add('insee')
+            ->add('pieces', 'choice', array( 'choices' => array( 1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5 et +" ), 'multiple' => true, 'required' => false, 'disabled' => true ) )
+            ->add('insee', null, array( 'disabled' => true ) )
             ->add( 'schedules', 'sonata_type_collection', array(), array(
                 'edit' => 'inline',
                 'inline' => 'table'
