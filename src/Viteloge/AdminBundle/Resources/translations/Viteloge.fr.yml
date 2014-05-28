@@ -156,6 +156,7 @@ form:
 
   label_name: "Nom"
   label_template: "Template HTML"
+  label_subject: "Sujet du mail"
   label_types: "Types de bien"
   label_pieces: "Nombres de pièces"
   label_insee: "Code INSEE ville"

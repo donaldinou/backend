@@ -91,3 +91,6 @@ test:
     not_completed: "Non rempli"
     no_result: "Pas de résultat"
     
+
+campaign:
+  visualize: "Visualiser la campagne"
