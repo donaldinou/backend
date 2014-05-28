@@ -24,7 +24,7 @@ class CampaignSchedule
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="send_at", type="datetime")
+     * @ORM\Column(name="send_at", type="date")
      */
     private $sendAt;
 
