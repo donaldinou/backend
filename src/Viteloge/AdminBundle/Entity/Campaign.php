@@ -41,6 +41,11 @@ class Campaign
     private $subject;
 
     /**
+     * @ORM\Column(name="sender", type="string", length=128, nullable=true)
+     */
+    private $sender;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="transaction", type="string", length=1,nullable=true)
@@ -283,5 +288,28 @@ class Campaign
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param string $sender
+     * @return Campaign
+     */
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+    
+        return $this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return string 
+     */
+    public function getSender()
+    {
+        return $this->sender;
     }
 }

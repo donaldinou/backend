@@ -157,6 +157,7 @@ form:
   label_name: "Nom"
   label_template: "Template HTML"
   label_subject: "Sujet du mail"
+  label_sender: "Nom expéditeur"
   label_types: "Types de bien"
   label_pieces: "Nombres de pièces"
   label_insee: "Code INSEE ville"
@@ -172,6 +173,8 @@ help:
   exp_url_elements: "En cas d'impossiblité d'enregistrement d'URL en l'état"
   limit_publication: "Automatiquement exclus en cas de module \"IncResultatAnnonceInListe.pl\""
   keywords: "N'applique le privilège qu'aux annonces dont la description contient ces mots clés"
+  
+  campaign_sender: "Par défaut, sera équivalent à nom + 'par ViteLogé'"
 
 group:
   agence:
