@@ -46,6 +46,8 @@ class CampaignScheduleAdmin extends Admin
     {
         $formMapper
             ->add( 'sendAt', null, array( 'years' => range( date("Y"), date("Y") + 1 ) ) )
+            ->add( 'isAnniversary', null, array( 'required' => false, 'attr' => array( 'class' => 'anniversary_toggle') ) )
+            ->add( 'subscribedSince' )
         ;
     }
 

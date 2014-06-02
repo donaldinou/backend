@@ -29,6 +29,16 @@ class CampaignSchedule
     private $sendAt;
 
     /**
+     * @ORM\Column(name="is_anniversary",type="boolean")
+     */
+    private $isAnniversary;
+    
+    /**
+     * @ORM\Column(name="subscribed_since",type="integer",nullable=true)
+     */
+    private $subscribedSince;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Campaign",inversedBy="schedules")
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id")
      */
@@ -39,6 +49,8 @@ class CampaignSchedule
         $t = time();
         $t = $t - ( $t % ( 60*60 ) ) + 2*60*60;
         $this->sendAt = new \DateTime( "@" . $t, new \DateTimeZone( 'Europe/Paris') );
+        $this->isAnniversary = false;
+        $this->subscribedSince = null;
     }
     
     /**
@@ -95,5 +107,55 @@ class CampaignSchedule
     public function getCampaign()
     {
         return $this->campaign;
+    }
+
+    /**
+     * Set isAnniversary
+     *
+     * @param boolean $isAnniversary
+     * @return CampaignSchedule
+     */
+    public function setIsAnniversary($isAnniversary)
+    {
+        $this->isAnniversary = $isAnniversary;
+
+        if ( ! $this->isAnniversary ) {
+            $this->setSubscribedSince( null );
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get isAnniversary
+     *
+     * @return boolean 
+     */
+    public function getIsAnniversary()
+    {
+        return $this->isAnniversary;
+    }
+
+    /**
+     * Set subscribedSince
+     *
+     * @param integer $subscribedSince
+     * @return CampaignSchedule
+     */
+    public function setSubscribedSince($subscribedSince)
+    {
+        $this->subscribedSince = $subscribedSince;
+    
+        return $this;
+    }
+
+    /**
+     * Get subscribedSince
+     *
+     * @return integer 
+     */
+    public function getSubscribedSince()
+    {
+        return $this->subscribedSince;
     }
 }

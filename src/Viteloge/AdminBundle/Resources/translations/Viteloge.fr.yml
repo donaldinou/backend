@@ -163,8 +163,9 @@ form:
   label_insee: "Code INSEE ville"
   label_schedules: "Programmations"
 
-  label_send_at: "Date d'envoi"
-
+  label_send_at: "Date d'envoi fixe"
+  label_is_anniversary: "Envoi relatif à l'inscription"
+  label_subscribed_since: "Délai d'envoi en jours"
 #  
 
 help:

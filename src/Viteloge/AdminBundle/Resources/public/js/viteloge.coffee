@@ -62,3 +62,13 @@ $ ->
             link.parent().replaceWith response
     $('input#select_all').on 'change', (e) =>
         $( 'input[type="checkbox"]', e.target.form ).attr 'checked', e.target.checked
+
+    $(document).on 'change', 'input[type="checkbox"].anniversary_toggle', (e) ->
+        sub_id = this.id.replace 'isAnniversary', 'subscribedSince'
+        corresponding_input = $('#' + sub_id)
+        if $(this).is(':checked')
+            corresponding_input.attr 'disabled', null 
+        else
+            corresponding_input.attr 'disabled', true
+            corresponding_input.val( null )
+    $('input[type="checkbox"].anniversary_toggle').trigger 'change'
