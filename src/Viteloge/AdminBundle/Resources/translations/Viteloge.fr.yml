@@ -6,7 +6,7 @@ list:
   label_cp: "Code postal"
   label_ville: "Ville"
   label_departement: "Départements"
-  label_count_traitements: "Nbre traitements"
+  label_count_traitements: "Nb trait."
   label_has_xml: "XML?"
   label_active: "Active?"
   label__action: "Actions"
