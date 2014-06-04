@@ -5,39 +5,39 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
-{% include 'VitelogeAdminBundle:Traitement:display_flash.html.twig' %}
-{% if results is defined and not results is null %}
-  {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results, 'expressions': expressions } %}
-{% endif %}
-<div class="sonata-bc">
-  <form method="POST" class="form-horizontal" action="{{ path( 'viteloge_admin_traitement_test', { id:traitement.idTraitement} ) }}">
-    <div class="control-group">
-      <label for="TypeSource" class="control-label">{{ 'test.source' |trans }}: </label>
-      <div class="controls">
-        <select name="TypeSource">
-          <option value="F" {% if type == 'F' %}selected{% endif %}>{{ 'Fiche Annonce'|trans }}</option>
-          <option value="R" {% if type == 'R' %}selected{% endif %}>{{ 'Liste de résultats'|trans }}</option>
-        </select>
-        <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">{{ 'test.delete_cookies'|trans }}</a></span>
-        {% if initsessionurl is defined %}
-        <span>
-          <a class="test" href="?TypeSource={{ type }}&source={{ initsessionurl|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ initsessionurl }}">{{ 'Init session'|trans }}</a>
-        </span>
-        {% endif %}
+  {% include 'VitelogeAdminBundle:Traitement:display_flash.html.twig' %}
+  {% if results is defined and not results is null %}
+    {% include 'VitelogeAdminBundle:Traitement:test_results.html.twig' with { 'results': results, 'expressions': expressions } %}
+  {% endif %}
+  <div class="sonata-bc">
+    <form method="POST" class="form-horizontal" action="{{ path( 'viteloge_admin_traitement_test', { id:traitement.idTraitement} ) }}">
+      <div class="control-group">
+        <label for="TypeSource" class="control-label">{{ 'test.source' |trans }}: </label>
+        <div class="controls">
+          <select name="TypeSource">
+            <option value="F" {% if type == 'F' %}selected{% endif %}>{{ 'Fiche Annonce'|trans }}</option>
+            <option value="R" {% if type == 'R' %}selected{% endif %}>{{ 'Liste de résultats'|trans }}</option>
+          </select>
+          <span><a href="{{ path( 'viteloge_admin_traitement_clearcookies', {id: traitement.id}) }}" class="btn btn-small" data-remote="true">{{ 'test.delete_cookies'|trans }}</a></span>
+          {% if initsessionurl is defined %}
+            <span>
+              <a class="test" href="?TypeSource={{ type }}&source={{ initsessionurl|url_encode }}">test</a> <a target="_blank" class="crawlable" href="{{ initsessionurl }}">{{ 'Init session'|trans }}</a>
+            </span>
+          {% endif %}
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label for="source" class="control-label">{{ 'test.enter_source'|trans }}:</label>
-      <div class="controls">
-        <textarea name="source" style="width: 600px; height: 300px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
+      <div class="control-group">
+        <label for="source" class="control-label">{{ 'test.enter_source'|trans }}:</label>
+        <div class="controls">
+          <textarea name="source" style="width: 600px; height: 300px;">{% if source is defined %}{{ source }}{% endif %}</textarea>
+        </div>
       </div>
-    </div>
-    <div class="well form-actions">
-      <button type="submit" value="Tester" name="btn_test" class="btn btn-primary">
-        <i class="icon-play"></i> {{ 'treatment.test'|trans }}
-      </button>
-      <a href="{{ path('viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
-    </div>
-  </form>
-</div>
+      <div class="well form-actions">
+        <button type="submit" value="Tester" name="btn_test" class="btn btn-primary">
+          <i class="icon-play"></i> {{ 'treatment.test'|trans }}
+        </button>
+        <a href="{{ path('viteloge_admin_traitement_edit', {id:traitement.idTraitement}) }}" class="btn"><i class="icon-pencil"></i> {{ 'treatment.edit'|trans }}</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}
