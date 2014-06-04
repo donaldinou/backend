@@ -21,3 +21,13 @@
 
 {% block footer %}
 {% endblock %}
+
+
+{% block sonata_page_content %}
+  {% if _title is not empty %}
+    <div class="page-header">
+      <h1>{{ _title|raw }}</h1>
+    </div>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}

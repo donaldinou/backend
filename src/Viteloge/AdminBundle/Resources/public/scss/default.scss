@@ -96,3 +96,13 @@ form.form-inline {
         margin-left: 210px;
     }
 }
+
+body.sonata-bc {
+    padding-top: 45px;
+    .page-header {
+        margin: 10px 0 20px;
+        padding-bottom: 5px;
+        h1 { margin: 0; } 
+    }
+}
+
