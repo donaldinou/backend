@@ -45,6 +45,7 @@ filter:
   label_id: "Identifiant DB"
 
   label_url: "URL"
+  label_inactif: "Feeds désactivés"
 
   label_include_obsolete: "Inclure les droits passés"
 

@@ -42,6 +42,7 @@ class XmlFeedAdmin extends VitelogeAdmin
         $datagridMapper
             ->add( 'url' )
             ->add( 'agence.nom' )
+            ->add( 'inactif' )
         ;
     }
 
