@@ -71,7 +71,7 @@ class AnnonceRepository extends EntityRepository
         $rsm->addScalarResult( 'nbAnnonces', 'nbAnnonces' );
 
         if ( $agence->idAgenceMere != 0 ) {
-            $req_agence = "idAgence = :idAgence OR ( idAgence = :idAgenceMere and agence = :specifAgence";
+            $req_agence = "idAgence = :idAgence OR ( idAgence = :idAgenceMere and agence = :specifAgence )";
         } else {
             $req_agence = "idAgence IN ( SELECT idAgence FROM agence WHERE idAgenceMere = :idAgence OR idAgence = :idAgence )";
         }
