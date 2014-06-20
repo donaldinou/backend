@@ -121,6 +121,17 @@
         </call>
       </service>
 
+      <service id="viteloge.admin.sponsor" class="Viteloge\AdminBundle\Admin\SponsorAdmin">
+        <tag name="sonata.admin" manager_type="orm" group="Configuration Viteloge" label="Sponsors" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+        <argument>viteloge.admin.sponsor</argument>
+        <argument>Viteloge\AdminBundle\Entity\Sponsor</argument>
+        <argument>VitelogeAdminBundle:Sponsor</argument>
+        <call method="setTranslationDomain">
+          <argument>Viteloge</argument>
+        </call>
+      </service>
+
+
       <!-- dashboard -->
       <service id="viteloge.admin.service.menu_live" class="Viteloge\AdminBundle\Service\MenuBlockService">
         <tag name="sonata.block" />

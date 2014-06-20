@@ -94,3 +94,8 @@ test:
 
 campaign:
   visualize: "Visualiser la campagne"
+
+
+sponsor:
+  types:
+    vignette: Vignette

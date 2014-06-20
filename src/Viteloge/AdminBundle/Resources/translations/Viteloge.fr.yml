@@ -34,6 +34,11 @@ list:
   label_expression: "Expression rationelle"
   label_rank: "Ordre"
 
+  label_type: "Type"
+  label_insee: "Code INSEE"
+  label_titre: "Titre"
+  label_url: "URL"
+
 filter:
   label_nom: "Nom"
   label_ville: "Ville"
@@ -52,6 +57,12 @@ filter:
   label_code: "Type de bien"
 
   label_name: "Nom"
+
+  label_type: "Type"
+  label_insee: "Code INSEE"
+  label_titre: "Titre"
+  label_texte: "Texte"
+
 
 breadcrumb:
   link_agence_list: "Liste des agences"
@@ -74,6 +85,8 @@ breadcrumb:
 
   link_campaign_list: "Liste des campagnes"
   link_campaign_delete: "Suppression de campagne"
+
+  link_sponsor_list: "Liste des sponsors"
 
 form:
   label_nom: "Nom"
@@ -167,6 +180,13 @@ form:
   label_send_at: "Date d'envoi fixe"
   label_is_anniversary: "Envoi relatif à l'inscription"
   label_subscribed_since: "Délai d'envoi en jours"
+
+  label_type: "Type"
+  label_transac: "Type de transaction"
+  label_titre: "Titre"
+  label_texte: "Texte"
+  label_link: "Lien"
+
 #  
 
 help:
@@ -177,6 +197,10 @@ help:
   keywords: "N'applique le privilège qu'aux annonces dont la description contient ces mots clés"
   
   campaign_sender: "Par défaut, sera équivalent à nom + 'par ViteLogé'"
+
+  sponsor_texte: "Pour une vignette, cela doit être le nom de l'image utilisée"
+  sponsor_insee: "Peut être une liste de code INSEE séparés par des virgules"
+  sponsor_link: "Ce champ est celui utilisé en vrai"
 
 group:
   agence:
@@ -199,3 +223,5 @@ viteloge:
       operations: "Configuration du crawler"
       mailing: "Campagne de mailing"
       advanced: "Configuration avancée du crawler"
+
+

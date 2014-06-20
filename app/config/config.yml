@@ -136,6 +136,7 @@ sonata_admin:
         items:
           - viteloge.admin.agence
           - viteloge.admin.privilege
+          - viteloge.admin.sponsor
       viteloge.admin.group.operations:
         label_catalogue: Viteloge
         items:
