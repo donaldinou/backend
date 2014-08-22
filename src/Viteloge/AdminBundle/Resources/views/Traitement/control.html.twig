@@ -45,7 +45,7 @@
     </ol>
     {% if pile_long and pile|length < pile_total %}
       <p>{{ 'control.pile_detail'| trans({ '%total%': pile_total, '%current%': pile|length }) }}</p>
-    {% elsif not pile_long %}
+    {% elseif not pile_long %}
       <p><a href="{{ path( 'viteloge_admin_traitement_control', { id: traitement.id, pile_long: 1 } ) }}">{{ 'control.pile_long' | trans }}</a></p>
     {% endif %}
   {% else %}
