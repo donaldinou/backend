@@ -35,6 +35,7 @@ control:
     last_download: "Dernier téléchargement"
     state: "État du traitement"
   empty_heap: "Pile vide"
+  pile_long: "Afficher plus d'urls de la pile"
   last_download: "Afficher la dernière source téléchargée"
   ads:
     flagged: "Nombre d'annonces non-traitées"

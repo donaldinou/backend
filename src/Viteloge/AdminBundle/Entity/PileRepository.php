@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PileRepository extends EntityRepository
 {
-    public function getPileForTraitement( $traitement )
+    public function getPileForTraitement( $traitement, $pile_long = false )
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select( 'pile' )
@@ -22,7 +22,7 @@ class PileRepository extends EntityRepository
             ->addOrderBy( 'pile.nextPageTraitement', 'DESC' )
             ->addOrderBy( 'pile.timestamp', 'ASC' )
             ->addOrderBy( 'pile.url', 'ASC' )
-            ->setMaxResults( 500 )
+            ->setMaxResults( $pile_long ? 500 : 20 )
             ->setParameter( 'traitement', $traitement );
         return $qb->getQuery()->getResult();
     }

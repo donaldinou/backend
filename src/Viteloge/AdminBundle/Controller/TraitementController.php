@@ -134,7 +134,7 @@ class TraitementController extends Controller
      * @Route("/{id}/control")
      * @Template()
      */
-    public function controlAction( $id )
+    public function controlAction( Request $request, $id )
     {
         $em =  $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('Viteloge\AdminBundle\Entity\Traitement' );
@@ -142,10 +142,13 @@ class TraitementController extends Controller
         $annonce_repo = $em->getRepository( 'Viteloge\AdminBundle\Entity\Annonce' );
         $traitement = $repo->find( $id );
 
+        $pile_long = (bool) $request->query->get( 'pile_long', false );
+        
         $variables = array(
             'traitement' => $traitement,
             'admin_pool' => $this->container->get('sonata.admin.pool'),
-            'pile' =>  $pile_repo->getPileForTraitement( $traitement ),
+            'pile' =>  $pile_repo->getPileForTraitement( $traitement, $pile_long ),
+            'pile_long' => $pile_long,
             'lastDownload' => $repo->getLastContentInfo( $traitement ),
             'flags' => $this->flattenFlags( $annonce_repo->getCountByFlag( $traitement ) ),
             'nbAnnoncesExportees' => $annonce_repo->getCountExported( $traitement )
