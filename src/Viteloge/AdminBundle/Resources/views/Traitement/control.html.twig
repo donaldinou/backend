@@ -43,10 +43,12 @@
         <li><a class="test" href="{{ path( 'viteloge_admin_traitement_test', { id: traitement.id, TypeSource: url.type, source: url.full_url } ) }}">test</a> <a href="{{ url.full_url }}">{{ url.full_url }}</a> <a href="{{ path( 'viteloge_admin_traitement_heapremove', { id:traitement.id,heap_id: url.id }) }}">X</a></li>
       {% endfor %}
     </ol>
-    {% if pile_long and pile|length < pile_total %}
-      <p>{{ 'control.pile_detail'| trans({ '%total%': pile_total, '%current%': pile|length }) }}</p>
-    {% elseif not pile_long %}
-      <p><a href="{{ path( 'viteloge_admin_traitement_control', { id: traitement.id, pile_long: 1 } ) }}">{{ 'control.pile_long' | trans }}</a></p>
+    {% if pile|length < pile_total %}
+      {% if pile_long %}
+        <p>{{ 'control.pile_detail'| trans({ '%total%': pile_total, '%current%': pile|length }) }}</p>
+      {% else %}
+        <p><a href="{{ path( 'viteloge_admin_traitement_control', { id: traitement.id, pile_long: 1 } ) }}">{{ 'control.pile_long' | trans }}</a></p>
+      {% endif %}
     {% endif %}
   {% else %}
   <p>{{ 'control.empty_heap'|trans }} </p>
