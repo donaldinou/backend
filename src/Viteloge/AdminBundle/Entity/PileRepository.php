@@ -46,7 +46,7 @@ class PileRepository extends EntityRepository
             ->setParameter( 'idTraitement', $traitement->id )
         ;
         $x = $query->getScalarResult();
-        return $x[0];
+        return (int) $x[0]["nbPiles"];
         
     }
 }
