@@ -143,11 +143,13 @@ class TraitementController extends Controller
         $traitement = $repo->find( $id );
 
         $pile_long = (bool) $request->query->get( 'pile_long', false );
+        $pile_total = $pile_repo->getPileCountForTraitement( $traitement );
         
         $variables = array(
             'traitement' => $traitement,
             'admin_pool' => $this->container->get('sonata.admin.pool'),
-            'pile' =>  $pile_repo->getPileForTraitement( $traitement, $pile_long ),
+            'pile' =>  $pile_total > 0 ? $pile_repo->getPileForTraitement( $traitement, $pile_long ) : array(),
+            'pile_total' => $pile_total,
             'pile_long' => $pile_long,
             'lastDownload' => $repo->getLastContentInfo( $traitement ),
             'flags' => $this->flattenFlags( $annonce_repo->getCountByFlag( $traitement ) ),

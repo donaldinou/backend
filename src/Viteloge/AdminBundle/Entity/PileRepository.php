@@ -3,7 +3,7 @@
 namespace Viteloge\AdminBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Doctrine\ORM\Query\ResultSetMapping;
 /**
  * PileRepository
  *
@@ -35,5 +35,18 @@ class PileRepository extends EntityRepository
             array( $traitement->id )
         );
         return $nb;
+    }
+
+    public function getPileCountForTraitement( $traitement )
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult( 'nbPiles', 'nbPiles' );
+        $query = $this->_em->createNativeQuery(
+            "SELECT COUNT(IdPile) AS nbPiles FROM pile WHERE idTraitement = :idTraitement", $rsm )
+            ->setParameter( 'idTraitement', $traitement->id )
+        ;
+        $x = $query->getScalarResult();
+        return $x[0];
+        
     }
 }
