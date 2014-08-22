@@ -106,7 +106,7 @@ EOREQ;
     {
         $dbh = $this->_em->getConnection();
         $nb = $dbh->executeUpdate(
-            "UPDATE annonce SET Flag = 0 WHERE IdTraitement = ?",
+            "UPDATE annonce SET Flag = 0 WHERE IdTraitement = ? AND Flag = 1",
             array( $traitement->id )
         );
         return $nb;
@@ -115,7 +115,7 @@ EOREQ;
     {
         $dbh = $this->_em->getConnection();
 
-        $req = "UPDATE annonce SET DateUpdate = '2000-01-01' WHERE IdTraitement = ?";
+        $req = "UPDATE annonce SET DateUpdate = '2000-01-01' WHERE IdTraitement = ? AND DateSuppression IS NULL";
 
         if ( ! $including_good_ones ) {
             $req .= " AND Erreur > 0";
