@@ -8,7 +8,7 @@ set :shared_files,      ["app/config/parameters.yml"]
 set :use_composer, true
 set  :dump_assetic_assets, true
 
-set :repository,  "file:///home/acreat/src/viteloge/new_admin"
+set :repository,  "git@gitlab.acreat:viteloge/backend.git"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 set   :deploy_via,    :copy
