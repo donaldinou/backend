@@ -382,25 +382,32 @@ class TestTraitementService
             $url 		= $parts[0];
         }
         $url = $this->rebuild_url_for_escaping( $url );
-        $ch = curl_init( $url );
-        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+
         $headers = array();
         $headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
-        $headers[] = "Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3";	
-        //$headers[] = "Accept-Encoding: gzip, deflate";		
+        $headers[] = "Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3";
+        //$headers[] = "Accept-Encoding: gzip, deflate";
         $headers[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
         $headers[] = "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0 Iceweasel/18.0";
+        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
 
+        // ua
+        $ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.76 Safari/537.36';
+        curl_setopt($ch, CURLOPT_USERAGENT, $ua);
 
         curl_setopt( $ch, CURLOPT_TIMEOUT, 15 );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 20);
 
         $cookie_file = $this->getCookiesFile();
         curl_setopt( $ch, CURLOPT_COOKIEJAR, $cookie_file );
         curl_setopt( $ch, CURLOPT_COOKIEFILE, $cookie_file );
-        
+
         if( $post_vars ) {
             curl_setopt( $ch, CURLOPT_POST, 1 );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_vars );
@@ -432,6 +439,7 @@ class TestTraitementService
             }
         }
         return $data;
+        curl_close($ch);
     }
     private function getCookiesFile(){
         return sys_get_temp_dir() . "/cookies_" . $this->traitement->id;
