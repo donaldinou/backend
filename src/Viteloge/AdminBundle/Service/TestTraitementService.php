@@ -386,11 +386,10 @@ class TestTraitementService
         curl_setopt($ch, CURLOPT_URL, $url);
 
         $headers = array();
-        $headers[] = "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
-        $headers[] = "Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3";
-        //$headers[] = "Accept-Encoding: gzip, deflate";
-        $headers[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-        $headers[] = "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0 Iceweasel/18.0";
+        $headers[] = 'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5';
+        $headers[] = 'Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3';
+        //$headers[] = 'Accept-Encoding: gzip, deflate';
+        $headers[] = 'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7';// */
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -409,7 +408,7 @@ class TestTraitementService
         curl_setopt( $ch, CURLOPT_COOKIEFILE, $cookie_file );
 
         if( $post_vars ) {
-            curl_setopt( $ch, CURLOPT_POST, 1 );
+            curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_vars );
         }
 
