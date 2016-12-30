@@ -40,6 +40,7 @@
 /bower_components
 /npm-debug.log
 /app/components
+/components
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
