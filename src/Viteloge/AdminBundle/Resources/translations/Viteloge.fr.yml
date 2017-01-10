@@ -16,6 +16,7 @@ list:
   label_string_type_transaction: "Transaction"
   label_short_url_traitement: "URL"
   label_actif: "Actif?"
+  label_site_id : "Id AC3"
 
   label_nom_agence: "Agence"
   label_url: "URL"
@@ -25,6 +26,8 @@ list:
   label_date_debut: "Date de début"
   label_date_fin: "Date de fin"
   label_type_transaction: "Transaction"
+  label_enchere: "Enchère"
+  label_bid_clic: "Prix du clic"
   label_min_prix: "Prix mini"
   label_max_prix: "Prix maxi"
 
@@ -102,6 +105,7 @@ form:
   label_tel: "Téléphone"
   label_fax: "Fax"
   label_specif: "N/A"
+  label_site_id : "Id AC3"
 
   label_agence: "Agence"
   label_base_url_traitement: "URL à traiter"
@@ -152,6 +156,8 @@ form:
 
   label_date_debut: "Date de début"
   label_date_fin: "Date de fin"
+  label_enchere: "Enchère"
+  label_bid_clic: "Prix clic"
   label_min_prix: "Prix minimal"
   label_max_prix: "Prix maximal"
   label_nb_annonce: "Maximum d'annonces"
@@ -187,7 +193,7 @@ form:
   label_texte: "Texte"
   label_link: "Lien"
 
-#  
+#
 
 help:
   model_url_resultat_traitement: "Si pas de page suivante. (¤ = n° de la page)"
@@ -195,7 +201,7 @@ help:
   exp_url_elements: "En cas d'impossiblité d'enregistrement d'URL en l'état"
   limit_publication: "Automatiquement exclus en cas de module \"IncResultatAnnonceInListe.pl\""
   keywords: "N'applique le privilège qu'aux annonces dont la description contient ces mots clés"
-  
+
   campaign_sender: "Par défaut, sera équivalent à nom + 'par ViteLogé'"
 
   sponsor_texte: "Pour une vignette, cela doit être le nom de l'image utilisée"
@@ -211,7 +217,7 @@ group:
     expr_detail: 'Détails des expressions rationelles'
     next_page: 'Page suivante'
     prop_link: 'Liens vers fiche / Page de résultats'
-    modules: 'Modules' 
+    modules: 'Modules'
     prop_photo: 'Photo de la fiche'
     prop_info: 'Éléments de la fiche'
 

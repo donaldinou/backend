@@ -17,12 +17,14 @@ class PrivilegeAdmin extends VitelogeAdmin
     {
         $year = date('Y');
         $year_choices = range( $year, $year + 3 );
-        
+
         $formMapper
             ->add( 'agence', 'sonata_type_model_list' )
             ->add( 'dateDebut' )
             ->add( 'dateFin', null, array( 'years' => $year_choices ) )
             ->add( 'typeTransaction', 'choice', array( 'expanded' => true, 'choices' => Privilege::$TYPES_TRANSACTION ) )
+            ->add( 'enchere' )
+            ->add( 'bidClic' )
             ->add( 'minPrix' )
             ->add( 'maxPrix' )
             ->add( 'nbAnnonce' )
@@ -48,7 +50,7 @@ class PrivilegeAdmin extends VitelogeAdmin
                           return true;
                       },
                       'field_type' => 'checkbox'
-            )) 
+            ))
         ;
     }
 
@@ -61,6 +63,8 @@ class PrivilegeAdmin extends VitelogeAdmin
             ->addIdentifier( 'dateDebut' )
             ->addIdentifier( 'dateFin' )
             ->addIdentifier( 'typeTransaction' )
+            ->add( 'enchere' )
+            ->add( 'bidClic' )
             ->addIdentifier( 'minPrix' )
             ->addIdentifier( 'maxPrix' )
         ;

@@ -25,7 +25,10 @@ class Agence
      * @ORM\Column(name="idAgenceMere",type="integer",nullable=true)
      */
     private $idAgenceMere;
-
+    /**
+     * @ORM\Column(name="siteId",type="string",length=50,nullable=true)
+     */
+    private $siteId;
     /**
      * @ORM\Column(name="specifAgence",type="string",length=255)
      */
@@ -118,17 +121,17 @@ class Agence
     private $agenceMere;
 
 
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
      * Methode magique __get()
      */
@@ -152,7 +155,7 @@ class Agence
         return property_exists($this, $name);
     }
 
-    public function __toString() 
+    public function __toString()
     {
         if ( $this->nom ) {
             return $this->nom;
@@ -165,7 +168,7 @@ class Agence
     {
         return count( $this->traitements );
     }
-    public function getActive() 
+    public function getActive()
     {
         return ! $this->inactive;
     }
@@ -192,7 +195,7 @@ class Agence
     {
         return preg_match( '/^\(ancien client\)/i', $this->nom );
     }
-    
-    
-    
+
+
+
 }

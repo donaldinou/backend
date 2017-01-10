@@ -21,13 +21,13 @@ class Privilege
         "1111100" => 'Mise en valeur "Premium"',
         "1111001" => 'Mise en valeur "Exclusivité"'
     );
-    
+
     public static $TYPES_TRANSACTION = array(
         '' => 'Toutes',
         'L' => 'Location',
         'V' => 'Vente'
     );
-    
+
 
     /**
      * @var integer $id
@@ -61,6 +61,14 @@ class Privilege
      */
     private $typeTransaction;
     /**
+     * @ORM\Column(name="enchere",type="float",nullable=true)
+     */
+    private $enchere;
+    /**
+     * @ORM\Column(name="bidClic",type="float",nullable=true)
+     */
+    private $bidClic;
+    /**
      * @ORM\Column(name="minPrix",type="float",nullable=true)
      */
     private $minPrix;
@@ -80,8 +88,8 @@ class Privilege
      * @ORM\Column(name="code",type="string",length=10)
      */
     private $code;
-    
-    
+
+
     /**
      * Methode magique __set()
      */
@@ -118,11 +126,11 @@ class Privilege
         $offre = self::$PRIVILEGE_CODES[$this->code];
         return preg_replace( '/"([^"]*)"/', '<strong>${1}</strong>', $offre );
     }
-    
+
     public function getNombreDAnnonces()
     {
         return $this->nbAnnonce;
     }
-    
+
 
 }

@@ -26,13 +26,14 @@ class AgenceAdmin extends VitelogeAdmin
 {
     public $logo_manager;
 
-    
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->with($this->trans("group.agence.general") )
               ->add('nom')
               ->add('url')
+              ->add('siteId', null, array( 'required' => false ))
               ->add('departement', null, array( 'required' => false ))
             ->add('civiliteContact', 'choice', array( 'choices' => array_to_array( array( 'Monsieur', 'Mademoiselle', 'Madame', 'Maître' ) ), 'required' => false ))
               ->add('nomContact', null, array( 'required' => false ))
@@ -64,12 +65,12 @@ class AgenceAdmin extends VitelogeAdmin
                           if ( ! $value["value"] ) {
                               return true;
                           }
-                          
+
                           $queryBuilder->andWhere( $alias . '.idPrivilege != 0');
                           return true;
                       },
                       'field_type' => 'checkbox'
-            )) 
+            ))
         ;
     }
 
@@ -78,6 +79,7 @@ class AgenceAdmin extends VitelogeAdmin
         $listMapper
             ->add( 'active', 'boolean' )
             ->add('privilegiee', null, array( 'editable' => false, 'template' => 'VitelogeAdminBundle:Agence:privilegiee.html.twig', 'label' => '[P]' ) )
+            ->add('siteId', null, array( 'required' => false ))
             ->addIdentifier('NomAgenceMere')
             ->addIdentifier('nom')
             ->addIdentifier('cp')
@@ -86,7 +88,7 @@ class AgenceAdmin extends VitelogeAdmin
             ->addIdentifier('countTraitements')
             ->add('hasXml', 'boolean' )
         ;
-        
+
         if ( $this->isGranted( 'ROLE_OPERATOR' ) || $this->isGranted( 'ROLE_COMMERCIAL' ) ) {
             $listMapper->add( '_action', 'actions', array(
                                   'actions' => array( 'stats' => array( 'template' => 'VitelogeAdminBundle:Agence:list_action_stats.html.twig' ) )
@@ -110,7 +112,7 @@ class AgenceAdmin extends VitelogeAdmin
 
     public function getTemplate( $name )
     {
-        switch ( $name ) 
+        switch ( $name )
         {
             case 'edit':
                 return 'VitelogeAdminBundle:Agence:edit.html.twig';
@@ -118,7 +120,7 @@ class AgenceAdmin extends VitelogeAdmin
             default:
                 return parent::getTemplate( $name );
         }
-        
+
     }
 
     public function Upload_Form()
